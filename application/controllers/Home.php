@@ -41,6 +41,7 @@ class Home extends CI_Controller {
     public $yachtDetails;
     public $IMAGE_URL;
     public $yachtFilterParams;
+     public $dashboardParams;
 
     function __construct() {
 
@@ -70,6 +71,7 @@ class Home extends CI_Controller {
         $request_made = $this->config->item('API_URL') . 'action=get_yachtcountry_list';
 
         $response = json_decode(Requests::get($request_made)->body);
+        //var_dump($response->data);exit;
 
         if ($response->status == true) {
 
@@ -202,7 +204,23 @@ class Home extends CI_Controller {
     }
 
     public function login() {
+        $post = $this->input->post();
+        if(!empty($post)){
+            $this->load->library('PHPRequests');
+            $request_made = $this->config->item('API_URL') . 'action=user_login&mailId='.$post['mailId'].'&password='.$post['password'];
+            $response = json_decode(Requests::get($request_made)->body);
+            //var_dump($response);exit;
+            if($response->data == NULL){
+                $return = array('message' => $response->displyMessage,'code' => 201);
+            }else{
+                $_SESSION['user_login'] = $response->data; 
+                $url = base_url('dashboard');
+                $return = array('message' => $response->displyMessage,'url' => $url, 'code' => 200);
+            }
+            echo json_encode($return);exit;
 
+            //var_dump($post);exit;
+        }
         $this->load->view('auth/login');
     }
 
@@ -255,6 +273,14 @@ class Home extends CI_Controller {
         $this->load->view('home/customer_information');
     }
     public function dashboard(){
+         $this->load->library('PHPRequests');
+         $request_made = $this->config->item('API_URL') . 'action=get_user_configuration&websiteUrl=immidialuxury.com';
+         $response = json_decode(Requests::get($request_made)->body);
+         //echo "<pre>";
+         //var_dump($response->user);exit;
+         if($response->status == true){
+             $this->dashboardParams = $response->user;
+         }
         $this->load->view('home/dashboard');
     }
     public function food_and_drinks(){
@@ -277,6 +303,23 @@ class Home extends CI_Controller {
     }
     public function yacht_booking_info(){
       $this->load->view('home/yacht_booking_info');   
+    }
+    public function signup(){
+         $post = $this->input->post();
+         
+        if(!empty($post)){
+            //var_dump($post);exit;
+            $this->load->library('PHPRequests');
+            $request_made = $this->config->item('API_URL') . 'action=manage_users&type=Add&firstName='.$post['firstName'].'&lastName='.$post['lastName'].'&mailId='.$post['mailId'];
+            $response = json_decode(Requests::get($request_made)->body);
+            //var_dump($response);exit;
+            if($response->status == true){
+                $return = array('message' => $response->displyMessage, 'code' => 200);
+            }else{
+                $return = array('message' => $response->displyMessage, 'code' => 201);
+            }
+            echo json_encode($return);exit;
+        }
     }
 
 }
