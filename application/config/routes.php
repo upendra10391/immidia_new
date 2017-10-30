@@ -82,3 +82,5 @@ $route['search'] = 'home/search';
 $route['search-result'] = 'home/search_result';
 $route['yacht-booking'] = 'home/yacht_booking';
 $route['yacht-booking-info'] = 'home/yacht_booking_info';
+$route['signup'] = 'home/signup';
+
