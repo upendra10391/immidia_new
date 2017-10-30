@@ -1,7 +1,7 @@
 
 	
 	//var base_url = 'http://immidia.ae/';
-	var base_url = 'http://localhost/immidia.ae';
+	var base_url = 'http://localhost/immidia.ae/trunk';
 
 
 
@@ -144,3 +144,161 @@
 	function goBack() {
 	    window.history.back();
 	}
+   $("body").on("click","#user_login",function(){
+       var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+       var user_emailid = $('#user_emailid').val();
+       var user_password = $('#user_password').val();
+       if(user_emailid == ''){
+          $('#error_user_emailid').show();
+          $('#error_user_emailid').html('Please Enter Your Email Id'); 
+          $('#user_emailid').focus();
+          return false;
+       }
+      if (reg.test(user_emailid) == false) {
+          $('#error_user_emailid').show();
+          $('#error_user_emailid').html('Please enter your valid emailid');
+          $('#user_emailid').focus();
+          return false;
+          
+      }
+       if(user_password ==''){
+           $('#error_user_emailid').hide();
+            $('#error_user_password').show();
+           $('#error_user_password').html('Please enter your password');
+           $('#user_password').focus();
+           return false;
+       }
+       //alert(user_emailid);exit;
+       $('#loader').removeAttr('style');
+        $.ajax({
+	        url: base_url+'/login',
+	        type: "post",
+                data: {'mailId': user_emailid,'password': user_password},
+	        success: function(total){
+                    $('#loader').attr('style','display:none');
+                    var callback = $.parseJSON(total);
+                    if(callback.code == '201'){
+                        $('#error_user_emailid').hide();
+                        $('#error_user_password').hide();
+                        $('.errormessage').html(callback.message);
+                        $('#user_emailid').val('');
+                        $('#user_password').val('');
+                        $('#user_emailid').focus();
+                        return false;
+                   }else{
+                    //$('#error_user_emailid').hide();
+                    //$('#error_user_password').hide();
+                    //$('.successmessage').html(callback.message);
+                    window.location.replace(callback.url);
+                    return false;
+                   }
+                    //alert(callback.message)
+	        }
+	      });
+   })
+   $("body").on("click","#signup",function(){
+       var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+       var first_name = $('#first_name').val();
+       var last_name = $('#last_name').val();
+       var email_id = $('#email_id').val();
+       var password = $('#password').val();
+       var confirm_password = $('#confirm_password').val();
+       var mobile_no = $('#mobile_no').val();
+       
+       if(first_name == ''){
+           $('#signup_error').show();
+           $('#signup_error').addClass('error');
+           $('#signup_error').html('Please enter first name');
+           $('#first_name').focus();
+           return false;
+       }
+       if(last_name == ''){
+           $('#signup_error').show();
+           $('#signup_error').addClass('error');
+           $('#signup_error').html('Please enter last name');
+           $('#last_name').focus();
+           return false;
+       }
+       if(email_id == ''){
+          $('#signup_error').show(); 
+           $('#signup_error').addClass('error');
+           $('#signup_error').html('Please enter email id');
+           $('#email_id').focus();
+           return false;
+       }
+       if (reg.test(email_id) == false) {
+          $('#signup_error').show();
+          $('#signup_error').addClass('error');
+          $('#signup_error').html('Please enter your valid emailid');
+          $('#email_id').focus();
+          return false;
+          
+      }
+      if(password == ''){
+          $('#signup_error').show();
+          $('#signup_error').addClass('error');
+          $('#signup_error').html('Please enter your password');
+          $('#password').focus();
+          return false;
+      }
+      if(confirm_password == ''){
+          $('#signup_error').show();
+          $('#signup_error').addClass('error');
+          $('#signup_error').html('Please enter confirm password');
+          $('#confirm_password').focus();
+          return false;
+      }
+      if(password != confirm_password){
+          $('#signup_error').show();
+          $('#signup_error').addClass('error');
+          $('#signup_error').html('confirm password not match');
+          $('#confirm_password').focus();
+          return false;
+      }
+      if(mobile_no == ''){
+          $('#signup_error').show();
+          $('#signup_error').addClass('error');
+          $('#signup_error').html('Please enter mobile no');
+          $('#mobile_no').focus();
+          return false;
+      }
+      if(mobile_no.length != 10){
+          $('#signup_error').show();
+          $('#signup_error').html('Please enter your mobile no in 10 characters');
+          $('#signup_error').addClass('error');
+          $('#mobile_no').focus();
+          return false;
+      }
+        $.ajax({
+	        url: base_url+'/signup',
+	        type: "post",
+                data: {'firstName': first_name,'lastName': last_name,'mailId': email_id,'password': password,'confirm_password': confirm_password,'contactNumber': mobile_no},
+	        success: function(total){
+                    var callback = $.parseJSON(total);
+                    if(callback.code == '201'){
+                        $('#signup_error').hide();
+                        $('.errormessagesignup').html(callback.message);
+                        $('#first_name').val('');
+                        $('#last_name').val('');
+                        $('#email_id').val('');
+                        $('#password').val('');
+                        $('#confirm_password').val('');
+                        $('#mobile_no').val('');
+                        $('#first_name').focus();
+                        return false;
+                   }else{
+                        $('#signup_error').hide();
+                        $('.successmessagesignup').html(callback.message);
+                        $('#first_name').val('');
+                        $('#last_name').val('');
+                        $('#email_id').val('');
+                        $('#password').val('');
+                        $('#confirm_password').val('');
+                        $('#mobile_no').val('');
+                        return false;
+                   }
+                    //alert(callback.message)
+	        }
+	      });
+       
+   })
