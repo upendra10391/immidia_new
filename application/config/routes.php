@@ -83,4 +83,12 @@ $route['search-result'] = 'home/search_result';
 $route['yacht-booking'] = 'home/yacht_booking';
 $route['yacht-booking-info'] = 'home/yacht_booking_info';
 $route['signup'] = 'home/signup';
+$route['get_villa_state/(:num)'] = 'home/getVillaState/$1';
+$route['villas'] = 'home/villas';
+$route['villa-rental-agreement'] = 'home/villa_rental_agreement';
+$route['villa-search/(:num)'] = 'home/villa_search/$1';
+$route['villa-search-result'] = 'home/villa_search_result';
+$route['long-range-jet'] = 'home/long_range_jet';
+$route['challenger'] = 'home/challenger';
+$route['get_villa_city/(:num)'] = 'home/getVillaCity/$1';
 
