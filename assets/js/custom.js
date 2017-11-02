@@ -1,7 +1,7 @@
 
 
 //var base_url = 'http://immidia.ae/';
-var base_url = 'http://localhost/immidia.ae/trunk';
+var base_url = 'http://localhost/immidia_new/trunk';
 
 
 
@@ -320,7 +320,7 @@ $("body").on("change", "#vila_country", function () {
 
         }
     });
-})
+});
 $("body").on("change","#villaState",function(){
      $('#villaStateName').val($('#villaState option:selected').text());
 //    var stateId = $(this).val();
@@ -338,3 +338,24 @@ $("body").on("change","#villaState",function(){
 //        }
 //    });
 })
+// when change country
+$("body").on("change", "#carCountry", function () {
+    var countryId = $(this).val();
+    $('#loaderCar').removeAttr('style');
+    $.ajax({
+        url: base_url + '/get_yacht_state/' + countryId,
+        type: "get",
+        success: function (data) {
+            $('#carCountryName').val($('#carCountry option:selected').text());
+            $('#loaderCar').attr('style', 'display:none');
+            $('#carState').html('<option value="0">State</option>')
+            $.each(JSON.parse(data), function (index, value) {
+                $('#carState').append('<option value="' + value['stateId'] + '">' + value['stateName'] + '</option>')
+            });
+        }
+    });
+});
+$("body").on("change", "#carState", function () {
+   $('#carStateName').val($('#carState option:selected').text());
+});
+
