@@ -91,6 +91,8 @@ $route['villa-search-result'] = 'home/villa_search_result';
 $route['long-range-jet'] = 'home/long_range_jet';
 $route['challenger'] = 'home/challenger';
 $route['get_villa_city/(:num)'] = 'home/getVillaCity/$1';
+$route['get_villa_limousine/(:num)/(:any)/(:any)'] = 'home/getVillaLimousine/$1/$2/$3';
+$route['save_vill_lumousine'] = 'home/save_vill_lumousine';
 
 // route for the car
 $route['car'] = 'home/carListing';
