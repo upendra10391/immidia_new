@@ -553,10 +553,35 @@ class Home extends CI_Controller {
             $this->load->view('home/villa_limousine',$data);
         } 
     }
-    public function save_vill_lumousine(){
+    public function food_vill_lumousine(){
+        $arrDetails = '';
          $arrDataget = $this->input->get(); 
-         //var_dump($arrDataPost);exit;
-         $this->load->view('auth/login');
+         //var_dump($arrDataget);exit;
+         $departureDate = new DateTime($arrDataget['checkIn']);
+         $arrivalDate = new DateTime($arrDataget['checkOut']);
+         $diff = $arrivalDate->diff($departureDate);
+         $days = $diff->days;
+         //var_dump($days);exit;
+         if(!empty($days) && $days == 1){
+               $this->load->view('auth/login');
+         
+         }else{
+             $data['getDetails'] =  $arrDataget;
+             
+             $this->villaFilterParams = $_SESSION['villaFilterParams'];
+             
+              $this->load->library('PHPRequests');
+              $request_made = $this->config->item('API_URL') . "action=get_categoryVillalistby_city&stateId=29&cityId=1";
+              $response = json_decode(Requests::get($request_made)->body);
+              //var_dump($response);exit;
+              if($response->status == true){
+                    $arrDetails= $response->data;
+                  
+              }
+              //var_dump($data['getDetails']);exit;
+               $data['foodDetails'] = $arrDetails;
+               $this->load->view('home/food_and_drinks',$data);
+         }
     }
    
 
