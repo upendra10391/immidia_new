@@ -20,6 +20,7 @@
                 <div class="state-icon">
                     <select class="state" id="villaState" name="villaState">
                         <option>State</option>
+                       
                         
                     </select>
                     <input type="hidden" name="villaStateName" id="villaStateName">
@@ -45,9 +46,7 @@
                 <label></label>
                 <select class="departure-port vd" name="destination_name">
                     <option>Select Destination</option>
-                    <?php foreach($this->villaCity as $key=>$val){?>
-                        <option value="//<?php echo $val->cityId;?>"><?php echo $val->cityName;?></option>
-                    <?php }?>
+                    <option value="1">Dubai</option>
                 </select>
             </div>
             <div class="inner-block fourth fourthv">

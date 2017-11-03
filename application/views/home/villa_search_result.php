@@ -297,7 +297,7 @@
              foreach($villaList as $villaListData){?>
                 <div class="col-md-4">
                     <div class="list-inner">
-                        <img class="img-responsive" src="<?php echo $imageUrl.str_replace('../','',$villaListData->banner[0]->banner); ?>">
+                        <img class="img-responsive" src="<?php echo $imageUrl.str_replace('..','',$villaListData->banner[0]->banner); ?>">
                         <div class="list-detail">
                             <h2><?php echo $villaListData->villaName;?></h2>
                             <ul>
@@ -315,6 +315,7 @@
                                 <li>AREA <?php echo $villaListData->surfaceArea;?></li>
                                 <li>ROOMS <?php echo $villaListData->totalRooms;?></li>
                             </ul>
+                            <?php //$objQueryString = 'villa_country='.$villaFilterParams['villa_country'].'&villaState='.$villaFilterParams['villaState'].'&destinationId='.$villaFilterParams['destination_name'];?>
                             <a href="<?php echo base_url('villa-search').'/'.$villaListData->id;?>">More Info</a>
                         </div>
                     </div>

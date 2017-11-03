@@ -218,7 +218,7 @@
                         <div class="col-md-3">
                             <label>CHECKOUT</label>
                                 <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' id="dpdv" name="checkout" class="date-picker departure" placeholder="DD/MM/YYYY"/>
+                                    <input type='text' id="dpdv" name="checkout" value="" class="date-picker departure" placeholder="DD/MM/YYYY"/>
                                     <div id="departurev"><span>MM</span><span>DD</span><span>Day</span></div>
                                 </div>
                         </div>
