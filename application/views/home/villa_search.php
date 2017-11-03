@@ -235,7 +235,7 @@
             </div>
         </section>
 
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+
         <?php $this->load->view('footer/footer') ?>
     </body>
 </html>
