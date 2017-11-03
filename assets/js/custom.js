@@ -358,4 +358,26 @@ $("body").on("change", "#carCountry", function () {
 $("body").on("change", "#carState", function () {
    $('#carStateName').val($('#carState option:selected').text());
 });
+$("body").on("click",".limousine_villa",function(){
+    var checkinData = '';
+    var checkoutData = '';
+    var villaId = $(this).attr('data-href');
+    var checkIn = $('#dparrivalv').val();
+    //alert(checkIn);
+    var checkOut = $('#dpdv').val();
+    if(checkIn == ''){
+        checkinData = $(this).attr('data-checkin');
+    }else{
+       checkinData = checkIn;
+    }
+    if(checkOut == ''){
+        checkoutData = $(this).attr('data-checkout');
+    }else{
+        checkoutData = checkOut;
+    }
+    var url = villaId +'/'+ checkinData + '/'+checkoutData;
+    if(url !=''){
+        window.location.replace(url);
+    }
+})
 
