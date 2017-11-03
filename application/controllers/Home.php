@@ -567,19 +567,16 @@ class Home extends CI_Controller {
          
          }else{
              $data['getDetails'] =  $arrDataget;
-             
              $this->villaFilterParams = $_SESSION['villaFilterParams'];
-             
-              $this->load->library('PHPRequests');
-              $request_made = $this->config->item('API_URL') . "action=get_categoryVillalistby_city&stateId=29&cityId=1";
+             $this->load->library('PHPRequests');
+              $request_made = $this->config->item('API_URL') . "action=get_categoryVillalistby_city&stateId={$this->villaFilterParams['villaState']}&cityId=1";
               $response = json_decode(Requests::get($request_made)->body);
               //var_dump($response);exit;
               if($response->status == true){
                     $arrDetails= $response->data;
                   
               }
-              //var_dump($data['getDetails']);exit;
-               $data['foodDetails'] = $arrDetails;
+              $data['foodDetails'] = $arrDetails;
                $this->load->view('home/food_and_drinks',$data);
          }
     }
