@@ -442,6 +442,7 @@ class Home extends CI_Controller {
         $this->load->view('home/challenger');
     }
     
+    
     private function getCarClassification() {
         $this->load->library('PHPRequests');
 
@@ -519,5 +520,44 @@ class Home extends CI_Controller {
     public function carBook(){
         
     }
+    
+     
+    public function getVillaLimousine($villaId,$checkIn,$checkOut){
+       // var_dump($villaId);exit;
+        $this->load->library('PHPRequests');
+        $request_made = $this->config->item('API_URL') . 'action=get_villa_booking_list&villaId=' . $villaId .'&arrivalDateTime='.$checkIn.'&departureDateTime='.$checkOut;
+        $response = json_decode(Requests::get($request_made)->body);
+        //var_dump($response);exit;
+        //exit;
+        //var_dump($response);exit;
+        if ($response->status == true) {
+            $data['villalimousineDetails'] = json_decode(json_encode($response->data));
+            $this->villaFilterParams = $_SESSION['villaFilterParams'];
+            $data['checkIn'] = str_replace('%20',' ',$checkIn);
+            //var_dump($data['checkIn']);exit;
+             $data['checkOut'] = str_replace('%20',' ',$checkOut);
+             if(!empty($data['checkIn'])){
+                 $departureDate = new DateTime($data['checkIn']);
+             }else{
+                 $departureDate = new DateTime($checkIn);
+             }
+             if(!empty($data['checkOut'])){   
+                 $arrivalDate = new DateTime($data['checkOut']);
+             }else{
+                 $arrivalDate = new DateTime($checkOut);
+             }
+             $diff = $arrivalDate->diff($departureDate);
+             $days = $diff->days;
+             //var_dump($days);exit;
+             $data['days'] = $days;
+            $this->load->view('home/villa_limousine',$data);
+        } 
+    }
+    public function save_vill_lumousine(){
+         $arrDataget = $this->input->get(); 
+         //var_dump($arrDataPost);exit;
+         $this->load->view('auth/login');
+    }
+   
 
 }
