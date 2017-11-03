@@ -60,11 +60,7 @@
                                     <div class="col-md-4 col-xs-4"><p class="value">DUBAI</p></div>
                                     <div class="col-md-4 col-xs-4"><p class="distance"></p></div>
                                 </div>
-                                <div class="form-group gborder">
-                                    <div class="col-md-4 col-xs-4"><p class="title"></p></div>
-                                    <div class="col-md-4 col-xs-4"><p class="value"></p></div>
-                                    <div class="col-md-4 col-xs-4"><p class="distance"></p></div>
-                                </div>
+                                
                                 <div class="form-group fborder">
                                     <div class="col-md-12 col-xs-12"><p class="title">Food And Beverage</p></div>
                                     <div class="col-md-10 col-xs-10">
@@ -224,7 +220,7 @@
                                 </div>
                             </div>
                             <?php $i = $i+1;}}else{?>
-                            
+                            <div> NO DATA FOUND </div>
                             <?php }?>
 
 <!--                            <div class="panel panel-default">
