@@ -195,7 +195,7 @@
                                 <tbody>
                                     <tr>
                                         <td><?php echo $this->villaFilterParams['villaCountryName'];?></td>
-                                        <td><?php echo $this->villaFilterParams['villaCountryName'];?></td>
+                                        <td><?php echo $this->villaFilterParams['villaStateName'];?></td>
                                         <td>Dubai</td>
                                         <td><?php echo $this->villaFilterParams['checkin'];?></td>
                                         <td><?php echo $this->villaFilterParams['checkout'];?></td>
@@ -209,64 +209,33 @@
                         <div class="col-md-3">
                         </div>
                         <div class="col-md-3">
-                            <select class="selectad">
-                                <option>Checkin Time</option>
-                                <option>10am</option>
-                                <option>11am</option>
-                                <option>12am</option>
-                                <option>1pm</option>
-                                <option>2pm</option>
-                                <option>3pm</option>
-                                <option>4pm</option>
-                                <option>5pm</option>
-                                <option>6pm</option>
-                                <option>7pm</option>
-                                <option>8pm</option>
-                                <option>9pm</option>
-                                <option>10pm</option>
-                                <option>11pm</option>
-                                <option>12pm</option>
-                                <option>1am</option>
-                                <option>2am</option>
-                                <option>3am</option>
-                            </select>
+                           <label>CHECKIN</label>
+                                <div class='input-group date' id='datetimepicker1'>
+                                    <input type='text' id="dparrivalv" name="checkin"  value="" class="date-picker arrival" placeholder="DD/MM/YYYY"/>
+                                    <div id="arrivalv"><span>MM</span><span>DD</span><span>Day</span></div>
+                                </div>
                         </div>
                         <div class="col-md-3">
-                            <select class="selectad">
-                                <option>Checkout Time</option>
-                                <option>10am</option>
-                                <option>11am</option>
-                                <option>12am</option>
-                                <option>1pm</option>
-                                <option>2pm</option>
-                                <option>3pm</option>
-                                <option>4pm</option>
-                                <option>5pm</option>
-                                <option>6pm</option>
-                                <option>7pm</option>
-                                <option>8pm</option>
-                                <option>9pm</option>
-                                <option>10pm</option>
-                                <option>11pm</option>
-                                <option>12pm</option>
-                                <option>1am</option>
-                                <option>2am</option>
-                                <option>3am</option>
-                            </select>
+                            <label>CHECKOUT</label>
+                                <div class='input-group date' id='datetimepicker1'>
+                                    <input type='text' id="dpdv" name="checkout" class="date-picker departure" placeholder="DD/MM/YYYY"/>
+                                    <div id="departurev"><span>MM</span><span>DD</span><span>Day</span></div>
+                                </div>
                         </div>
                         <div class="col-md-3">
                         </div>
-                    </div><div class="col-md-12">
+                    </div>
+                    <div class="col-md-12">
                         <div class="back-next">
                             <a class="back" href="#"><i class="fa fa-angle-left" aria-hidden="true"></i>Back to Search</a>
-                            <a class="next" href="#">Next<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                            <a class="next limousine_villa" data-href="<?php echo base_url('get_villa_limousine').'/'.$villDetails->id;?>" data-checkin="<?php echo date('Y-m-d',strtotime($this->villaFilterParams['checkin']));?>" data-checkout="<?php echo date('Y-m-d',strtotime($this->villaFilterParams['checkout']));?>" >Next<i class="fa fa-angle-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
         <?php $this->load->view('footer/footer') ?>
     </body>
 </html>
