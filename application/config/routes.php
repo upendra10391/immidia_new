@@ -98,4 +98,7 @@ $route['food_vill_lumousine'] = 'home/food_vill_lumousine';
 $route['car'] = 'home/carListing';
 $route['car-details/(:num)'] = 'home/carDetails/$1';
 $route['car-book/(:num)'] = 'home/carBook/$1';
+$route['car-book-user-check'] = 'home/carBookUserCheck';
+$route['car-payment'] = 'home/carPayment';
+$route['car-rental-agreement'] = 'home/carRentalAgreement';
 
