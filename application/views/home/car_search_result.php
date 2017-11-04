@@ -233,7 +233,8 @@
             </div>
             <div class="col-md-12 search-result">
                 <div class="summary-title">
-                    <h5>Search Summary</h5><a href="#" id="modify">Modify</a>
+                    <h5>Search Summary</h5>
+<!--                    <a href="#" id="modify">Modify</a>-->
                 </div>
                 <div class="table-responsive summary-result">
                     <table class="table">
@@ -320,7 +321,7 @@
                                 <li>Passenger <?php echo $objCarDetails->numberOfPassengers?></li>
                                 <li>Fuel / <?php echo $objCarDetails->fuelType?></li>
                             </ul>
-                            <a href="<?php echo base_url('car-details/'.$objCarDetails->id.'?'.$varExtraQuerystring)?>">More Info</a>
+                            <a href="<?php echo base_url('car-details/'.$objCarDetails->id.'?'.$varExtraQuerystring."&price=".$objCarDetails->price)?>">More Info</a>
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,6 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
-session_start();
+//session_start();
 
 class Home extends CI_Controller {
 
@@ -49,10 +48,9 @@ class Home extends CI_Controller {
     public $villaFilterParams;
     public $carClassification;
     public $carHours;
-                function __construct() {
 
+    function __construct() {
         parent::__construct();
-
         $this->getYachtCountry();
         $this->getVillaCountry();
         $this->getCarClassification();
@@ -441,8 +439,7 @@ class Home extends CI_Controller {
     public function challenger() {
         $this->load->view('home/challenger');
     }
-    
-    
+
     private function getCarClassification() {
         $this->load->library('PHPRequests');
 
@@ -459,6 +456,7 @@ class Home extends CI_Controller {
             $this->carClassification = null;
         }
     }
+
     private function getCarHours() {
         $this->load->library('PHPRequests');
 
@@ -475,37 +473,46 @@ class Home extends CI_Controller {
             $this->carHours = null;
         }
     }
-    
-    public function carListing(){
+
+    /*
+     * for car listing page cames after serch from home page
+     */
+
+    public function carListing() {
         $arrDetails = array();
         $this->load->library('PHPRequests');
         $arrPost = $this->input->get();
         $days = $arrPost['days'];
         $bookingDate = date('Y-m-d', strtotime($arrPost['bookingDate']));
         $varQueryString = "&days={$days}&noOfPasenger={$arrPost['noOfPasenger']}&stateId={$arrPost['carState']}&bookingDate={$bookingDate}&driver={$arrPost['driver']}&classification={$arrPost['classification']}";
-        $request_made = $this->config->item('API_URL') . 'action=get_car_available_list'.$varQueryString;
+        $request_made = $this->config->item('API_URL') . 'action=get_car_available_list' . $varQueryString;
         $response = json_decode(Requests::get($request_made)->body);
         if ($response->status == true) {
             $arrDetails = $response->data;
         }
-        //vecho "<pre>";var_dump($arrPost);
+        //echo "<pre>";var_dump($arrDetails);exit;
         $postData = $arrPost;
         $postData['bookingDate'] = $bookingDate;
-        $this->load->view('home/car_search_result',array('arrCarDetails'=>$arrDetails,'postData'=>$postData));
+        $this->load->view('home/car_search_result', array('arrCarDetails' => $arrDetails, 'postData' => $postData));
     }
-    public function carDetails($varId=""){
-        if(!empty($varId)){
+
+    /*
+     * for single car detail page comes after click on more info on car listing page
+     */
+
+    public function carDetails($varId = "") {
+        if (!empty($varId)) {
             $arrPost = $this->input->get();
             $this->load->library('PHPRequests');
-            $request_made = $this->config->item('API_URL') . 'action=get_car_details&carId='.$varId;
+            $request_made = $this->config->item('API_URL') . 'action=get_car_details&carId=' . $varId;
             $response = json_decode(Requests::get($request_made)->body);
             $arrCarDetail = array();
             if ($response->status == true) {
                 $arrCarDetail = $response->data;
             }
-            
+
             // get all city according to state
-            $requestCity = $this->config->item('API_URL') . 'action=get_cities_details&stateId='.$arrPost['carState'];
+            $requestCity = $this->config->item('API_URL') . 'action=get_cities_details&stateId=' . $arrPost['carState'];
             $responseCity = json_decode(Requests::get($requestCity)->body);
             $arrCarCitiesDetail = array();
             if ($responseCity->status == true) {
@@ -513,19 +520,67 @@ class Home extends CI_Controller {
             }
             $bookingDate = date('Y-m-d', strtotime($arrPost['bookingDate']));
             $arrPost['bookingDate'] = $bookingDate;
-            $this->load->view('home/car_search',array('objCarDetail'=>$arrCarDetail,'postData'=>$arrPost,'arrCarCitiesDetail'=>$arrCarCitiesDetail));
+            $this->load->view('home/car_search', array('objCarDetail' => $arrCarDetail, 'postData' => $arrPost, 'arrCarCitiesDetail' => $arrCarCitiesDetail));
+        }
+    }
+
+    /*
+     * Car Booking page comes after click on next from single car page
+     */
+
+    public function carBook($carId) {
+        $arrGet = $this->input->get();
+        $arrPost = $this->input->post();
+        if (!empty($arrPost)) {
+            $this->load->library('PHPRequests');
+            $varQueryString = "&carId={$carId}&startCity={$arrPost['delAddr']}&endCity={$arrPost['dropAddr']}&days={$arrGet['days']}";
+            $request_made = $this->config->item('API_URL') . 'action=get_individualcar_availability' . $varQueryString;
+            $response = json_decode(Requests::get($request_made)->body);
+            if ($response->status == true) {
+                $dataDetails = $response->data;
+            }
+            //$dataDetails = array();
+            $arrGet['depDate'] = date('Y-m-d', strtotime("{$arrGet['bookingDate']}"));
+            $arrGet['arrvDate'] = date('Y-m-d', strtotime("+" . $arrGet['days'] . " days", strtotime($arrGet['bookingDate'])));
+            $this->session->set_userdata(array('carDetails'=>$dataDetails,'arrGet'=>$arrGet,'arrPost'=>$arrPost));
+            $this->load->view('home/car_booking', array('objDetails' => $dataDetails, 'arrGet' => $arrGet));
         }
     }
     
-    public function carBook(){
-        
+    /*
+     * check user if logged in or not comes after click on next of car-book page
+     */
+    public function carBookUserCheck(){
+        $arrPost = $this->input->post();
+        $arrNewPostData = array_merge($this->session->userdata('arrPost'),$arrPost);
+        $this->session->set_userdata('arrPost',$arrNewPostData);
+        if($this->session->has_userdata('user_login')){
+            // redirect payment page
+            redirect(base_url('car-payment'));
+        }else{
+            // redirect login or signup page
+            redirect(base_url('login'));
+        }
+    }
+
+    /*
+     * car payment page
+     */
+    public function carPayment(){
+        $this->load->view('home/car_payment',array('arrDetails'=>$this->session->userdata()));
     }
     
-     
-    public function getVillaLimousine($villaId,$checkIn,$checkOut){
-       // var_dump($villaId);exit;
+    /*
+     * for car contract page
+     */
+    public function carRentalAgreement(){
+        $this->load->view('home/car_contract',array('arrDetails'=>$this->session->userdata()));
+    }
+
+        public function getVillaLimousine($villaId, $checkIn, $checkOut) {
+        // var_dump($villaId);exit;
         $this->load->library('PHPRequests');
-        $request_made = $this->config->item('API_URL') . 'action=get_villa_booking_list&villaId=' . $villaId .'&arrivalDateTime='.$checkIn.'&departureDateTime='.$checkOut;
+        $request_made = $this->config->item('API_URL') . 'action=get_villa_booking_list&villaId=' . $villaId . '&arrivalDateTime=' . $checkIn . '&departureDateTime=' . $checkOut;
         $response = json_decode(Requests::get($request_made)->body);
         //var_dump($response);exit;
         //exit;
@@ -533,53 +588,51 @@ class Home extends CI_Controller {
         if ($response->status == true) {
             $data['villalimousineDetails'] = json_decode(json_encode($response->data));
             $this->villaFilterParams = $_SESSION['villaFilterParams'];
-            $data['checkIn'] = str_replace('%20',' ',$checkIn);
+            $data['checkIn'] = str_replace('%20', ' ', $checkIn);
             //var_dump($data['checkIn']);exit;
-             $data['checkOut'] = str_replace('%20',' ',$checkOut);
-             if(!empty($data['checkIn'])){
-                 $departureDate = new DateTime($data['checkIn']);
-             }else{
-                 $departureDate = new DateTime($checkIn);
-             }
-             if(!empty($data['checkOut'])){   
-                 $arrivalDate = new DateTime($data['checkOut']);
-             }else{
-                 $arrivalDate = new DateTime($checkOut);
-             }
-             $diff = $arrivalDate->diff($departureDate);
-             $days = $diff->days;
-             //var_dump($days);exit;
-             $data['days'] = $days;
-            $this->load->view('home/villa_limousine',$data);
-        } 
+            $data['checkOut'] = str_replace('%20', ' ', $checkOut);
+            if (!empty($data['checkIn'])) {
+                $departureDate = new DateTime($data['checkIn']);
+            } else {
+                $departureDate = new DateTime($checkIn);
+            }
+            if (!empty($data['checkOut'])) {
+                $arrivalDate = new DateTime($data['checkOut']);
+            } else {
+                $arrivalDate = new DateTime($checkOut);
+            }
+            $diff = $arrivalDate->diff($departureDate);
+            $days = $diff->days;
+            //var_dump($days);exit;
+            $data['days'] = $days;
+            $this->load->view('home/villa_limousine', $data);
+        }
     }
-    public function food_vill_lumousine(){
+
+    public function food_vill_lumousine() {
         $arrDetails = '';
-         $arrDataget = $this->input->get(); 
-         //var_dump($arrDataget);exit;
-         $departureDate = new DateTime($arrDataget['checkIn']);
-         $arrivalDate = new DateTime($arrDataget['checkOut']);
-         $diff = $arrivalDate->diff($departureDate);
-         $days = $diff->days;
-         //var_dump($days);exit;
-         if(!empty($days) && $days == 1){
-               $this->load->view('auth/login');
-         
-         }else{
-             $data['getDetails'] =  $arrDataget;
-             $this->villaFilterParams = $_SESSION['villaFilterParams'];
-             $this->load->library('PHPRequests');
-              $request_made = $this->config->item('API_URL') . "action=get_categoryVillalistby_city&stateId={$this->villaFilterParams['villaState']}&cityId=1";
-              $response = json_decode(Requests::get($request_made)->body);
-              //var_dump($response);exit;
-              if($response->status == true){
-                    $arrDetails= $response->data;
-                  
-              }
-              $data['foodDetails'] = $arrDetails;
-               $this->load->view('home/food_and_drinks',$data);
-         }
+        $arrDataget = $this->input->get();
+        //var_dump($arrDataget);exit;
+        $departureDate = new DateTime($arrDataget['checkIn']);
+        $arrivalDate = new DateTime($arrDataget['checkOut']);
+        $diff = $arrivalDate->diff($departureDate);
+        $days = $diff->days;
+        //var_dump($days);exit;
+        if (!empty($days) && $days == 1) {
+            $this->load->view('auth/login');
+        } else {
+            $data['getDetails'] = $arrDataget;
+            $this->villaFilterParams = $_SESSION['villaFilterParams'];
+            $this->load->library('PHPRequests');
+            $request_made = $this->config->item('API_URL') . "action=get_categoryVillalistby_city&stateId={$this->villaFilterParams['villaState']}&cityId=1";
+            $response = json_decode(Requests::get($request_made)->body);
+            //var_dump($response);exit;
+            if ($response->status == true) {
+                $arrDetails = $response->data;
+            }
+            $data['foodDetails'] = $arrDetails;
+            $this->load->view('home/food_and_drinks', $data);
+        }
     }
-   
 
 }

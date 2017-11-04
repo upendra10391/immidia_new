@@ -23,7 +23,8 @@
 				<div id="myCarousel" class="carousel slide" data-ride="carousel">
 				  <!-- Wrapper for slides -->
 				  <div class="carousel-inner">
-                                        <?php if(!empty($objCarDetail->banner)){ $i = 0;foreach ($objCarDetail->banner as $key=>$value){$active = ($i==0) ? "active": "";?>
+                                        <?php if(!empty($objCarDetail->banner)){ 
+                                            $i = 0;foreach ($objCarDetail->banner as $key=>$value){$active = ($i==0) ? "active": "";?>
                                             <div class="item <?php echo $active;?>">
                                                 <img src="<?php echo $this->IMAGE_URL.str_replace("..", "", $value->banner); ?>">
                                             </div>
@@ -177,9 +178,9 @@ echo ($postData['days'] >= 5) ? " days" : " hours" ?></td>
                                 </table>
                             </div>
                             <div class="col-md-12 mb30">
-                                <form action="<?php echo base_url('car-book/'.$objCarDetail->id)?>" method="post">
+                                <form action="<?php echo base_url('car-book/'.$objCarDetail->id.'/?'.$_SERVER['QUERY_STRING'])?>" id="carNext" name="carNext" method="post">
                                 <div class="col-md-3">
-                                    <select class="selectad">
+                                    <select class="selectad" name="depTime" id="depTime">
                                         <option value="">Departure Time</option>
                                         <option value="1" >09:00</option>
                                         <option value="2" >09:15</option>
@@ -243,7 +244,7 @@ echo ($postData['days'] >= 5) ? " days" : " hours" ?></td>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-                                    <select class="selectad">
+                                    <select class="selectad" name="arrvTime" id="arrvTime">
                                         <option value="">Drop Off Time</option>
                                         <option value="1" >09:00</option>
                                         <option value="2" >09:15</option>
@@ -307,7 +308,7 @@ echo ($postData['days'] >= 5) ? " days" : " hours" ?></td>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-                                    <select class="selectad">
+                                    <select class="selectad" id="delAddr" name="delAddr">
                                         <option value="">Delivery Areas</option>
                                         <?php foreach ($arrCarCitiesDetail as $key => $value) {?>
                                             <option value="<?php echo $value->id ?>"><?php echo $value->cityName ?></option>
@@ -315,7 +316,7 @@ echo ($postData['days'] >= 5) ? " days" : " hours" ?></td>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-                                    <select class="selectad">
+                                    <select class="selectad" id="dropAddr" name="dropAddr">
                                         <option>Drop Off Areas</option>
                                         <?php foreach ($arrCarCitiesDetail as $key => $value) {?>
                                             <option value="<?php echo $value->id ?>"><?php echo $value->cityName ?></option>
@@ -327,7 +328,7 @@ echo ($postData['days'] >= 5) ? " days" : " hours" ?></td>
                             <div class="col-md-12">
                                 <div class="back-next">
                                     <a class="back" href="<?php echo base_url('car?'.$_SERVER['QUERY_STRING'])?>"><i class="fa fa-angle-left" aria-hidden="true"></i>Back to Search</a>
-                                    <a class="next" href="">Next<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                                    <a class="next" id="nextCarPage" href="">Next<i class="fa fa-angle-right" aria-hidden="true"></i></a>
                                 </div>
                             </div>
 			</div>

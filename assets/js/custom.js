@@ -338,6 +338,7 @@ $("body").on("change","#villaState",function(){
 //        }
 //    });
 })
+
 // when change country
 $("body").on("change", "#carCountry", function () {
     var countryId = $(this).val();
@@ -355,9 +356,18 @@ $("body").on("change", "#carCountry", function () {
         }
     });
 });
+// when select state of car
 $("body").on("change", "#carState", function () {
    $('#carStateName').val($('#carState option:selected').text());
 });
+// when click on next on the single car detail page 
+// for submitting the form
+$('body').on('click','#nextCarPage',function(e){
+    e.preventDefault();
+    $('#carNext').submit();
+});
+
+
 $("body").on("click",".limousine_villa",function(){
     var checkinData = '';
     var checkoutData = '';
