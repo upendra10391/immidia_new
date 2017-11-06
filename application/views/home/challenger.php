@@ -77,7 +77,7 @@
         <section class="jet-description">
             <div class="container">
                 <div class="row nopad">
-                    <h3>OVERVIEW</h3>
+                  <!--   <h3>OVERVIEW</h3>
                     <p>A member of Bombardier’s Challenger 600 family of corporate jets, the Challenger 605 features one of the 
                         most advanced cockpits available today.Based on the tried and tested designs of the other Challenger 600 
                         business jets (including the Challenger 600, Challenger 601 and Challenger 604), theChallenger 605 offers 
@@ -93,7 +93,7 @@
                         <li>Wide cabin with a roomy feel</li>
                         <li>Access to the baggage hold during flight</li>
                         <li>Modern flight deck with excellent avionics</li>
-                    </ul>
+                    </ul> -->
                     <h3>SPECIFICATIONS</h3>
                     <?php $objRow = $arrJetData[0];?>
                     <div class="table-responsive">

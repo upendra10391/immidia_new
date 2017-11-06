@@ -1,5 +1,5 @@
 //var base_url = 'http://localhost/immidia.ae/';
-var base_url = 'http://localhost/immidia_new/trunk';
+//var base_url = 'http://localhost/immidia_new/trunk';
 
 
  var base_url = 'http://localhost/immidia_new/';

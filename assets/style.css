@@ -3068,7 +3068,7 @@ h2.jets-title:after {
     font-size: 30px;
     color: #000;
 }
-.jet-image img{width:100%;}
+.jet-image img{width:100%; height: 230px !important;}
 .jet-title{
 	font-size: 15px;
 	color: rgb(0, 0, 0);

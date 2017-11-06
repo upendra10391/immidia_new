@@ -106,6 +106,7 @@
                 </div>
             </div>
         </section>
+        <br>
         <?php $this->load->view('footer/footer') ?>
     </body>
 

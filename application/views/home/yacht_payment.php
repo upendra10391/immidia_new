@@ -178,7 +178,7 @@
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Extra Time ?</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"></p></div>
-								<div class="col-md-4 col-xs-4"><p class="distance"></p></div>
+								<div class="col-md-4 col-xs-4"><p class="distance">€ <?=$this->yachtFilterParams['yachtExtraTime']?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Total</p></div>
