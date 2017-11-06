@@ -25,7 +25,23 @@
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Yacht</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"><?= isset($this->yachtDetails->name) ? $this->yachtDetails->name : 'Not Found' ?></p></div>
-								<div class="col-md-4 col-xs-4"><p class="distance">€ <?= isset($this->yachtFilterParams['yachtUpdatePrice']) ? $this->yachtFilterParams['yachtUpdatePrice'] : 0 ?>{inc.vat}</p></div>
+								<div class="col-md-4 col-xs-4"><p class="distance"><?php 
+										$value->currencyId ? $value->currencyId : "" ;	
+											if($value->currencyId ==1)
+											{
+												echo "€";
+
+											}
+											else if($value->currencyId ==2)
+											{
+												echo "$";
+
+											}
+											else {
+
+												echo "AED";
+											}
+										?> <?= isset($this->yachtFilterParams['yachtUpdatePrice']) ? $this->yachtFilterParams['yachtUpdatePrice'] : 0 ?>{inc.vat}</p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Delivery port</p></div>
@@ -77,27 +93,107 @@
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Delivery Price</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"></p></div>
-								<div class="col-md-4 col-xs-4"><p class="distance">€ <?=$this->yachtFilterParams['yachtDeliveryRate']?></p></div>
+								<div class="col-md-4 col-xs-4"><p class="distance"><?php 
+										$value->currencyId ? $value->currencyId : "" ;	
+											if($value->currencyId ==1)
+											{
+												echo "€";
+
+											}
+											else if($value->currencyId ==2)
+											{
+												echo "$";
+
+											}
+											else {
+
+												echo "AED";
+											}
+										?> <?=$this->yachtFilterParams['yachtDeliveryRate']?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Drop Off Price</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"></p></div>
-								<div class="col-md-4 col-xs-4"><p class="distance">€ <?=$this->yachtFilterParams['yachtDropOff']?></p></div>
+								<div class="col-md-4 col-xs-4"><p class="distance"><?php 
+										$value->currencyId ? $value->currencyId : "" ;	
+											if($value->currencyId ==1)
+											{
+												echo "€";
+
+											}
+											else if($value->currencyId ==2)
+											{
+												echo "$";
+
+											}
+											else {
+
+												echo "AED";
+											}
+										?> <?=$this->yachtFilterParams['yachtDropOff']?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Formula</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"><?=$this->yachtFilterParams['yachtFormula']?></p></div>
-								<div class="col-md-4 col-xs-4"><p class="distance">€ <?= $this->yachtFilterParams['yachtFormulaPrice'] ?></p></div>
+								<div class="col-md-4 col-xs-4"><p class="distance"><?php 
+										$value->currencyId ? $value->currencyId : "" ;	
+											if($value->currencyId ==1)
+											{
+												echo "€";
+
+											}
+											else if($value->currencyId ==2)
+											{
+												echo "$";
+
+											}
+											else {
+
+												echo "AED";
+											}
+										?> <?= $this->yachtFilterParams['yachtFormulaPrice'] ?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Extra Time ?</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"></p></div>
-								<div class="col-md-4 col-xs-4"><p class="distance">€ <?=$this->yachtFilterParams['yachtExtraTime']?></p></div>
+								<div class="col-md-4 col-xs-4"><p class="distance"><?php 
+										$value->currencyId ? $value->currencyId : "" ;	
+											if($value->currencyId ==1)
+											{
+												echo "€";
+
+											}
+											else if($value->currencyId ==2)
+											{
+												echo "$";
+
+											}
+											else {
+
+												echo "AED";
+											}
+										?> <?=$this->yachtFilterParams['yachtExtraTime']?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Total</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"></p></div>
-								<div class="col-md-4 col-xs-4"><p class="distance"><b >€ <span id="yachtSubTotal"><?=$this->yachtFilterParams['yachtSubTotal']?></span></b></p></div>
+								<div class="col-md-4 col-xs-4"><p class="distance"><b ><?php 
+										$value->currencyId ? $value->currencyId : "" ;	
+											if($value->currencyId ==1)
+											{
+												echo "€";
+
+											}
+											else if($value->currencyId ==2)
+											{
+												echo "$";
+
+											}
+											else {
+
+												echo "AED";
+											}
+										?> <span id="yachtSubTotal"><?=$this->yachtFilterParams['yachtSubTotal']?></span></b></p></div>
 							</div>
 						</div>			
 					</div> 
@@ -137,7 +233,23 @@
 									<div class="fditems">
 										<div class="row fditem clearfix">
 											<div class="col-md-4 col-xs-4"><p class="name"><?=$foodValue->itemName ?></p></div> 
-											<div class="col-md-4 col-xs-4"><p class="price">€ <?=$foodValue->amount ?></p></div> 
+											<div class="col-md-4 col-xs-4"><p class="price"><?php 
+										$value->currencyId ? $value->currencyId : "" ;	
+											if($value->currencyId ==1)
+											{
+												echo "€";
+
+											}
+											else if($value->currencyId ==2)
+											{
+												echo "$";
+
+											}
+											else {
+
+												echo "AED";
+											}
+										?> <?=$foodValue->amount ?></p></div> 
 											<div class="col-md-4 col-xs-4">
 												<select class="" id="qty" onchange="addToCart('<?=$foodValue->id ?>','<?=$foodValue->itemName ?>' ,'<?=$foodValue->amount ?>' , this.value,'<?=$this->yachtFilterParams["yachtSubTotal"]?>','addItems')">
 													<option>select</option>

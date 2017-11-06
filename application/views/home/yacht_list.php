@@ -191,7 +191,24 @@
 							?>
 
 							<ul>
-								<li>€ <?= isset($value->price) ?  $value->price *  $this->yachtFilterParams['yachtDaysDiff'] : 0 ?></li>
+								<li><?php 
+										$value->currencyId ? $value->currencyId : "" ;	
+											if($value->currencyId ==1)
+											{
+												echo "€";
+
+											}
+											else if($value->currencyId ==2)
+											{
+												echo "$";
+
+											}
+											else {
+
+												echo "AED";
+											}
+										?>
+									<?= isset($value->price) ?  $value->price *  $this->yachtFilterParams['yachtDaysDiff'] : 0 ?></li>
 								<li>Guest <?= isset($value->numberOfGuests) ? $value->numberOfGuests : 0 ?></li>
 								<li>Cabin <?= isset($value->cabins) ?  $value->cabins : 0?></li>
 								<li>Speed <?=isset($value->speed) ? $value->speed : 0?></li>
@@ -200,7 +217,23 @@
 						<div class="hover-detail" >
 							<h1><?=$value->name ?></h1>
 							<ul>
-								<li>€ <?= isset($value->price) ?  $value->price *  $this->yachtFilterParams['yachtDaysDiff'] : 0 ?></li>
+								<li><?php 
+										$value->currencyId ? $value->currencyId : "" ;	
+											if($value->currencyId ==1)
+											{
+												echo "€";
+
+											}
+											else if($value->currencyId ==2)
+											{
+												echo "$";
+
+											}
+											else {
+
+												echo "AED";
+											}
+										?> <?= isset($value->price) ?  $value->price *  $this->yachtFilterParams['yachtDaysDiff'] : 0 ?></li>
 								<li>Guest <?= isset($value->numberOfGuests) ? $value->numberOfGuests : 0 ?></li>
 								<li>Cabin <?= isset($value->cabins) ?  $value->cabins : 0?></li>
 								<li>Speed <?=isset($value->speed) ? $value->speed : 0?></li>
