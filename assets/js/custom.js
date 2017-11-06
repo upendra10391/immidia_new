@@ -1,3 +1,5 @@
+//var base_url = 'http://localhost/immidia.ae/';
+var base_url = 'http://localhost/immidia_new/trunk';
 
 
  var base_url = 'http://localhost/immidia_new/';
@@ -426,6 +428,19 @@ $('body').on('click','#nextCarPage',function(e){
 });
 
 
+/*
+ * for the jet 
+ */
+$("body").on("change", "#jetRoundType", function () {
+    var typeRound = $.trim($(this).val());
+    if(typeRound == "One Way"){
+        $('#divArrvDate').hide();
+    }else{
+       $('#divArrvDate').show(); 
+    }
+});
+
+
 $("body").on("click",".limousine_villa",function(){
     var checkinData = '';
     var checkoutData = '';
@@ -448,4 +463,3 @@ $("body").on("click",".limousine_villa",function(){
         window.location.replace(url);
     }
 })
-
