@@ -29,7 +29,7 @@
 								<div class="col-md-4 col-xs-4"><p class="distance">€ <?= isset($this->yachtFilterParams['yachtUpdatePrice']) ? $this->yachtFilterParams['yachtUpdatePrice'] : 0 ?>{inc.vat}</p></div>
 							</div>
 							<div class="form-group gborder">
-								<div class="col-md-4 col-xs-4"><p class="title">Delivery port</p></div>
+								<div class="col-md-4 col-xs-4"><p class="title">Departure port</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"><?= isset($this->yachtFilterParams['yachtDepartureCityName']) ? $this->yachtFilterParams['yachtDepartureCityName'] : 'Not Found' ?></p></div>
 								<div class="col-md-4 col-xs-4"><p class="distance"></p></div>
 							</div>
@@ -64,12 +64,12 @@
 						</div>
 						<div class="col-md-6 ">
 							<div class="form-group gborder">
-								<div class="col-md-4 col-xs-4"><p class="title">Departure Rate</p></div>
+								<div class="col-md-4 col-xs-4"><p class="title">Delivery Price</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"></p></div>
 								<div class="col-md-4 col-xs-4"><p class="distance">€ <?=$this->yachtDeliveryRate?></p></div>
 							</div>
 							<div class="form-group gborder">
-								<div class="col-md-4 col-xs-4"><p class="title">Drop Off Rate</p></div>
+								<div class="col-md-4 col-xs-4"><p class="title">Drop Off Price</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"></p></div>
 								<div class="col-md-4 col-xs-4"><p class="distance">€ <?=$this->yachtDropOffRate?></p></div>
 							</div>
@@ -143,8 +143,12 @@
 					<label class="col-md-3">Transfer Hour:</label>
 					<select class="selectcss col-md-2 disabledClass" name="limodepHour">
 						<option>select</option>
-						<option>1:00</option>
-						<option>2:00</option>
+						<option>6:00</option>
+						<option>6:30</option>
+						<option>7:00</option>
+						<option>7:30</option>
+						<option>8:00</option>
+						<option>8:30</option>
 					</select>
 					</div>
 					</div>
@@ -208,8 +212,12 @@ function valueChanged()
 					<label class="col-md-3">Transfer Hour:</label>
 					<select class="selectcss col-md-2 disabledClassArr" name="limoarrHour">
 						<option>select</option>
-						<option>1:00</option>
-						<option>2:00</option>
+						<option>19:00</option>
+						<option>19:30</option>
+						<option>20:00</option>
+						<option>20:30</option>
+						<option>21:00</option>
+
 					</select>
 					</div>
 					</div>

@@ -291,7 +291,7 @@
                             <img src="<?php echo base_url(); ?>/assets/images/country-code.png">
                             <option>High to Low</option>
                             <option>Low to High</option>
-                            <option>Popular</option>
+                            <!-- <option>Popular</option> -->
                         </select>
                     </div>
                 </div>

@@ -19,7 +19,6 @@
 	<body >
 
 	<section class="slider-section">
-	 <div class="h"></div>
 		<div class="container-fluid">
 			<div class="row">
 				<div id="myCarousel" class="carousel slide" data-ride="carousel">

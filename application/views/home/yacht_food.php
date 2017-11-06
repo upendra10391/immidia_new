@@ -75,12 +75,12 @@
 						</div>
 						<div class="col-md-6 ">
 							<div class="form-group gborder">
-								<div class="col-md-4 col-xs-4"><p class="title">Departure Rate</p></div>
+								<div class="col-md-4 col-xs-4"><p class="title">Delivery Price</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"></p></div>
 								<div class="col-md-4 col-xs-4"><p class="distance">€ <?=$this->yachtFilterParams['yachtDeliveryRate']?></p></div>
 							</div>
 							<div class="form-group gborder">
-								<div class="col-md-4 col-xs-4"><p class="title">Drop Off Rate</p></div>
+								<div class="col-md-4 col-xs-4"><p class="title">Drop Off Price</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"></p></div>
 								<div class="col-md-4 col-xs-4"><p class="distance">€ <?=$this->yachtFilterParams['yachtDropOff']?></p></div>
 							</div>

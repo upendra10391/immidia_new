@@ -51,8 +51,8 @@ height: 600px !important;
 }
 
 .ban{
-   width: 400px !important;
-    height: 400px !important;
+   width: 250px !important;
+    height: 230px !important;
 }
 
 .loader
@@ -2523,7 +2523,7 @@ right: 0;
 }
 #payment .carousel-control {
     left: 0;
-    right: 0; margin-top: -25%;
+    right: 0; margin-top: -40%;
 }
 /*************************** LOGIN *****************************/
 .login{margin:60px 0px;}

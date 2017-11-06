@@ -41,19 +41,24 @@
 				  <div class="carousel-inner">
 					<div class="item active">
 					 <?php if(isset($this->yachtDetails->banner[0])){ ?>
-								<img style="width:100%;height: 500px;" src="<?=	$this->IMAGE_URL.substr($this->yachtDetails->banner[0]->banner,2)?>">
+								<img style="width:100%;height: 680px;" src="<?=	$this->IMAGE_URL.substr($this->yachtDetails->banner[0]->banner,2)?>">
 								<?php } ?>
 					</div>
 
 					<div class="item">
 					  <?php if(isset($this->yachtDetails->banner[1])){ ?>
-								<img style="width:100%;height: 500px;" src="<?=	$this->IMAGE_URL.substr($this->yachtDetails->banner[1]->banner,2)?>">
+								<img style="width:100%;height: 680px;" src="<?=	$this->IMAGE_URL.substr($this->yachtDetails->banner[1]->banner,2)?>">
 								<?php } ?>
 					</div>
 
 					<div class="item">
 						<?php if(isset($this->yachtDetails->banner[2])){ ?>
-								<img style="width:100%;height: 500px;"  src="<?=	$this->IMAGE_URL.substr($this->yachtDetails->banner[2]->banner,2)?>">
+								<img style="width:100%;height: 680px;"  src="<?=	$this->IMAGE_URL.substr($this->yachtDetails->banner[2]->banner,2)?>">
+								<?php } ?>
+					</div>
+					<div class="item">
+						<?php if(isset($this->yachtDetails->banner[3])){ ?>
+								<img style="width:100%;height: 680px;"  src="<?=	$this->IMAGE_URL.substr($this->yachtDetails->banner[3]->banner,2)?>">
 								<?php } ?>
 					</div>
 				  </div>
@@ -86,7 +91,7 @@
 								<div class="col-md-4 col-xs-4"><p class="distance">€ <?= isset($this->yachtFilterParams['yachtUpdatePrice']) ? $this->yachtFilterParams['yachtUpdatePrice'] : 0 ?>{inc.vat}</p></div>
 							</div>
 							<div class="form-group gborder">
-								<div class="col-md-4 col-xs-4"><p class="title">Delivery port</p></div>
+								<div class="col-md-4 col-xs-4"><p class="title">Departure port</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"><?= isset($this->yachtFilterParams['yachtDepartureCityName']) ? $this->yachtFilterParams['yachtDepartureCityName'] : 'Not Found' ?></p></div>
 								<div class="col-md-4 col-xs-4"><p class="distance"></p></div>
 							</div>
@@ -156,12 +161,12 @@
 						</div>
 						<div class="col-md-6 ">
 							<div class="form-group gborder">
-								<div class="col-md-4 col-xs-4"><p class="title">Departure Rate</p></div>
+								<div class="col-md-4 col-xs-4"><p class="title">Delivery Price</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"></p></div>
 								<div class="col-md-4 col-xs-4"><p class="distance">€ <?=$this->yachtFilterParams['yachtDeliveryRate']?></p></div>
 							</div>
 							<div class="form-group gborder">
-								<div class="col-md-4 col-xs-4"><p class="title">Drop Off Rate</p></div>
+								<div class="col-md-4 col-xs-4"><p class="title">Drop Off Price</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"></p></div>
 								<div class="col-md-4 col-xs-4"><p class="distance">€ <?=$this->yachtFilterParams['yachtDropOff']?></p></div>
 							</div>

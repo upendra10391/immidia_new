@@ -135,7 +135,7 @@
 		<div class="container avaibility">
 			<div class="row">
 				<div class="col-md-12 avialable-title">
-					<h3>11 Yacht(s) avialable from cap d'ail on 2017-07-28</h3>
+					<h3>11 Yacht(s) avialable from <?=$this->yachtFilterParams['yachtDepartureCityName']?>  on <?=$this->yachtFilterParams['departureDate']?></h3>
 				</div>
 			</div>
 			<div class="row">
@@ -156,7 +156,7 @@
 							<img src="<?=base_url()?>/assets/images/country-code.png">
 							<option>High to Low</option>
 							<option>Low to High</option>
-							<option>Popular</option>
+							<!-- <option>Popular</option> -->
 						</select>
 					</div>
 				</div>
@@ -205,7 +205,7 @@
 								<li>Cabin <?= isset($value->cabins) ?  $value->cabins : 0?></li>
 								<li>Speed <?=isset($value->speed) ? $value->speed : 0?></li>
 							</ul>
-							<a href="yachts_details/<?=$value->id.'/'.str_replace(" ", '_', $value->name)?>">More Info</a>
+							<a href="yachts_details/<?=$value->id.'/'.str_replace(" ", '_', $value->name)?>">Book Now</a>
 						</div>
 					</div>
 				</div>
