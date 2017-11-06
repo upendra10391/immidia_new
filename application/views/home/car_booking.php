@@ -18,7 +18,6 @@
     <body>
         <header>
             <?php $this->load->view('header/header'); ?>
-
             <div class="container-fluid book page-title ls">
                 <div class="row">
                     <h1>Car Booking</h1>

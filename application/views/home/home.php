@@ -31,119 +31,17 @@
                             </li>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane active" id="tab_default_1">
+                            <div class="tab-pane <?php if($this->input->get('jet')!='next'){?> active <?php }?>" id="tab_default_1">
                                 <?php $this->load->view('home/yacht_filter'); ?>
                             </div>
-                            <div class="tab-pane" id="tab_default_2">
-                                <div class="book-form">
-                                    <h3>Book Your Jet Now</h3>
-                                    <form>
-                                        <div class="book-inner">
-                                            <div class="inner-block first">
-                                                <label></label>
-                                                <input type="text"  name="FROM" class="from" placeholder="FROM : city, state"/>
-                                                <input type="text"  name="to" class="to" placeholder="To : city, state"/>
-
-                                            </div>
-                                            <div class="inner-block fourth fourthv">
-                                                <label>DEPARTURE</label>
-                                                <div class="form-group">
-                                                    <div class='input-group date' id='datetimepicker1'>
-                                                        <input type='text' id="dparrivalj"  value="" class="date-picker arrival" placeholder="DD/MM/YYYY"/>
-                                                        <div id="arrivalj"><span>MM</span><span>DD</span><span>Day</span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="inner-block fifth fourthv">
-                                                <label>ARRIVAL</label>
-                                                <div class="form-group">
-                                                    <div class='input-group date' id='datetimepicker1'>
-                                                        <input type='text' id="dpdj" class="date-picker departure" placeholder="DD/MM/YYYY"/>
-                                                        <div id="departurej"><span>MM</span><span>DD</span><span>Day</span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="inner-block sixth fourthv">
-                                                <label></label>
-                                                <select class="departure-port">
-                                                    <option>Departure Time</option>
-                                                    <option>10am</option>
-                                                    <option>11am</option>
-                                                    <option>12am</option>
-                                                    <option>1pm</option>
-                                                    <option>2pm</option>
-                                                    <option>3pm</option>
-                                                    <option>4pm</option>
-                                                    <option>5pm</option>
-                                                    <option>6pm</option>
-                                                    <option>7pm</option>
-                                                    <option>8pm</option>
-                                                    <option>9pm</option>
-                                                    <option>10pm</option>
-                                                    <option>11pm</option>
-                                                    <option>12pm</option>
-                                                    <option>1am</option>
-                                                    <option>2am</option>
-                                                    <option>3am</option>
-                                                </select>
-                                                <select class="arrival-port">
-                                                    <option>Arrival Time</option>
-                                                    <option>10am</option>
-                                                    <option>11am</option>
-                                                    <option>12am</option>
-                                                    <option>1pm</option>
-                                                    <option>2pm</option>
-                                                    <option>3pm</option>
-                                                    <option>4pm</option>
-                                                    <option>5pm</option>
-                                                    <option>6pm</option>
-                                                    <option>7pm</option>
-                                                    <option>8pm</option>
-                                                    <option>9pm</option>
-                                                    <option>10pm</option>
-                                                    <option>11pm</option>
-                                                    <option>12pm</option>
-                                                    <option>1am</option>
-                                                    <option>2am</option>
-                                                    <option>3am</option>
-                                                </select>
-                                            </div>
-                                            <div class="inner-block second fourthv">
-                                                <label></label>
-                                                <select class="motor">
-                                                    <option>Small Jet</option>
-                                                    <option>Medium Jet</option>
-                                                    <option>Long Range Jet</option>
-                                                    <option>Large Airliner</option>
-                                                </select>
-                                                <select class="trip">
-                                                    <option>One Way</option>
-                                                    <option>Round Trip</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="inner-block seventh">
-                                                <label></label>
-                                                <div class="guest">
-                                                    <p>
-                                                        <img class="fa-plus add" src="<?php echo base_url(); ?>assets/images/plus.png">
-                                                        <span>Passengers</span>
-                                                        <input id="qty1" type="text" value="1" class="qty"/>
-                                                        <img class="fa-minus minus" src="<?php echo base_url(); ?>assets/images/minus.png">
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <label></label>
-                                            <div class="inner-block eighth">
-                                                <div class="eight-inner">
-                                                    <img src="<?php echo base_url(); ?>assets/images/search.png">
-                                                    <button class="book-submit" type="submit">Search</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-
+                            <div class="tab-pane <?php if($this->input->get('jet')=='next'){?> active <?php }?>" id="tab_default_2">
+                                    <?php 
+                                        if($this->input->get('jet')=='next'){
+                                            $this->load->view('home/jet_filter_next');
+                                        }else{
+                                            $this->load->view('home/jet_filter');
+                                        }
+                                    ?>
                             </div>
                             <div class="tab-pane" id="tab_default_3">
                                 <?php $this->load->view('home/car_filter');?>
@@ -188,7 +86,7 @@
                 <div class="row">
                     <div class="col-md-4 service">
                         <div class="serv-inner">
-                            <a href="#"><img class="img-responsive" src="<?php echo base_url(); ?>assets/images/service1.jpg" />
+                            <a href="<?php echo base_url('charter-fleet-guide')?>"><img class="img-responsive" src="<?php echo base_url(); ?>assets/images/service1.jpg" />
                                 <span>Helicopter / Private Jet</span></a>
                         </div>
                     </div>

@@ -90,8 +90,8 @@ $route['villas'] = 'home/villas';
 $route['villa-rental-agreement'] = 'home/villa_rental_agreement';
 $route['villa-search/(:num)'] = 'home/villa_search/$1';
 $route['villa-search-result'] = 'home/villa_search_result';
-$route['long-range-jet'] = 'home/long_range_jet';
-$route['challenger'] = 'home/challenger';
+$route['jet-category/(.*)'] = 'home/long_range_jet/$1';
+$route['challenger/(:num)'] = 'home/challenger/$1';
 $route['get_villa_city/(:num)'] = 'home/getVillaCity/$1';
 $route['get_villa_limousine/(:num)/(:any)/(:any)'] = 'home/getVillaLimousine/$1/$2/$3';
 $route['food_vill_lumousine'] = 'home/food_vill_lumousine';
@@ -103,4 +103,7 @@ $route['car-book/(:num)'] = 'home/carBook/$1';
 $route['car-book-user-check'] = 'home/carBookUserCheck';
 $route['car-payment'] = 'home/carPayment';
 $route['car-rental-agreement'] = 'home/carRentalAgreement';
+
+// route for jet
+$route['jet-next'] = 'home/jetNext';
 

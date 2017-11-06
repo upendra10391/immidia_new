@@ -19,26 +19,23 @@
         </div>
     </header>
     <body>
-
         <section class="slider-section">
-            <div class="h"></div>
             <div class="container-fluid">
                 <div class="row">
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner">
-                            <div class="item active">
-                                <img src="<?php echo base_url(); ?>assets/images/jet/ch-890/b1.png">
-                            </div>
-
-                            <div class="item">
-                                <img src="<?php echo base_url(); ?>assets/images/jet/ch-890/b1.png">
-                            </div>
-
-                            <div class="item">
-                                <img src="<?php echo base_url(); ?>assets/images/jet/ch-890/b1.png">
-                            </div>
+                            <?php if(!empty($arrJetData)){ 
+                                    $i = 0;foreach ($arrJetData as $key=>$value){$active = ($i==0) ? "active": "";?>
+                                    <div class="item <?php echo $active;?>">
+                                        <img src="<?php echo $this->IMAGE_URL.str_replace("..", "", $value->banner); ?>">
+                                    </div>
+                            <?php $i++;}}else{?>
+                                <div class="item active">
+                                  <img src="<?php echo base_url(); ?>/assets/images/car-search/b1.PNG">
+                                </div>
+                            <?php }?>
                         </div>
 
                         <!-- Left and right controls -->
@@ -62,30 +59,15 @@
                     <div id="thumbnail-slider">
                         <div class="inner">
                             <ul>
-                                <li>
-                                    <img src="<?php echo base_url(); ?>assets/images/jet/ch-890/t1.png">
-                                </li>
-                                <li>
-                                    <img src="<?php echo base_url(); ?>assets/images/jet/ch-890/t1.png">
-                                </li>
-                                <li>
-                                    <img src="<?php echo base_url(); ?>assets/images/jet/ch-890/t1.png">
-                                </li>
-                                <li>
-                                    <img src="<?php echo base_url(); ?>assets/images/jet/ch-890/t1.png">
-                                </li>
-                                <li>
-                                    <img src="<?php echo base_url(); ?>assets/images/jet/ch-890/t1.png">
-                                </li>
-                                <li>
-                                    <img src="<?php echo base_url(); ?>assets/images/jet/ch-890/t1.png">
-                                </li>
-                                <li>
-                                    <img src="<?php echo base_url(); ?>assets/images/jet/ch-890/t1.png">
-                                </li>
-                                <li>
-                                    <img src="<?php echo base_url(); ?>assets/images/jet/ch-890/t1.png">
-                                </li>
+                                <?php if(!empty($arrJetData)){foreach ($arrJetData as $key=>$value){?>
+                                    <li>
+                                        <img width="218" height="218" src="<?php echo $this->IMAGE_URL.str_replace("..", "", $value->banner); ?>">
+                                    </li>
+                                <?php }}else{?>
+                                    <li>
+                                            <img width="218" height="218" src="<?php echo base_url(); ?>/assets/images/car-search/t1.jpg">
+                                    </li>
+                                <?php }?>
                             </ul>
                         </div>
                     </div>
@@ -113,40 +95,41 @@
                         <li>Modern flight deck with excellent avionics</li>
                     </ul>
                     <h3>SPECIFICATIONS</h3>
+                    <?php $objRow = $arrJetData[0];?>
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered">
                             <tr>
-                                <td>Manufacturer : </td><td>Bombardier</td>
+                                <td>Manufacturer : </td><td><?php echo $objRow->manufacturer?></td>
                             </tr>
                             <tr>
-                                <td>Model : </td><td>Challenger 605</td>
+                                <td>Model : </td><td><?php echo $objRow->model?></td>
                             </tr>
                             <tr>
-                                <td>Classification : </td><td>Long Range Jet</td>
+                                <td>Classification : </td><td><?php echo $objRow->class?></td>
                             </tr>
                             <tr>
-                                <td>Seats : </td><td>10</td>
+                                <td>Seats : </td><td><?php echo $objRow->seats?></td>
                             </tr> 
                             <tr>
-                                <td>Speed : </td><td>459 kts</td>
+                                <td>Speed : </td><td><?php echo $objRow->manufacturer?></td>
                             </tr>
                             <tr>
-                                <td>Range :  </td><td>4077 nm</td>
+                                <td>Range :  </td><td><?php echo $objRow->speed ?></td>
                             </tr> 
                             <tr>
-                                <td>Average cost per flying hour : </td><td>£4 800 $6 963 €6 186</td>
+                                <td>Average cost per flying hour : </td><td><?php echo $objRow->avgCost  ?></td>
                             </tr>
                             <tr>
-                                <td>Interior Height :  </td><td>1.85 m</td>
+                                <td>Interior Height :  </td><td><?php echo $objRow->interiorHeight?> </td>
                             </tr> 
                             <tr>
-                                <td>Interior Width :  </td><td>2.49 m</td>
+                                <td>Interior Width :  </td><td><?php echo $objRow->interiorWidth?></td>
                             </tr> 
                             <tr>
-                                <td>Luggage Capacity :  </td><td>115 cu.ft.</td>
+                                <td>Luggage Capacity :  </td><td><?php echo $objRow->luggageCapacity?></td>
                             </tr> 
                             <tr>
-                                <td>Aircraft Purchase Price :  </td><td> $26 710 000</td>
+                                <td>Aircraft Purchase Price :  </td><td> <?php echo $objRow->purchasePrice?></td>
                             </tr> 
                         </table>
                     </div></div>
