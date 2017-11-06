@@ -1,9 +1,9 @@
 
 
-//var base_url = 'http://immidia.ae/';
-var base_url = 'http://localhost/immidia_new/trunk';
+ var base_url = 'http://localhost/immidia.ae/';
+//var base_url = 'http://localhost/immidia_new/trunk';
 
-
+ var yachtAddToCart = [];
 
 var daysArrayInit = [
     {'id': 1, 'name': 'Half Day (9am - 1pm)'},
@@ -27,6 +27,10 @@ function diffDays(d1, d2)
     ndays = Math.round(ndays - 0.5);
     return ndays;
 }
+
+
+
+
 
 
 function getYachtState(countryId) {
@@ -143,6 +147,60 @@ function getArrivalCityName(arrivalCity) {
 function goBack() {
     window.history.back();
 }
+
+function uniques(arr) {
+    var a = [];
+    for (var i=0, l=arr.length; i<l; i++){
+       
+            if ($.inArray(arr[i].id, a) === -1 && arr[i] !== ''){
+                 console.log(a);
+                a.push(arr[i]);
+            }
+        }
+        return a;
+    }
+
+ var  yachtFoodHTML = '';
+function addToCart(id,itemName,amount,qty,price,itemsId){
+
+    var total = 0;
+    yachtAddToCart.push({"id":id, "itemName":itemName,"amount":amount,'qty':qty});
+    var yachtUniqueFoodItem = uniques(yachtAddToCart);
+
+    yachtFoodHTML += '<p class="fitem">'+
+            '<span class="iname">'+itemName+'</span>'+
+            '<span class="iqut">'+qty+'</span>'+
+            '<span class="iprice">€ '+amount+'</span>'+
+            '<span class="idelete"><i class="fa fa-trash-o" aria-hidden="true"></i></span>'+
+        '</p>';
+
+
+
+             $('#'+itemsId).append(yachtFoodHTML);
+
+
+            $.each(yachtUniqueFoodItem, function (index, value) {
+                total += value.qty * value.amount;
+
+            });
+            
+
+             setTimeout(function(){
+                $('#yachtSubTotal').text(parseInt(total)+parseInt(price));
+                $('#yachtFoodPrice').val(total);
+                $('#yachtFoodPriceWithPrice').val(parseInt(total)+parseInt(price));
+
+               // if(window.localStorage.getItem('yachtFood') != null){
+                    window.localStorage.setItem("yachtFood",JSON.stringify(yachtUniqueFoodItem));
+                //}
+
+
+             },100);           
+
+
+    console.log(yachtUniqueFoodItem);
+}
+
 $("body").on("click", "#user_login", function () {
     var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
     var user_emailid = $('#user_emailid').val();

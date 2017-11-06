@@ -30,7 +30,7 @@
                 <select class="motor" name="yachtType" id="yachtType" onchange="getYachtDepartureCity('yachtCountry', 'yachtState', '1', 'yachtDays', 'yachtType', 'routeType');
                                                         validateSuperYacht('yachtType', 'yachtDays');">
                     <option value="0">SAIL</option>
-                    <option value="1">MOTOR</option>
+                    <option value="1" selected>MOTOR</option>
                     <option value="2">SUPER YACHT</option>
 
                 </select>
@@ -43,7 +43,8 @@
                 <label></label>
                 <select name="yachtDays" id="yachtDays" class="duration" onchange="onSelectYachtDaysChange('yachtDays', 'dpd')">
                     <?php foreach ($this->daysArrayInit as $key => $value) { ?>
-                        <option data-value="<?= $value['id'] ?>" value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
+                        <option data-value="<?= $value['id'] ?>" value="<?= $value['id'] ?>" <?=($value['id'] == 4) ? 'selected' : '' ?>
+                        ><?= $value['name'] ?></option>
                     <?php } ?>
                 </select>
                 <div id="duration"><span>1 Day</span> <span>(9:00 to 19:00 Hours)</span></div>

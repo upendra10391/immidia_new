@@ -38,6 +38,31 @@ a, a:hover, a:focus{
 .navbar-toggle .icon-bar {
   background: #173648 none repeat scroll 0 0;
 }
+.yacht_filter{
+  width: 238px;
+    height: 49px;
+    text-align-last:center;
+}
+
+
+.ban_large{
+height: 600px !important;
+
+}
+
+.ban{
+   width: 400px !important;
+    height: 400px !important;
+}
+
+.loader
+{
+        width: 10%;
+    position: absolute;
+    top: 25%;
+    left: -2%;
+}
+
 .main-menu .nav a {
   color: #fff;
   margin: 0 15px;

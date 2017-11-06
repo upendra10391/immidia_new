@@ -177,23 +177,33 @@
 			<div class="row">
 				<div class="col-md-4">
 					<div class="list-inner">
-						<img class="img-responsive" src="<?=base_url()?>/assets/images/result1.jpg">
+						<img class="img-responsive" style="height:465px;" src="<?=$this->IMAGE_URL.substr($value->banner[0]->banner,2)?>">
+
 						<div class="list-detail">
 							<h2><?=$value->name ?></h2>
+
+							<?php 
+							if(isset($value->price))
+							{
+								$_SESSION['yachtFilterParams']['yachtUpdatePrice'] = $value->price *  $this->yachtFilterParams['yachtDaysDiff'];	
+							}
+
+							?>
+
 							<ul>
-								<li>€ <?=$value->price?></li>
-								<li>Guest <?=$value->numberOfGuests?></li>
-								<li>Cabin <?=$value->cabins?></li>
-								<li>Speed <?=$value->speed?></li>
+								<li>€ <?= isset($value->price) ?  $value->price *  $this->yachtFilterParams['yachtDaysDiff'] : 0 ?></li>
+								<li>Guest <?= isset($value->numberOfGuests) ? $value->numberOfGuests : 0 ?></li>
+								<li>Cabin <?= isset($value->cabins) ?  $value->cabins : 0?></li>
+								<li>Speed <?=isset($value->speed) ? $value->speed : 0?></li>
 							</ul>
 						</div>
 						<div class="hover-detail" >
 							<h1><?=$value->name ?></h1>
 							<ul>
-								<li>€ <?=$value->price?></li>
-								<li>Guest <?=$value->numberOfGuests?></li>
-								<li>Cabin <?=$value->cabins?></li>
-								<li>Speed <?=$value->speed?></li>
+								<li>€ <?= isset($value->price) ?  $value->price *  $this->yachtFilterParams['yachtDaysDiff'] : 0 ?></li>
+								<li>Guest <?= isset($value->numberOfGuests) ? $value->numberOfGuests : 0 ?></li>
+								<li>Cabin <?= isset($value->cabins) ?  $value->cabins : 0?></li>
+								<li>Speed <?=isset($value->speed) ? $value->speed : 0?></li>
 							</ul>
 							<a href="yachts_details/<?=$value->id.'/'.str_replace(" ", '_', $value->name)?>">More Info</a>
 						</div>

@@ -2,26 +2,7 @@
 <html>
 	<head>
 		<title>Search</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" href="<?= base_url() ?>/assets/css/font-awesome.min.css">
-        <link rel="stylesheet" href="<?=base_url() ?>/assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="<?=base_url() ?>/assets/css/testimonial-slider.css">
-		<script src="<?=base_url() ?>/assets/js/jquery.min.js"></script>
-        <script src="<?=base_url() ?>/assets/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" href="<?=base_url() ?>/assets/style.css">
-        
-		
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		
-		
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-		
-		
-		<link href="<?=base_url() ?>/assets/css/thumbs2.css" rel="stylesheet" />
-		<link href="<?=base_url() ?>/assets/css/thumbnail-slider.css" rel="stylesheet" type="text/css" />
-		<script src="<?=base_url() ?>/assets/js/thumbnail-slider.js" type="text/javascript"></script>
+		    <?php $this->load->view('header/head'); ?>
 
 		
 	</head>
@@ -35,7 +16,7 @@
 			</div>
 		</div>
 	</header>
-	<body>
+	<body >
 
 	<section class="slider-section">
 	 <div class="h"></div>
@@ -195,14 +176,16 @@
 								<li>Number Of Crew<span><?=$this->yachtDetails->numberOfCrew?></span></li>
 							</ul>
 							
-							<!-- <ul>
+						     <ul>
 								<li>Accomodation</li>
-								<li>Number of Cabins<span><?=$this->yachtDetails->hullConfiguration?></span></li>
-								<li>Cabin Configuration<span> <?=$this->yachtDetails->hullConfiguration?></span></li>
-								<li>Bed Configuration<span><?=$this->yachtDetails->hullConfiguration?></span></li>
-								<li>Number Of Guests<span><?=$this->yachtDetails->numberOfCrew?></span></li>
-							</ul> -->
+								<li>Number of Cabins<span><?=$this->yachtDetails->cabins?></span></li>
+								<li>Cabin Configuration<span> <?=$this->yachtDetails->cabinConfiguration?></span></li>
+								<li>Bed Configuration<span><?=$this->yachtDetails->bedConfigurtion?></span></li>
+								<li>Number Of Guests<span><?=$this->yachtDetails->numberOfGuests ?></span></li>
+							</ul> 
 						</div>
+
+						
 					</div>
 					
 				</div>
@@ -276,16 +259,93 @@
 						</table>
 					</div>
 				</div>
+			<form action="<?=base_url()?>yacht_limo/<?=str_replace(" ", '_',$this->yachtDetails->name)?>" method="post">
+				 <div class="col-md-12">
+					<select name="departureHour" class="trip yacht_filter" id="departureHour" onchange="">
+					<option value="">Departure Hour</option>
+       				<?php 
+       			
+       				foreach ($this->allTime as $key => $value){ 
+
+   							if($this->yachtFilterParams['yachtDays'] == 1){ ?>
+   							<option value="<?=$value->id?>"
+   							<?= ($value->id == 1) ? 'selected' : '' ?>	
+   							><?=$value->time?></option>
+   							<?php }else if($this->yachtFilterParams['yachtDays'] == 2){ ?>
+   							<option value="<?=$value->id?>"
+   							<?= ($value->id == 21) ? 'selected' : '' ?>	
+   							><?=$value->time?></option>
+   							<?php }else if($this->yachtFilterParams['yachtDays'] == 3){ ?>
+   							<option value="<?=$value->id?>"
+   							<?= ($value->id == 13) ? 'selected' : '' ?>	
+   							><?=$value->time?></option>
+   							<?php }else if($this->yachtFilterParams['yachtDays'] == 4){ ?>
+   							<option value="<?=$value->id?>"
+   							<?= ($value->id == 1) ? 'selected' : '' ?>
+   							><?=$value->time?></option>
+   						<?php 	}else{ ?>
+   							<option value="<?=$value->id?>"
+   							<?= ($value->id == 40) ? 'selected' : '' ?>
+   							><?=$value->time?></option>
+   						<?php }	
+				
+   						}	
+       					?> 
+	
+               		   </select>
+
+               		   <select name="arrivalHour" class="trip yacht_filter" id="arrivalHour" onchange="">
+						<option value="">Arrival Hour</option>
+
+           				<?php foreach ($this->allTime as $key => $value){ 
+
+   							if($this->yachtFilterParams['yachtDays'] == 1){ ?>
+   							<option value="<?=$value->id?>"
+   							<?= ($value->id == 17) ? 'selected' : '' ?>	
+   							><?=$value->time?></option>
+   							<?php }else if($this->yachtFilterParams['yachtDays'] == 2){ ?>
+   							<option value="<?=$value->id?>"
+   							<?= ($value->id == 37) ? 'selected' : '' ?>	
+   							><?=$value->time?></option>
+   							<?php }else if($this->yachtFilterParams['yachtDays'] == 3){ ?>
+   							<option value="<?=$value->id?>"
+   							<?= ($value->id == 13) ? 'selected' : '' ?>	
+   							><?=$value->time?></option>
+   							<?php }else if($this->yachtFilterParams['yachtDays'] == 4){ ?>
+   							<option value="<?=$value->id?>"
+   							<?= ($value->id == 40) ? 'selected' : '' ?>
+   							><?=$value->time?></option>
+   						<?php 	}else{ ?>
+   							<option value="<?=$value->id?>"
+   							<?= ($value->id == 40) ? 'selected' : '' ?>
+   							><?=$value->time?></option>
+   						<?php }	
+				
+   						}	
+       					?> 		                   					
+               		   </select>
+               		   <br/>
+               		   <br/>
+				</div>
+
+
 				<div class="col-md-12">
 					<div class="back-next">
 						<a class="back" href="javascript:void(0)" onclick="goBack()"><i class="fa fa-angle-left" aria-hidden="true"></i>Back to Search</a>
-						<a class="next" href="<?=base_url()?>/yacht_limo/<?=str_replace(" ", '_',$this->yachtDetails->name)?>">Next<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+						<?php if($this->yachtFilterParams['yachtType'] == 2){ ?>
+						<button  class="next" style="border: none;">Submit Query<i class="fa fa-angle-right" aria-hidden="true"></i></button>
+						<?php }else{ ?>
+						<button type="submit" class="next" style="border: none;">Next<i class="fa fa-angle-right" aria-hidden="true"></i></button>
+						<?php } ?>
 					</div>
 				</div>
+			  </form>
 			</div>
 		</div>
 	</section>
-	
+	<!-- <script type="text/javascript">
+		
+	</script> -->
 		
 	<?php $this->load->view('footer/footer') ?>
 	</body>

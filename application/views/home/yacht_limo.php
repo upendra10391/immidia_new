@@ -1,37 +1,13 @@
+
 <!DOCTYPE html>
 <html>
 	<head>
-	 <?php $this->load->view('header/head'); ?>
+	    <?php $this->load->view('header/head'); ?>
 		
 	</head>
 	
 	<header>
-		<div class="container-fluid top-header black-header">
-			<div class="row">
-				<div class="col-md-2 logo">
-					<a href="index.html"><img class="img-responsive" src="images/logo.png" /></a>
-				</div>
-				<div class="col-md-10 main-menu">
-					 <nav class="navbar">
-						<div class="navbar-header">
-						  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						  </button>
-						</div>
-						<div class="collapse navbar-collapse" id="myNavbar">
-						   <ul class="nav navbar-nav">
-							<li class="menu-1"><a href="#">Products for Sale</a></li>
-							<li class="menu-5"><a href="#">My account</a></li>
-							<li class="menu-6"><a href="#">Contact us</a></li>
-							<li class="menu-7"><a href="#">Immidia galaxy</a></li>
-						  </ul>
-					  </div>
-					</nav>
-				</div>
-			</div>
-		</div>
+			<?php $this->load->view('header/header');?>
 		
 		<div class="container-fluid book page-title ls">
 			<div class="row">
@@ -49,27 +25,39 @@
 						<div class="col-md-6 ">
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Yacht</p></div>
-								<div class="col-md-4 col-xs-4"><p class="value">Arthuro III</p></div>
-								<div class="col-md-4 col-xs-4"><p class="distance">€ 2250{inc.vat}</p></div>
+								<div class="col-md-4 col-xs-4"><p class="value"><?= isset($this->yachtDetails->name) ? $this->yachtDetails->name : 'Not Found' ?></p></div>
+								<div class="col-md-4 col-xs-4"><p class="distance">€ <?= isset($this->yachtFilterParams['yachtUpdatePrice']) ? $this->yachtFilterParams['yachtUpdatePrice'] : 0 ?>{inc.vat}</p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Delivery port</p></div>
-								<div class="col-md-4 col-xs-4"><p class="value">Cap D'Ail</p></div>
+								<div class="col-md-4 col-xs-4"><p class="value"><?= isset($this->yachtFilterParams['yachtDepartureCityName']) ? $this->yachtFilterParams['yachtDepartureCityName'] : 'Not Found' ?></p></div>
 								<div class="col-md-4 col-xs-4"><p class="distance"></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Arrival Port</p></div>
-								<div class="col-md-4 col-xs-4"><p class="value">port-Vauban</p></div>
+								<div class="col-md-4 col-xs-4"><p class="value"><?= isset($this->yachtFilterParams['yachtArrivalCityName']) ? $this->yachtFilterParams['yachtArrivalCityName'] : 'Not Found' ?></p></div>
 								<div class="col-md-4 col-xs-4"><p class="distance"></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Departure Date</p></div>
-								<div class="col-md-4 col-xs-4"><p class="value">2017-10-10</p></div>
+								<div class="col-md-4 col-xs-4"><p class="value"><?= isset($this->yachtFilterParams['departureDate']) ? $this->yachtFilterParams['departureDate'] : 'Not Found' ?></p></div>
 								<div class="col-md-4 col-xs-4"><p class="distance"></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Arrival Date</p></div>
-								<div class="col-md-4 col-xs-4"><p class="value">2017-10-10</p></div>
+								<div class="col-md-4 col-xs-4"><p class="value">
+										
+										<?php  if($this->yachtFilterParams['yachtDays'] >= 5){ ?>
+
+										<?= isset($this->yachtFilterParams['arrivalDate']) ? $this->yachtFilterParams['arrivalDate'] : 'Not Found' ?>
+
+
+										<?php }else{ ?>
+
+										<?= isset($this->yachtFilterParams['departureDate']) ? $this->yachtFilterParams['departureDate'] : 'Not Found' ?>
+
+										<?php }?>
+								</p></div>
 								<div class="col-md-4 col-xs-4"><p class="distance"></p></div>
 							</div>
 							
@@ -78,27 +66,27 @@
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Departure Rate</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"></p></div>
-								<div class="col-md-4 col-xs-4"><p class="distance">€ 387.50</p></div>
+								<div class="col-md-4 col-xs-4"><p class="distance">€ <?=$this->yachtDeliveryRate?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Drop Off Rate</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"></p></div>
-								<div class="col-md-4 col-xs-4"><p class="distance">€ 193.75</p></div>
+								<div class="col-md-4 col-xs-4"><p class="distance">€ <?=$this->yachtDropOffRate?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Formula</p></div>
-								<div class="col-md-4 col-xs-4"><p class="value">Regular</p></div>
-								<div class="col-md-4 col-xs-4"><p class="distance">€ 775</p></div>
+								<div class="col-md-4 col-xs-4"><p class="value"><?=$this->yachtFormula?></p></div>
+								<div class="col-md-4 col-xs-4"><p class="distance">€ <?= $this->yachtFormulaPrice ?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Extra Time ?</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"></p></div>
-								<div class="col-md-4 col-xs-4"><p class="distance">€ 0</p></div>
+								<div class="col-md-4 col-xs-4"><p class="distance">€ <?=$this->yachtExtraTime?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4"><p class="title">Total</p></div>
 								<div class="col-md-4 col-xs-4"><p class="value"></p></div>
-								<div class="col-md-4 col-xs-4"><p class="distance"><b>€ 3787.00</b></p></div>
+								<div class="col-md-4 col-xs-4"><p class="distance"><b>€ <?=$this->yachtSubTotal?></b></p></div>
 							</div>
 						</div>			
 					</div> 
@@ -106,6 +94,7 @@
 				</div>
 			</div>
 		</div>
+		<form action="<?=base_url()?>yacht_food/<?=str_replace(" ", '_',$this->yachtDetails->name)?>" method="post">
 		<div class="container">
 			<div class="row">
 				
@@ -115,21 +104,22 @@
 					
 					
 					<div class="checkbox checkbox-inline">
-                        <input type="checkbox" id="inlineCheckbox1" value="option1">
+                        <input type="checkbox" checked="true" id="inlineCheckbox1" value="option1" onchange="valueChanged();">
                         <label for="inlineCheckbox1"> Limousine Departure </label>
                     </div>
+					<div class="limopickup" id="limodep">
 					<h4 class="btitle">LIMOUSINE PICKUP<h4>
 					
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Name"/>
+						<input type="text" name="limodepName" class="form-control disabledClass" placeholder="Name"/>
 					</div>
 					
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Address"/>
+						<input type="text" name="limodepAddress" class="form-control disabledClass" placeholder="Address"/>
 					</div>
 					
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Special Request"/>
+						<input type="text" name="limodepReq" class="form-control disabledClass" placeholder="Special Request"/>
 					</div>
 					
 					
@@ -141,7 +131,7 @@
 									<span class="glyphicon glyphicon-minus"></span>
 								</button>
 							</span>
-							<input type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
+							<input type="text" name="depPerson" class="form-control input-number disabledClass" value="1" min="1" max="10">
 							<span class="input-group-btn">
 								<button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
 									<span class="glyphicon glyphicon-plus"></span>
@@ -151,21 +141,81 @@
 					</div>
 					<div class="form-group clearfix">
 					<label class="col-md-3">Transfer Hour:</label>
-					<select class="selectcss col-md-2">
+					<select class="selectcss col-md-2 disabledClass" name="limodepHour">
 						<option>select</option>
 						<option>1:00</option>
 						<option>2:00</option>
 					</select>
 					</div>
-					
+					</div>
 					<div class="checkbox checkbox-inline">
-                        <input type="checkbox" id="inlineCheckbox2" value="option2">
+                        <input type="checkbox" id="inlineCheckbox2" value="option2" onchange="valueChanged();">
                         <label for="inlineCheckbox2"> Limousine Arrival </label>
                     </div>
+					<script type="text/javascript">
+function valueChanged()
+{
+    if($('#inlineCheckbox2').is(":checked"))  { 
+        $("#limoarrival").show();
+
+    }else{
+        $("#limoarrival").hide();
+    }
+
+     if($('#inlineCheckbox1').is(":checked"))  { 
+        $("#limodep").show();
+
+    }else{
+        $("#limodep").hide();
+    }
+
+
+}
+</script>
+					<div class="limoarrival" id="limoarrival" style="display: none;">
+					<h4 class="btitle">LIMOUSINE ARRIVAL<h4>
 					
+					<div class="form-group">
+						<input type="text" name="limoarrName" class="form-control disabledClassArr" placeholder="Name"/>
+					</div>
+					
+					<div class="form-group">
+						<input type="text" name="limoarrAddress" class="form-control disabledClassArr" placeholder="Address"/>
+					</div>
+					
+					<div class="form-group">
+						<input type="text" name="limoarrReq" class="form-control disabledClassArr" placeholder="Special Request"/>
+					</div>
+					
+					
+					<div class="form-group clearfix">
+						<label class="col-md-3">Number Of person</label>
+						<div class="col-md-1 input-group np">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+									<span class="glyphicon glyphicon-minus"></span>
+								</button>
+							</span>
+							<input type="text" name="arrPerson" class="form-control input-number disabledClassArr" value="1" min="1" max="10">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
+									<span class="glyphicon glyphicon-plus"></span>
+								</button>
+							</span>
+						</div>
+					</div>
+					<div class="form-group clearfix">
+					<label class="col-md-3">Transfer Hour:</label>
+					<select class="selectcss col-md-2 disabledClassArr" name="limoarrHour">
+						<option>select</option>
+						<option>1:00</option>
+						<option>2:00</option>
+					</select>
+					</div>
+					</div>
 					<div class="bnbutton">
-						<button class="bbutton"><i class="fa fa-angle-left" aria-hidden="true"></i> BACK</button>
-						<button class="nbutton">NEXT <i class="fa fa-angle-right" aria-hidden="true"></i></button>
+						<button class="bbutton" onclick="goBack();"><i class="fa fa-angle-left" aria-hidden="true"></i> BACK</button>
+						<button type="submit" class="nbutton">NEXT <i class="fa fa-angle-right" aria-hidden="true"></i></button>
 					</div>
 				</div>
 				
@@ -174,71 +224,14 @@
 			</div>
 		
 		</div>
-		
+		</form>
 	</section>
-	<footer class="footer">
-		<div class="container-fluid footer-bottom">
-			<div class="row">
-				<div class="col-md-4 col-one">
-					<div class="col-inner">
-						<div class="left">
-							<img class="img-responsive" src="images/logo1.png" />
-							<p>Protector of the seas</p>
-						</div>
-						<div class="right">
-							<img class="img-responsive" src="images/logo2.png" />
-							<p>International Luxury hotel association</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 col-two">
-					<div class="col-inner">
-						<h3 class="title">Quick Links</h3>
-						<div class="left">
-							<ul>
-								<li><a href="#">Privacy</a></li>
-								<li><a href="#">Terms of Use</a></li>
-								<li><a href="#">Assistance</a></li>
-							</ul>
-						</div>
-						<div class="right">
-							<ul>
-								<li><a href="#">Contact Us</a></li>
-								<li><a href="#">Sitemap</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 col-three">
-					<div class="col-inner">
-						<h3 class="title">Subscribe to our newsletter</h3>
-						<form>
-							<input type="email" class="newsletter-email" id="email" placeholder="Email">
-							<button type="submit" class="newsletter-subscribe">Subscribe</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="container-fluid footer-copyright">
-			<div class="row">
-				<div class="col-md-6 social-icon">
-					<ul>
-						<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-						<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-						<li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
-						<li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-						<li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
-						<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-						<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-					</ul>
-				</div>
-				<div class="col-md-6 copyright">
-					<p>&copy; Copyright 2017 - <a href="#">Immidialuxury.com</a></p>
-				</div>
-			</div>
-		</div>
-	</footer>
+<?php $this->load->view('footer/footer') ?>
+
+
+
+
+
 <script type="text/javascript">
 	//plugin bootstrap minus and plus
 //http://jsfiddle.net/laelitenetwork/puJ6G/

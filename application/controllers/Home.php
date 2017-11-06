@@ -2,6 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 //session_start();
 
+error_reporting(1);
+
 class Home extends CI_Controller {
 
     /**
@@ -38,8 +40,15 @@ class Home extends CI_Controller {
     public $daysArrayInit;
     public $yachtList;
     public $yachtDetails;
+    public $yachtExtraTime;
     public $IMAGE_URL;
     public $yachtFilterParams;
+    public $yachtDeliveryRate;
+    public $yachtDropOffRate;
+    public $yachtSubTotal;
+    public $yachtFormula;
+    public $yachtFormulaPrice;
+    public $yachtFood;
     public $dashboardParams;
     public $villaCountry;
     public $villaState;
@@ -48,13 +57,16 @@ class Home extends CI_Controller {
     public $villaFilterParams;
     public $carClassification;
     public $carHours;
+    public $allTime;
 
     function __construct() {
         parent::__construct();
         $this->getYachtCountry();
+        $this->getAllTime();
         $this->getVillaCountry();
         $this->getCarClassification();
         $this->getCarHours();
+
         //$this->getVillaState();
         //$this->getVillaCity();
         $this->daysArrayInit = array(
@@ -101,11 +113,31 @@ class Home extends CI_Controller {
         if ($response->status == true) {
 
             echo json_encode($response->data);
+            exit;
         } else {
 
             echo json_encode(array());
+            exit;
         }
     }
+
+    public function getAllTime(){
+
+        $this->load->library('PHPRequests');
+
+        $request_made = $this->config->item('API_URL') .'access=true&action=get_time_list';
+
+        $response = json_decode(Requests::get($request_made)->body);
+
+        if ($response->status == true) {
+            $this->allTime =  $response->data;
+           
+        } else {
+            $this->allTime = null;
+           
+        }
+    }
+
 
     public function getYachtDepartureCity($country, $state, $days, $daysId, $yachtType, $routeType) {
 
@@ -125,9 +157,6 @@ class Home extends CI_Controller {
     }
 
     public function getYachtArrivalCity($country, $state, $days, $daysId, $departureCity, $yachtType, $routeType) {
-
-
-
         $this->load->library('PHPRequests');
 
         $request_made = $this->config->item('API_URL') . 'action=get_yacht_arrival_port&countryId=' . $country . '&stateId=' . $state . '&days=' . $days . '&daysId=' . $daysId . '&departureId=' . $departureCity . '&yachtType=' . $yachtType . '&routeType=' . $routeType;
@@ -145,6 +174,11 @@ class Home extends CI_Controller {
 
     public function yachts() {
 
+        if(isset($_SESSION['yachtFilterParams'])){
+
+             $_REQUEST = $_SESSION['yachtFilterParams'];
+        }
+
         $days = $_REQUEST['yachtDays'];
         if ($days == 5) {
             $departureDate = new DateTime($_REQUEST["departureDate"]);
@@ -155,14 +189,17 @@ class Home extends CI_Controller {
             $days = 1;
         }
 
+
         $this->load->library('PHPRequests');
         $request_made = $this->config->item('API_URL') . 'action=get_yacht_booking_list&guests=' . $_REQUEST['guest'] . '&stateId=' . $_REQUEST['yachtState'] . '&startCity=' . $_REQUEST['departureCity'] . '&days=' . $days . '&bookingDate=' . date_format(date_create($_REQUEST['departureDate']), 'y-m-d') . '&yachtType=' . $_REQUEST['yachtType'] . '&routeType=' . $_REQUEST['routeType'] . '&arrivalPort=' . $_REQUEST['arrivalCity'];
+
 
         $response = json_decode(Requests::get($request_made)->body);
 
         if ($response->status == true) {
 
             $this->yachtList = json_decode(json_encode($response->data));
+            $_REQUEST['yachtDaysDiff'] = $days;
             $_SESSION['yachtFilterParams'] = $_REQUEST;
             //print_r($_SESSION['yachtFilterParams']);
             $this->yachtFilterParams = $_SESSION['yachtFilterParams'];
@@ -170,10 +207,12 @@ class Home extends CI_Controller {
         } else {
             $this->load->view('home/home');
             echo '<script>setTimeout(function(){ showAlert("Opps!!","No Record Listing","error"); },600);</script>';
+            //redirect('/', 'refresh');
         }
     }
 
     public function index() {
+        unset($_SESSION['yachtFilterParams']);
         $this->load->view('home/home');
     }
 
@@ -194,8 +233,341 @@ class Home extends CI_Controller {
     }
 
     public function yacht_limo() {
-        $this->load->view('home/yacht_limo');
+        $_SESSION['yachtFilterParams']['departureHour'] = $_REQUEST['departureHour'];
+        $_SESSION['yachtFilterParams']['arrivalHour'] = $_REQUEST['arrivalHour'];
+        $this->yachtFilterParams  = $_SESSION['yachtFilterParams'];
+        $this->yachtDetails = $_SESSION['yachtDetails'];
+       $isSubmit =  $this->getYachtMoreDetailsSubmitData($this->yachtDetails->id,$this->yachtFilterParams['departureCity'],$this->yachtFilterParams['departureCity'],$this->yachtFilterParams['yachtDays']);
+       $this->getDeliveryRate($this->yachtFilterParams['departureCity'],$this->yachtDetails->portOfRegistryId);
+       $this->getDropOff($this->yachtFilterParams['arrivalCity'],$this->yachtDetails->portOfRegistryId);
+       $this->getYachtFormula();
+       $this->getFormulaPrice($this->yachtFilterParams['arrivalCity'],$this->yachtFilterParams['departureCity']);
+       $this->getExtraTime();
+
+       if($isSubmit){
+          $this->load->view('home/yacht_limo');
+       }else{
+          $this->load->view('home/yacht_details');
+           echo '<script>setTimeout(function(){ showAlert("Opps!!","No Record Listing","error"); },600);</script>';
+        }
+
+        //update session
+        $this->yachtFilterParams  = $_SESSION['yachtFilterParams'];
+
+       
+       }
+
+
+       public function yacht_food(){
+            $_SESSION['yachtFilterParams']['limoDetails'] = $_REQUEST;
+             $this->yachtFilterParams  = $_SESSION['yachtFilterParams'];
+             $this->yachtDetails = $_SESSION['yachtDetails'];
+             $this->getYachtFood($this->yachtFilterParams['yachtState'],$this->yachtFilterParams['departureCity']);
+             $this->load->view('home/yacht_food');
+       }
+
+
+       public function yacht_payment(){
+        $_SESSION['yachtFilterParams']['yachtFoodPrice'] = $_REQUEST['yachtFoodPrice'];
+        $_SESSION['yachtFilterParams']['yachtFoodPriceWithPrice'] = $_REQUEST['yachtFoodPriceWithPrice'];
+          $this->yachtFilterParams  = $_SESSION['yachtFilterParams'];
+             $this->yachtDetails = $_SESSION['yachtDetails'];
+        $this->load->view('home/yacht_payment');
+       }
+
+
+        public function  getYachtFood($stateId,$departureCity){
+             $this->load->library('PHPRequests');
+        $request_made = $this->config->item('API_URL') . 'access=true&action=get_categorylistby_city&stateId='.$stateId.'&cityId='.$departureCity;
+        $response = json_decode(Requests::get($request_made)->body);
+        if ($response->status == true) {
+
+            $this->yachtFood = $response->data;
+           
+        } else {
+
+            $this->yachtFood = null;
+            $this->load->view('home/yacht_food');
+            echo '<script>setTimeout(function(){ showAlert("Opps!!","No Record Listing","error"); },600);</script>';
+        }
+            
+        }
+
+
+    public function getDeliveryRate($departureCity,$portOfReg){
+           $this->load->library('PHPRequests');
+           $this->yachtDetails = $_SESSION['yachtDetails'];
+           $this->yachtFilterParams  = $_SESSION['yachtFilterParams'];
+            $request_made = $this->config->item('API_URL') . 'access=true&action=get_deliverylime_ports&departurePort='.$departureCity.'&portOfRegistryId='.$portOfReg;
+                  $response = json_decode(Requests::get($request_made)->body);
+
+             $timeDifference = 0;     
+            if ($response->status == true) {
+
+                   
+                 if ( $this->yachtFilterParams['routeType'] == 1) {
+                      if ($this->yachtFilterParams['yachtType'] == 1) {
+                        $timeDifference = $response->data->motorOneWayTime;
+                       }else{
+                         $timeDifference = $response->data->sailOneWayTime;
+                      }
+
+                   }else{
+                      if ($this->yachtFilterParams['yachtType'] == 1) {
+                            $timeDifference = $response->data->motorOneWayTime;
+                      }else{
+                            $timeDifference = $response->data->sailOneWayTime;
+                         }
+                    }
+
+                     if ($this->yachtFilterParams['departureCityName'] != $this->yachtDetails->portOfRegistry) {
+                         $this->yachtDeliveryRate = ( $timeDifference / 60) * $this->yachtDetails->fuelConsumption * $this->yachtDetails->commercialFuelPrice;
+
+                    } else {
+                        $this->yachtDeliveryRate = 0;
+                     
+                    }
+
+            } else {
+
+                   $this->yachtDeliveryRate = 0;
+            }
+
+            $_SESSION['yachtFilterParams']['yachtDeliveryRate'] =  $this->yachtDeliveryRate;
     }
+
+
+
+    public function getDropOff($arrivalCity,$portOfReg){
+        $this->load->library('PHPRequests');
+           $this->yachtDetails = $_SESSION['yachtDetails'];
+           $this->yachtFilterParams  = $_SESSION['yachtFilterParams'];
+            $request_made = $this->config->item('API_URL') . 'access=true&action=get_dropOffTime_ports&arrivalPort='.$arrivalCity.'&portOfRegistryId='.$portOfReg;
+                $response = json_decode(Requests::get($request_made)->body);
+
+             $timeDifference = 0;     
+            if ($response->status == true) {
+
+             if ($this->yachtFilterParams['routeType'] == 1) {
+                  if ($this->yachtFilterParams['yachtType'] == 1) {
+                         $timeDifference = $response->data->motorOneWayTime;
+              } else {
+                      $timeDifference = $response->data->sailOneWayTotalTime;
+              }
+
+            } else {
+
+              if ($this->yachtFilterParams['yachtType'] == 1) {
+                $timeDifference =  $response->data->motorReturnTime;
+              } else {
+                $timeDifference =  $response->data->sailReturnTime;
+              }
+            }
+
+          if ($this->yachtFilterParams['routeType'] == 1) {
+            if ($this->yachtFilterParams['arrivalCityName'] !== $this->yachtDetails->portOfRegistry) {
+             
+              $this->yachtDropOffRate = ($timeDifference / 60) * intval($this->yachtDetails->fuelConsumption) * intval($this->yachtDetails->commercialFuelPrice);
+             
+            } else {
+             $this->yachtDropOffRate = 0;
+              
+            }
+
+          }else{
+              if ($this->yachtFilterParams['departureCityName'] !== $this->yachtDetails->portOfRegistry) {
+             
+               $this->yachtDropOffRate = ($timeDifference / 60) * intval($this->yachtDetails->fuelConsumption) * intval($this->yachtDetails->commercialFuelPrice);
+             
+            } else {
+               $this->yachtDropOffRate = 0;
+              
+            }
+          }
+
+            }else{
+                   $this->yachtDropOffRate = 0;
+            }
+
+            $_SESSION['yachtFilterParams']['yachtDropOff'] =  $this->yachtDropOffRate;
+    }
+
+ public function getYachtFormula(){
+
+    if ($this->yachtFilterParams['yachtDays'] != 5) {
+
+           if ($this->yachtFilterParams['routeType'] == 0){
+               $this->yachtFormula  = "Return";
+                }else{
+                $this->yachtFormula = "Regular";
+            }
+      
+      }else{
+              $this->yachtFormula = 'Customized';
+       
+       }
+
+       $_SESSION['yachtFilterParams']['yachtFormula'] =  $this->yachtFormula;
+  }
+
+   public function getFormulaPrice($arrivalCity,$departureCity){
+
+        $this->load->library('PHPRequests');
+           $this->yachtDetails = $_SESSION['yachtDetails'];
+           $this->yachtFilterParams  = $_SESSION['yachtFilterParams'];
+            $request_made = $this->config->item('API_URL') . 'access=true&action=get_formula_price&arrivalPort='.$arrivalCity.'&departurePort='.$departureCity;
+                $response = json_decode(Requests::get($request_made)->body);
+
+             $timeDifference = 0;  
+             $regularPrice = 0;
+             $dayDifference  = 0 ; 
+            if ($response->status == true) {
+
+         
+                if ($this->yachtFilterParams['routeType'] == 1) {
+                  if ($this->yachtFilterParams['yachtType'] == 1) {
+
+                    $timeDifference = $response->data->motorOneWayTotalTime;
+                  } else {
+
+                    $timeDifference = $response->data->sailOneWayTotalTime;
+                  }
+
+                } else {
+                  if ($this->yachtFilterParams['yachtType'] == 0) {
+
+                    $timeDifference = $response->data->sailReturnTotalTime;
+                  } else {
+
+                    $timeDifference = $response->data->motorReturnTotalTime;
+                  }
+                }
+
+               //end calulating time diff
+               
+            if ($this->yachtFilterParams['yachtDays'] != 5) {
+             
+                    $regularPrice = ($timeDifference / 60) * intval($this->yachtDetails->fuelConsumption) * intval($this->yachtDetails->commercialFuelPrice);
+            } else {
+             
+                 $regularPrice  =     (intval($this->yachtFilterParams['yachtUpdatePrice']) * 35) / 100;
+            }
+                
+
+            /******************get formula price*************/
+              
+                 $arrivalDate = new DateTime($this->yachtFilterParams['arrivalDate']);
+                 $departureDate =  new DateTime($this->yachtFilterParams['departureDate']);
+                
+                $timeDiff = abs($arrivalDate->getTimestamp() - $departureDate->getTimestamp() );
+              
+                if ($this->yachtFilterParams['yachtDays'] == 3) {
+                 
+                     $dayDifference = (ceil($timeDiff / (1000 * 3600 * 24))) * 1.5;
+            
+                } else if($this->yachtFilterParams['yachtDays'] == 5){
+                 
+                   $dayDifference = ceil($timeDiff / (1000 * 3600 * 24));
+               
+                } else {
+                        $dayDifference = 1;
+                }
+
+                    $this->yachtFormulaPrice = $regularPrice * $dayDifference;
+            }else{
+                 $this->yachtFormulaPrice = 0;
+            }
+
+
+       $_SESSION['yachtFilterParams']['yachtFormulaPrice'] =  $this->yachtFormulaPrice;
+  }
+
+
+  public function getExtraTime(){
+
+
+    $departureHours = explode(':', $this->yachtFilterParams['departureHour']);
+    $departureMins = (+$departureHours[0]) * 60 + (+$departureHours[1]);
+    $arrivalHours = explode(':',$this->yachtFilterParams['arrivalHour']);
+    $arrivalMins = (+$arrivalHours[0]) * 60 + (+$arrivalHours[1]);
+      $this->yachtExtraTime = 0;    
+
+         if ($this->yachtFilterParams['yachtDays'] == 1 || $this->yachtFilterParams['yachtDays'] == 2) {
+            if (($arrivalMins - $departureMins) == 300) {
+                 $this->yachtExtraTime = (0.1 * $this->yachtFilterParams['yachtUpdatePrice']);
+            } else if (($arrivalMins - $departureMins) < 360 && ($arrivalMins - $departureMins) > 300) {
+               $this->yachtExtraTime = (0.2 * $this->yachtFilterParams['yachtUpdatePrice']);
+            } else if (($arrivalMins - $departureMins) < 420 && ($arrivalMins - $departureMins) > 360) {
+               $this->yachtExtraTime = (0.3 * $this->yachtFilterParams['yachtUpdatePrice']);
+            } else if (($arrivalMins - $departureMins) < 480 && ($arrivalMins - $departureMins) > 420) {
+               $this->yachtExtraTime = (0.4 * $this->yachtFilterParams['yachtUpdatePrice']);
+            } else if (($arrivalMins - $departureMins) > 480) {
+               $this->yachtExtraTime = (0.4 * $this->yachtFilterParams['yachtUpdatePrice']);
+            }
+          }
+          if ($this->yachtFilterParams['yachtDays']  == 4 || $this->yachtFilterParams['yachtDays']  == 5) {
+            if (($arrivalMins - $departureMins) == 660) {
+              $this->yachtExtraTime = (0.1 *  $this->yachtFilterParams['yachtUpdatePrice']);
+            } else if (($arrivalMins - $departureMins) < 720 && ($arrivalMins - $departureMins) > 660) {
+               $this->yachtExtraTime = (0.2 * $this->yachtFilterParams['yachtUpdatePrice']);
+            } else if (($arrivalMins - $departureMins) < 780 && ($arrivalMins - $departureMins) > 720) {
+               $this->yachtExtraTime = (0.3 * $this->yachtFilterParams['yachtUpdatePrice']);
+            } else if (($arrivalMins - $departureMins) < 840 && ($arrivalMins - $departureMins) > 780) {
+              $this->yachtExtraTime = (0.4 *  $this->yachtFilterParams['yachtUpdatePrice']);
+            } else if (($arrivalMins - $departureMins) > 840) {
+             $this->yachtExtraTime = (0.4 *  $this->yachtFilterParams['yachtUpdatePrice']);
+            }
+          }
+          if ($this->yachtFilterParams['yachtDays']  == 3) {
+            if (($arrivalMins - $departureMins) == 1500) {
+               $this->yachtExtraTime = (0.1 * $this->yachtFilterParams['yachtUpdatePrice']);
+            } else if (($arrivalMins - $departureMins) < 1560 && ($arrivalMins - $departureMins) > 1500) {
+             $this->yachtExtraTime = (0.2 *  $this->yachtFilterParams['yachtUpdatePrice']);
+            } else if (($arrivalMins - $departureMins) < 1620 && ($arrivalMins - $departureMins) > 1560) {
+              $this->yachtExtraTime = (0.3 *  $this->yachtFilterParams['yachtUpdatePrice']);
+            } else if (($arrivalMins - $departureMins) < 1680 && ($arrivalMins - $departureMins) > 1620) {
+               $this->yachtExtraTime = (0.4 *$this->yachtFilterParams['yachtUpdatePrice']);
+            } else if (($arrivalMins - $departureMins) > 1680) {
+              $this->yachtExtraTime = (0.4 *  $this->yachtFilterParams['yachtUpdatePrice']);
+            }
+          }
+
+           
+         
+
+
+          $this->yachtSubTotal = $this->yachtFilterParams['yachtUpdatePrice'] + $this->yachtFilterParams['yachtDeliveryRate'] + $this->yachtFilterParams['yachtDropOff'] + $this->yachtFilterParams['yachtDropOff'] + $this->yachtFilterParams['yachtFormulaPrice'] + $this->yachtFilterParams['yachtExtraTime']; 
+
+            $_SESSION['yachtFilterParams']['yachtSubTotal'] = $this->yachtSubTotal;
+            $_SESSION['yachtFilterParams']['yachtExtraTime'] =  $this->yachtExtraTime;
+  }
+
+
+
+
+    public function getYachtMoreDetailsSubmitData($yachtId,$departureCity,$arrivalCity,$yachtDays){
+           $this->load->library('PHPRequests');
+           $this->yachtDetails = $_SESSION['yachtDetails'];
+           $this->yachtFilterParams  = $_SESSION['yachtFilterParams'];
+            $request_made = $this->config->item('API_URL') . 'access=true&action=get_yacht_booking_list&yachtId='.$yachtId.'&startPort='.$departureCity.'&endCity='.$arrivalCity.'&days='.$yachtDays;
+                  $response = json_decode(Requests::get($request_made)->body);
+
+            if ($response->status == true) {
+
+                $this->yachtDetails =  $response->data;
+                $_SESSION['yachtDetails'] = $response->data;
+
+               return true;
+
+            } else {
+
+                $this->yachtDetails  =  null;
+               return false;
+            }
+    }
+
+
+
 
     public function booking() {
 
