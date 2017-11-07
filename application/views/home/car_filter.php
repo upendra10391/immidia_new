@@ -62,9 +62,9 @@
                 </select>
                 <select class="trip" name="classification">
                     <option value="">Car Type</option>
-                    <?php foreach ($this->carClassification as $key => $value) {?>
-                        <option value="<?php echo $value->id ?>"><?php echo $value->classificationName ?></option>
-                    <?php }?>
+                    <?php foreach ($this->carHours as $key => $value) { ?>
+                        <option data-value="<?= $value->id ?>" value="<?= $value->id ?>"><?= $value->hoursdays ?></option>
+                    <?php } ?>
                 </select>
             </div>
 

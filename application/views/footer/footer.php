@@ -112,15 +112,15 @@
     });
     
     // for car days
-    $(function () {
-        $('select.durationc').change(function () {
-            adate2 = $(".durationc option:selected").text();
-            console.log(adate2);
-            var strArray2 = adate2.split("(");
-            console.log(strArray2[0]);console.log(strArray2[1]);
-            $("#durationc").html("<span>" + strArray2[0] + "</span><span>(" + strArray2[1] + "</span>");
-        })
-    });
+//    $(function () {
+//        $('select.durationc').change(function () {
+//            adate2 = $(".durationc option:selected").text();
+//            console.log(adate2);
+//            var strArray2 = adate2.split("(");
+//            console.log(strArray2[0]);console.log(strArray2[1]);
+//            $("#durationc").html("<span>" + strArray2[0] + "</span><span>(" + strArray2[1] + "</span>");
+//        })
+//    });
 
     $(function () {
         $('input#dparrivalj').change(function () {

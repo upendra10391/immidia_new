@@ -68,7 +68,7 @@ class Home extends CI_Controller {
         $this->getVillaCountry();
         $this->getCarClassification();
         $this->getCarHours();
-
+        //var_dump($this->carHours);exit;
         //$this->getVillaState();
         //$this->getVillaCity();
         $this->daysArrayInit = array(
