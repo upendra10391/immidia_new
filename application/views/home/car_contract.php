@@ -56,12 +56,12 @@
                     </div>
                     <div class="col-md-6">
                         <div class="gbox">
-                            <p>Driver 1:<span></span></p>
-                            <p>Driving License No.:<span><?php if(!empty($arrDetails['arrPost']['driver1Name'])) echo $arrDetails['arrPost']['driver1Name'] ?></span></p>
+                            <p>Driver 1:<span><?php if(!empty($arrDetails['arrPost']['driver1Name'])) echo $arrDetails['arrPost']['driver1Name'] ?></span></p>
+                            <p>Driving License No.:<span></span></p>
                             <p>Date of Issue:<span><?php if(!empty($arrDetails['arrPost']['driver1LicenceDate'])) echo date('Y-m-d',strtotime($arrDetails['arrPost']['driver1LicenceDate'])) ?></span></p>
                             <p>Date of birth:<span><?php if(!empty($arrDetails['arrPost']['driver1Dob'])) echo date('Y-m-d',strtotime($arrDetails['arrPost']['driver1Dob'])); ?></span></p>
-                            <p>Driver 2:<span></span></p>
-                            <p>Driving License No.:<span><?php if(!empty($arrDetails['arrPost']['driver1Name'])) echo $arrDetails['arrPost']['driver2Name'] ?></span></p>
+                            <p>Driver 2:<span><?php if(!empty($arrDetails['arrPost']['driver1Name'])) echo $arrDetails['arrPost']['driver2Name'] ?></span></p>
+                            <p>Driving License No.:<span></span></p>
                             <p>Date of Issue:<span><?php if(!empty($arrDetails['arrPost']['driver2LicenceDate'])) echo date('Y-m-d',strtotime($arrDetails['arrPost']['driver2LicenceDate'])); ?></span></p>
                             <p>Date of birth:<span><?php if(!empty($arrDetails['arrPost']['driver2Dob'])) echo date('Y-m-d',strtotime($arrDetails['arrPost']['driver2Dob'])); ?></span></p>
                         </div>
@@ -96,7 +96,7 @@
                             Parking Regulation and/or Highway code."</p>
                         <table class="table table-bordered">
                             <tr>
-                                <td>Signature :<br/><img src="<?php echo base_url()?>assets/images/cra/s.jpg" class="img-responsive"></td>
+                                <td>Signature :<br/></td>
                             </tr>
                             <tr>
                                 <td>Customer Name:   <span>Ju Violin</span></td>
@@ -108,10 +108,10 @@
                         <br/>
                         <table class="table table-bordered">
                             <tr>
-                                <td>Signature :<br/><img src="<?php echo base_url()?>assets/images/cra/s.jpg" class="img-responsive"></td>
+                                <td>Signature :<br/><img src="<?php echo base_url()?>assets/images/cra/s.jpg" class="img-responsive"</td>
                             </tr>
                             <tr>
-                                <td>Service Provider- <span>Unique Yachting</span></td>
+                                <td>Service Provider- <span> <?php echo $arrDetails['carDetails']->centralAgency?></span></td>
                             </tr>
                             <tr>
                                 <td>Date of signature: <span>2017-10-10</span> </td>

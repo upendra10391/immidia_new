@@ -1284,7 +1284,7 @@ select.trip,select.motor {
 .result-list .col-md-4 {
   padding: 0;
 }
-.result-list img{width:100%;}
+.result-list img{width:100%; width: 500px;}
 .list-inner {
   position: relative;
 }

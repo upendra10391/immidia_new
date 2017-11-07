@@ -155,7 +155,7 @@
                                             <th>Car</th>
                                             <th>Duration</th>
                                             <th>Departure</th>
-                                            <th>Return</th>
+                                            <th>Arrival</th>
                                             <th>Delivery Location</th>
                                             <th>Drop Off Location</th>
                                             <th>PASSENGER (s)</th>
@@ -181,8 +181,8 @@ echo ($postData['days'] >= 5) ? " days" : " hours" ?></td>
                                 <form action="<?php echo base_url('car-book/'.$objCarDetail->id.'/?'.$_SERVER['QUERY_STRING'])?>" id="carNext" name="carNext" method="post">
                                 <div class="col-md-3">
                                     <select class="selectad" name="depTime" id="depTime">
-                                        <option value="">Departure Time</option>
-                                        <option value="1" >09:00</option>
+                                        <option value="">Select Departure Time</option>
+                                        <option value="1"  >09:00</option>
                                         <option value="2" >09:15</option>
                                         <option value="3" >09:30</option>
                                         <option value="4" >09:45</option>
@@ -245,8 +245,8 @@ echo ($postData['days'] >= 5) ? " days" : " hours" ?></td>
                                 </div>
                                 <div class="col-md-3">
                                     <select class="selectad" name="arrvTime" id="arrvTime">
-                                        <option value="">Drop Off Time</option>
-                                        <option value="1" >09:00</option>
+                                        <option value="">Select Drop Off Time</option>
+                                        <option value="1" selected >09:00</option>
                                         <option value="2" >09:15</option>
                                         <option value="3" >09:30</option>
                                         <option value="4" >09:45</option>

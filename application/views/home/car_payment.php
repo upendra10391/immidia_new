@@ -97,7 +97,7 @@
                                 <div class="checkbox checkbox-inline">
                                     <input type="checkbox" id="inlineCheckbox2" value="option2">
                                     <label for="inlineCheckbox2" class="title"> I ACCEPT THE CONTRACT TERMS & CONDITIONS </label>
-                                    <p class="rlink"><a href="car-rental-agreement.html" target="_black" >Click</a> To Read The Cotract</p>
+                                    <p class="rlink"><a href="<?php echo base_url('home/carRentalAgreement') ?>" target="_black" >Click</a> To Read The Cotract</p>
                                 </div>
                             </div>
                             <div class="col-md-12 center clearfix">

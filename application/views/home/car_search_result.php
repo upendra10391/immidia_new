@@ -263,7 +263,7 @@
         <div class="container avaibility">
             <div class="row">
                 <div class="col-md-12 avialable-title">
-                    <h3><?php echo count($arrCarDetails)?> CAR(S) avialable from cap d'ail on <?php echo $postData['bookingDate']?></h3>
+                    <h3><?php echo count($arrCarDetails)?> CAR(S) avialable from <?php echo $postData['carStateName']?> on <?php echo $postData['bookingDate']?></h3>
                 </div>
             </div>
             <div class="row">
@@ -313,7 +313,7 @@
                                 <li>Passenger <?php echo $objCarDetails->numberOfPassengers?></li>
                                 <li>Fuel / <?php echo $objCarDetails->fuelType?></li>
                             </ul>
-                            <a href="<?php echo base_url('car-details/'.$objCarDetails->id.'?'.$varExtraQuerystring."&price=".$objCarDetails->price)?>">More Info</a>
+                            <a href="<?php echo base_url('car-details/'.$objCarDetails->id.'?'.$varExtraQuerystring."&price=".$objCarDetails->price)?>">Book Now</a>
                         </div>
                     </div>
                 </div>
