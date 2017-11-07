@@ -9,8 +9,8 @@
                     <select id="carCountry" name="carCountry" class="country">
                         <img src="<?php echo base_url() ?>/assets/images/country-code.png">
                         <option value="">Country</option>
-                            <?php foreach ($this->yachtCountry as $key => $value) {?>
-                            <option value="<?php echo $value->countryId ?>"><?php echo $value->countryName ?></option>
+                            <?php foreach ($this->carCountry as $key => $value) {?>
+                            <option value="<?php echo $value->id ?>"><?php echo $value->countryName ?></option>
                         <?php }?>
                     </select>
                     <span class="subline">Country<br>Area</span>

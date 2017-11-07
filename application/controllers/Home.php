@@ -61,6 +61,7 @@ class Home extends CI_Controller {
     public $allTime;
     public $arrJetType;
     public $arrCurrency;
+    public $carCountry;
                 function __construct() {
         parent::__construct();
         $this->getYachtCountry();
@@ -110,7 +111,7 @@ class Home extends CI_Controller {
 
         $this->load->library('PHPRequests');
 
-        $request_made = $this->config->item('API_URL') . 'action=get_yachtstate_list&countryId=' . $countryId;
+        $request_made = $this->config->item('API_URL') . 'action=get_state_list_car&countryId=' . $countryId;
 
         $response = json_decode(Requests::get($request_made)->body);
 
@@ -217,6 +218,8 @@ class Home extends CI_Controller {
         if ($this->input->post('firstname')) {
             $this->saveJetData($this->input->post(), $this->input->get());
         }
+        // called car countries
+        $this->getCarCountry();
         $this->load->view('home/home');
     }
 
@@ -572,12 +575,24 @@ class Home extends CI_Controller {
     }
 
     public function product_for_sale() {
-
-        $this->load->view('home/product_for_sale');
+        $arrGet = $this->input->get();
+        $this->load->library('PHPRequests');
+        $varExtra = "";
+        $arrSaleaDetails = array();
+        if(!empty($arrGet['p_s_c'])){
+            $varExtra.="&country={$arrGet['p_s_c']}";
+        }
+        $request_made = $this->config->item('API_URL') . 'action=get_villa_sale_list'.$varExtra;
+        $response = json_decode(Requests::get($request_made)->body);
+        //echo "<pre>";
+       // var_dump($response->data);exit;
+        if ($response->status == true) {
+            $arrSaleaDetails = $response->data;
+        }
+        $this->load->view('home/product_for_sale',array('arrSaleaDetails'=>$arrSaleaDetails));
     }
 
     public function product_for_sale_detail() {
-
         $this->load->view('home/product_for_sale_detail');
     }
 
@@ -999,6 +1014,29 @@ class Home extends CI_Controller {
         $this->Jet_model->saveJetData($arrPost, $arrGet);
         $this->session->set_userdata('save_msg', "Thanks for enqury get back to you soon.");
         redirect(base_url());
+    }
+    
+    // get car countries
+    private function getCarCountry() {
+        $this->load->library('PHPRequests');
+        $request_made = $this->config->item('API_URL') . 'action=get_allcountry_list_car';
+        $response = json_decode(Requests::get($request_made)->body);
+        if ($response->status == true) {
+            $this->carCountry = $response->data;
+        }
+    }
+    // get car states based on car countries
+    public function getCarState($countryId) {
+        $this->load->library('PHPRequests');
+        $request_made = $this->config->item('API_URL') . 'action=get_state_list_car&countryId=' . $countryId;
+        $response = json_decode(Requests::get($request_made)->body);
+        if ($response->status == true) {
+            echo json_encode($response->data);
+            exit;
+        } else {
+            echo json_encode(array());
+            exit;
+        }
     }
 
 }

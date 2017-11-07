@@ -12,7 +12,6 @@
                         <?php foreach($this->villaCountry as $key=>$val){?>
                         <option value="<?php echo $val->countryId;?>"><?php echo $val->countryName;?></option>
                         <?php }?>
-                     
                     </select>
                     <input type="hidden" name="villaCountryName" id="villaCountry">
                     <span class="subline">Country<br>Area</span>

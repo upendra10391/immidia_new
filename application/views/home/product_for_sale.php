@@ -6,35 +6,34 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <?php $this->load->view('header/head'); ?>	
 	<script>
-          $(document).ready(function(){
-            $( ".date-picker" ).datepicker({format: "yyyy/mm/dd" ,todayHighlight: true,autoclose: true,});
-            $( ".date-picker" ).datepicker("hide");
-         });
-		</script>
-		
-<script type="text/javascript">
-            $(function () {
-                $('#datetimepicker3').datetimepicker({
-                    format: 'LT'
+                $(document).ready(function(){
+                    $( ".date-picker" ).datepicker({format: "yyyy/mm/dd" ,todayHighlight: true,autoclose: true,});
+                    $( ".date-picker" ).datepicker("hide");
                 });
-            });
-			$(document).ready(function(){
-			
-			$('#callus span').click(function(){
-    var $this = $(this);
-    $this.toggleClass('#callus span');
-    if($this.hasClass('#callus span')){
-        $this.text('99999 99999');         
-    } else {
-        $this.text('CALL US');
-    }
-});
-			
-			
-			
-		});
-			
-        </script>
+		</script>
+                <script type="text/javascript">
+                            $(function () {
+                                $('#datetimepicker3').datetimepicker({
+                                    format: 'LT'
+                                });
+                            });
+                                        $(document).ready(function(){
+
+                        $('#callus span').click(function () {
+                            var $this = $(this);
+                            $this.toggleClass('#callus span');
+                            if ($this.hasClass('#callus span')) {
+                                $this.text('99999 99999');
+                            } else {
+                                $this.text('CALL US');
+                            }
+                        });
+
+
+
+                    });
+
+                </script>
 	</head>
 	
 	
@@ -52,11 +51,17 @@
 		<div class="container-fluid ">
 				<div class="container searcharea">
 					<div class="row">
+                                            <form action="" method="get">
 						<div class="col-md-12">
-						    <img src="<?php echo base_url(); ?>assets/images/product-sale/i1.png" class="searchi">
-							<input class="fsearch" type="text" placeholder="SEARCH LOCATION"/>
-							<input class="fsubmit" type="submit" name="FIND" value="FIND" />
+                                                    <select style="width: 75%;" class="country" name="p_s_c" id="p_s_c">
+                                                        <option value="">Country</option>
+                                                        <?php foreach($this->villaCountry as $key=>$val){?>
+                                                            <option value="<?php echo $val->countryId;?>"><?php echo $val->countryName;?></option>
+                                                        <?php }?>
+                                                    </select>
+                                                    <input class="fsubmit" type="submit" value="FIND" />
 						</div>
+                                             </form>
 					</div>
 					<div class="row">
 						<div class="col-md-10 col-md-offset-1">
@@ -126,7 +131,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="container-fluid ">
+<!--		<div class="container-fluid ">
 			<div class="container searchresult">
 				<div class="row">
 					<div class="col-md-6">
@@ -143,7 +148,7 @@
 										<img src="<?php echo base_url(); ?>assets/images/product-sale/l1.png">
 									</div>
 								</div>
-								<!-- Left and right controls -->
+								 Left and right controls 
 								<a class="left carousel-control" href="#myCarousel" data-slide="prev">
 									<i class="fa fa-chevron-left" aria-hidden="true"></i>
 									<span class="sr-only">Previous</span>
@@ -208,7 +213,7 @@
 										<img src="<?php echo base_url(); ?>assets/images/product-sale/l1.png">
 									</div>
 								</div>
-								<!-- Left and right controls -->
+								 Left and right controls 
 								<a class="left carousel-control" href="#myCarousel1" data-slide="prev">
 									<i class="fa fa-chevron-left" aria-hidden="true"></i>
 									<span class="sr-only">Previous</span>
@@ -262,10 +267,11 @@
 					
 				</div>
 			</div>
-		</div>
+		</div>-->
 		<div class="container-fluid ">
 			<div class="container searchresult">
 				<div class="row">
+                                    <?php if(!empty($arrSaleaDetails)){ foreach($arrSaleaDetails as $key=>$objValue){?>
 					<div class="col-md-9">
 						<div class="vlisting-box">
 							<div class="row">
@@ -274,33 +280,33 @@
 								</div>
 								<div class="col-md-7">
 									<div class="listing-detail">
-										<h4>ARTHRO</h4>
-										<p class="listprice">$ 2,250.00</p>
+										<h4><?php echo $objValue->villaName?></h4>
+										<p class="listprice"><?php echo $objValue->dayPriceLowestHighSeason?></p>
 										<div class="info-section clearfix">
 											<div class="info first">
 												<img src="<?php echo base_url(); ?>assets/images/product-sale/i7.png" alt="1">
-												<p class="title">GUESTS</p>
-												<p class="count">11</p>
+												<p class="title">AREA</p>
+												<p class="count"><?php echo $objValue->surfaceArea?></p>
 											</div>
 											<div class="info second">
 												<img src="<?php echo base_url(); ?>assets/images/product-sale/i8.png" alt="1">
 												<p class="title">GUESTS SLEEPING</p>
-												<p class="count">0</p>
+												<p class="count"><?php echo $objValue->guestSleeping?></p>
 											</div>
 											<div class="info sixth">
 												<img src="<?php echo base_url(); ?>assets/images/product-sale/i9.png" alt="1">
-												<p class="title">CABINS</p>
-												<p class="count">1</p>
+												<p class="title">Bed Rooms</p>
+												<p class="count"><?php echo $objValue->bedrooms?></p>
 											</div>
 											<div class="info fourth">
 												<img src="<?php echo base_url(); ?>assets/images/product-sale/i10.png" alt="1">
-												<p class="title">SPEED</p>
-												<p class="count">22</p>
+												<p class="title">ROOMS</p>
+												<p class="count"><?php echo $objValue->totalRooms?></p>
 											</div>
 											<div class="info fifth">
 												<img src="<?php echo base_url(); ?>assets/images/product-sale/i11.png" alt="1">
-												<p class="title">LENGTH</p>
-												<p class="count">14.60</p>
+												<p class="title">BATHROOMS</p>
+												<p class="count"><?php echo $objValue->totalBathRooms?></p>
 											</div>
 										</div>
 										<div class="center">
@@ -312,96 +318,8 @@
 								</div>
 							</div>
 						</div>
-						<div class="vlisting-box">
-							<div class="row">
-								<div class="col-md-5">
-									<img src="<?php echo base_url(); ?>assets/images/product-sale/l1.png" class="img-responsive">
-								</div>
-								<div class="col-md-7">
-									<div class="listing-detail">
-										<h4>ARTHRO</h4>
-										<p class="listprice">$ 2,250.00</p>
-										<div class="info-section clearfix">
-											<div class="info first">
-												<img src="<?php echo base_url(); ?>assets/images/product-sale/i7.png" alt="1">
-												<p class="title">GUESTS</p>
-												<p class="count">11</p>
-											</div>
-											<div class="info second">
-												<img src="<?php echo base_url(); ?>assets/images/product-sale/i8.png" alt="1">
-												<p class="title">GUESTS SLEEPING</p>
-												<p class="count">0</p>
-											</div>
-											<div class="info sixth">
-												<img src="<?php echo base_url(); ?>assets/images/product-sale/i9.png" alt="1">
-												<p class="title">CABINS</p>
-												<p class="count">1</p>
-											</div>
-											<div class="info fourth">
-												<img src="<?php echo base_url(); ?>assets/images/product-sale/i10.png" alt="1">
-												<p class="title">SPEED</p>
-												<p class="count">22</p>
-											</div>
-											<div class="info fifth">
-												<img src="<?php echo base_url(); ?>assets/images/product-sale/i11.png" alt="1">
-												<p class="title">LENGTH</p>
-												<p class="count">14.60</p>
-											</div>
-										</div>
-										<div class="center">
-											<button id="callus"><i class="fa fa-phone" aria-hidden="true"></i> <span>call us<span></button> 
-											<button><i class="fa fa-envelope" aria-hidden="true"></i> Email</button>
-                                                                                        <a href="<?php echo base_url('product-for-sale-detail');?>"><button><i class="fa fa-plus" aria-hidden="true"></i> More Info</button> </a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="vlisting-box">
-							<div class="row">
-								<div class="col-md-5">
-									<img src="<?php echo base_url(); ?>assets/images/product-sale/l1.png" class="img-responsive">
-								</div>
-								<div class="col-md-7">
-									<div class="listing-detail">
-										<h4>ARTHRO</h4>
-										<p class="listprice">$ 2,250.00</p>
-										<div class="info-section clearfix">
-											<div class="info first">
-												<img src="<?php echo base_url(); ?>assets/images/product-sale/i7.png" alt="1">
-												<p class="title">GUESTS</p>
-												<p class="count">11</p>
-											</div>
-											<div class="info second">
-												<img src="<?php echo base_url(); ?>assets/images/product-sale/i8.png" alt="1">
-												<p class="title">GUESTS SLEEPING</p>
-												<p class="count">0</p>
-											</div>
-											<div class="info sixth">
-												<img src="<?php echo base_url(); ?>assets/images/product-sale/i9.png" alt="1">
-												<p class="title">CABINS</p>
-												<p class="count">1</p>
-											</div>
-											<div class="info fourth">
-												<img src="<?php echo base_url(); ?>assets/images/product-sale/i10.png" alt="1">
-												<p class="title">SPEED</p>
-												<p class="count">22</p>
-											</div>
-											<div class="info fifth">
-												<img src="<?php echo base_url(); ?>assets/images/product-sale/i11.png" alt="1">
-												<p class="title">LENGTH</p>
-												<p class="count">14.60</p>
-											</div>
-										</div>
-										<div class="center">
-											<button id="callus"><i class="fa fa-phone" aria-hidden="true"></i> <span>call us<span></button> 
-											<button><i class="fa fa-envelope" aria-hidden="true"></i> Email</button>
-											<a href="<?php echo base_url('product-for-sale-detail');?>"><button><i class="fa fa-plus" aria-hidden="true"></i> More Info</button> </a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+                                        </div>
+                                     <?php }}?>
 						<div class="pagination">
 							<ul>
 								<li class="active">1</li>
