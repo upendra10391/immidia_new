@@ -896,7 +896,8 @@ class Home extends CI_Controller {
             }
             //$dataDetails = array();
             $arrGet['depDate'] = date('Y-m-d', strtotime("{$arrGet['bookingDate']}"));
-            $arrGet['arrvDate'] = date('Y-m-d', strtotime("+" . $arrGet['days'] . " days", strtotime($arrGet['bookingDate'])));
+            $varDaysToAdd = ($arrGet['days']>=5) ? $arrGet['days']-4 : 0;
+            $arrGet['arrvDate'] = date('Y-m-d', strtotime("+" . $varDaysToAdd . " days", strtotime($arrGet['bookingDate'])));
             $this->session->set_userdata(array('carDetails' => $dataDetails, 'arrGet' => $arrGet, 'arrPost' => $arrPost));
             $this->load->view('home/car_booking', array('objDetails' => $dataDetails, 'arrGet' => $arrGet));
         }
