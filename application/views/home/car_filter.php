@@ -35,12 +35,11 @@
             <div class="inner-block third">
                 <label></label>
                 <select class="durationc" name="days">
-                    <?php foreach ($this->daysArrayInit as $key => $value) { if($key <5){ ?>
-                        <option data-value="<?= $value['id'] ?>" value="<?= $value['id'] ?>" <?=($value['id'] == 4) ? 'selected' : '' ?>
-                        ><?= $value['name'] ?></option>
-                    <?php }} ?>
+                   <?php foreach ($this->carHours as $key => $value) { ?>
+                        <option data-value="<?= $value->id ?>" value="<?= $value->id ?>"><?= $value->hoursdays ?></option>
+                    <?php } ?>
                 </select>
-                <div id="durationc"><span>1 Day</span><span>(9:00 to 19:00 Hours)</span></div>
+                <div id="durationc"><span>1 Day</span></div>
             </div>
             <div class="inner-block seventh seventhv">
                 <label></label>
@@ -62,9 +61,9 @@
                 </select>
                 <select class="trip" name="classification">
                     <option value="">Car Type</option>
-                    <?php foreach ($this->carHours as $key => $value) { ?>
-                        <option data-value="<?= $value->id ?>" value="<?= $value->id ?>"><?= $value->hoursdays ?></option>
-                    <?php } ?>
+                    <?php foreach ($this->carClassification as $key => $value) {?>
+                        <option value="<?php echo $value->id ?>"><?php echo $value->classificationName ?></option>
+                    <?php }?>
                 </select>
             </div>
 
