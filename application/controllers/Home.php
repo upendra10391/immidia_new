@@ -60,8 +60,8 @@ class Home extends CI_Controller {
     public $carHours;
     public $allTime;
     public $arrJetType;
-
-    function __construct() {
+    public $arrCurrency;
+                function __construct() {
         parent::__construct();
         $this->getYachtCountry();
         $this->getAllTime();
@@ -84,6 +84,7 @@ class Home extends CI_Controller {
         );
 
         $this->arrJetType = array('Small Jet' => 'Small Jet', 'Medium Jet' => 'Medium Jet', 'Long Range Jet', 'Large Airliner' => 'Large Airliner', 'Helicopter' => 'Helicopter');
+        $this->arrCurrency = array('1'=>'€','2'=>'$','3'=>'AED');
         $this->IMAGE_URL = $this->config->item('IMAGE_URL');
     }
 
@@ -774,14 +775,14 @@ class Home extends CI_Controller {
         $arrJetData = $this->Jet_model->getJetData(array('jet_type' => $jetType));
         $this->load->view('home/long_range_jet', array('arrJetData' => $arrJetData));
     }
-    
+
     // call when some one click on home page jet
     public function charter_fleet_guide() {
         $this->load->model('Jet_model', '', true);
-        $arrJetData1 = $this->Jet_model->getJetData(array('jet_type' => 'Large_Airliner','limit'=>'3'));
-        $arrJetData2 = $this->Jet_model->getJetData(array('jet_type' => 'Long_Range_Jets','limit'=>'3'));
-        $arrJetData3 = $this->Jet_model->getJetData(array('jet_type' => 'Medium_Jets','limit'=>'3'));
-        $arrJetData4 = $this->Jet_model->getJetData(array('jet_type' => 'Small_Jets','limit'=>'3'));
+        $arrJetData1 = $this->Jet_model->getJetData(array('jet_type' => 'Large_Airliner', 'limit' => '3'));
+        $arrJetData2 = $this->Jet_model->getJetData(array('jet_type' => 'Long_Range_Jets', 'limit' => '3'));
+        $arrJetData3 = $this->Jet_model->getJetData(array('jet_type' => 'Medium_Jets', 'limit' => '3'));
+        $arrJetData4 = $this->Jet_model->getJetData(array('jet_type' => 'Small_Jets', 'limit' => '3'));
         $this->load->view('home/charter_fleet_guide', array('arrJetData1' => $arrJetData1,
             'arrJetData2' => $arrJetData2,
             'arrJetData3' => $arrJetData3,

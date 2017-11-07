@@ -73,7 +73,13 @@
 
 <script>
     $(function () {
-        $(".date-picker").datepicker({format: "MM d DD", todayHighlight: true, autoclose: true, });
+        var dateToday = new Date(); 
+        $(".date-picker").datepicker({
+            format: "MM d DD", 
+            todayHighlight: true,
+            autoclose: true,
+            startDate: dateToday
+        });
         $(".date-picker").datepicker("hide");
     });
     $(function () {
@@ -102,6 +108,17 @@
             console.log(adate2);
             var strArray2 = adate2.split("(");
             $("#duration").html("<span>" + strArray2[0] + "</span><span>(" + strArray2[1] + "</span>");
+        })
+    });
+    
+    // for car days
+    $(function () {
+        $('select.durationc').change(function () {
+            adate2 = $(".durationc option:selected").text();
+            console.log(adate2);
+            var strArray2 = adate2.split("(");
+            console.log(strArray2[0]);console.log(strArray2[1]);
+            $("#durationc").html("<span>" + strArray2[0] + "</span><span>(" + strArray2[1] + "</span>");
         })
     });
 
@@ -141,13 +158,6 @@
             adate1c = $("#dpdc").val();
             var strArray1c = adate1c.split(" ");
             $("#departurec").html("<span>" + strArray1c[0] + "</span><span>" + strArray1c[1] + "</span><span>" + strArray1c[2] + "</span>");
-        })
-    });
-    $(function () {
-        $('select.durationc').change(function () {
-            adate2c = $(".durationc").val();
-            var strArray2c = adate2c.split("(");
-            $("#durationc").html("<span>" + strArray2c[0] + "</span><span>(" + strArray2c[1] + "</span>");
         })
     });
 

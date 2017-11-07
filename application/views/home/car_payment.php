@@ -51,7 +51,7 @@
                                 <div class="form-group gborder">
                                     <div class="col-md-4 col-xs-4"><p class="title">CAR</p></div>
                                     <div class="col-md-4 col-xs-4"><p class="value"><?php echo $arrDetails['carDetails']->carName?></p></div>
-                                    <div class="col-md-4 col-xs-4"><p class="distance">€ <?php echo $arrDetails['arrGet']['price']?>{inc.vat}</p></div>
+                                    <div class="col-md-4 col-xs-4"><p class="distance"><?php echo $this->arrCurrency[$arrDetails['carDetails']->currencyId]." ".$arrDetails['arrGet']['price']?>{inc.vat}</p></div>
                                 </div>
                                 <div class="form-group gborder">
                                     <div class="col-md-4 col-xs-4"><p class="title">Delivery Location</p></div>
@@ -79,17 +79,17 @@
                                 <div class="form-group gborder">
                                     <div class="col-md-4 col-xs-4"><p class="title">Delivery Fees</p></div>
                                     <div class="col-md-4 col-xs-4"><p class="value"></p></div>
-                                    <div class="col-md-4 col-xs-4"><p class="distance">€ <?php echo $arrDetails['carDetails']->deliveryDetails->deliveryRate?></p></div>
+                                    <div class="col-md-4 col-xs-4"><p class="distance"><?php echo $this->arrCurrency[$arrDetails['carDetails']->currencyId]." ".$arrDetails['carDetails']->deliveryDetails->deliveryRate?></p></div>
                                 </div>
                                 <div class="form-group gborder">
                                     <div class="col-md-4 col-xs-4"><p class="title">Drop Off Fees</p></div>
                                     <div class="col-md-4 col-xs-4"><p class="value"></p></div>
-                                    <div class="col-md-4 col-xs-4"><p class="distance">€ <?php echo $arrDetails['carDetails']->deliveryDetails->dropoffRate?></p></div>
+                                    <div class="col-md-4 col-xs-4"><p class="distance"><?php echo $this->arrCurrency[$arrDetails['carDetails']->currencyId]." ".$arrDetails['carDetails']->deliveryDetails->dropoffRate?></p></div>
                                 </div>
                                 <div class="form-group gborder">
                                     <div class="col-md-4 col-xs-4"><p class="title">Total</p></div>
                                     <div class="col-md-4 col-xs-4"><p class="value"></p></div>
-                                    <div class="col-md-4 col-xs-4"><p class="distance"><b>€ <?php echo $arrDetails['arrGet']['price']+$arrDetails['carDetails']->deliveryDetails->deliveryRate+$arrDetails['carDetails']->deliveryDetails->dropoffRate?></b></p></div>
+                                    <div class="col-md-4 col-xs-4"><p class="distance"><b><?php echo $this->arrCurrency[$arrDetails['carDetails']->currencyId]." ".($arrDetails['arrGet']['price']+$arrDetails['carDetails']->deliveryDetails->deliveryRate+$arrDetails['carDetails']->deliveryDetails->dropoffRate)?></b></p></div>
                                 </div>
                             </div>			
 

@@ -34,7 +34,7 @@
                                 <div class="form-group gborder">
                                     <div class="col-md-4 col-xs-4"><p class="title">CAR</p></div>
                                     <div class="col-md-4 col-xs-4"><p class="value"><?php echo $objDetails->carName?></p></div>
-                                    <div class="col-md-4 col-xs-4"><p class="distance">€ <?php echo $arrGet['price']?>{inc.vat}</p></div>
+                                    <div class="col-md-4 col-xs-4"><p class="distance"><?php echo $this->arrCurrency[$objDetails->currencyId]." ".$arrGet['price']?>{inc.vat}</p></div>
                                 </div>
                                 <div class="form-group gborder">
                                     <div class="col-md-4 col-xs-4"><p class="title">Delivery Location</p></div>
@@ -62,17 +62,17 @@
                                 <div class="form-group gborder">
                                     <div class="col-md-4 col-xs-4"><p class="title">Delivery Fees</p></div>
                                     <div class="col-md-4 col-xs-4"><p class="value"></p></div>
-                                    <div class="col-md-4 col-xs-4"><p class="distance">€ <?php echo $objDetails->deliveryDetails->deliveryRate?></p></div>
+                                    <div class="col-md-4 col-xs-4"><p class="distance"><?php echo $this->arrCurrency[$objDetails->currencyId]." ".$objDetails->deliveryDetails->deliveryRate?></p></div>
                                 </div>
                                 <div class="form-group gborder">
                                     <div class="col-md-4 col-xs-4"><p class="title">Drop Off Fees</p></div>
                                     <div class="col-md-4 col-xs-4"><p class="value"></p></div>
-                                    <div class="col-md-4 col-xs-4"><p class="distance">€ <?php echo $objDetails->deliveryDetails->dropoffRate?></p></div>
+                                    <div class="col-md-4 col-xs-4"><p class="distance"><?php echo $this->arrCurrency[$objDetails->currencyId]." ".$objDetails->deliveryDetails->dropoffRate?></p></div>
                                 </div>
                                 <div class="form-group gborder">
                                     <div class="col-md-4 col-xs-4"><p class="title">Sub Total</p></div>
                                     <div class="col-md-4 col-xs-4"><p class="value"></p></div>
-                                    <div class="col-md-4 col-xs-4"><p class="distance"><b>€ <?php echo $arrGet['price']+$objDetails->deliveryDetails->dropoffRate+$objDetails->deliveryDetails->deliveryRate?></b></p></div>
+                                    <div class="col-md-4 col-xs-4"><p class="distance"><b><?php echo $this->arrCurrency[$objDetails->currencyId]." ".($arrGet['price']+$objDetails->deliveryDetails->dropoffRate+$objDetails->deliveryDetails->deliveryRate)?></b></p></div>
                                 </div>
                             </div>			
                         </div> 
@@ -85,7 +85,7 @@
                     <form action="<?php echo base_url('car-book-user-check')?>" method="POST" name="" id="">
                     <div class="limousine-services car-booking">
                         <h3>INSURANCE POLICY</h3>
-                        <p class="subtitle">Deductible ( <?php echo $objDetails->deductible ?> € On Hold) </p>
+                        <p class="subtitle">Deductible ( <?php echo $objDetails->deductible." ".$this->arrCurrency[$objDetails->currencyId] ?>  On Hold) </p>
                         <p class="subtitle">Will be collected by the service provider at the time of delivery </p>
 
                         <div class="checkbox checkbox-inline">

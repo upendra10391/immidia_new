@@ -128,7 +128,7 @@
 						<div class="col-md-6">
 							<ul class="second">
 								<li>Rental Conditions</li>
-								<li>Deductible<span><?php echo $objCarDetail->deductible?></span></li>
+								<li>Deductible<span><?php echo $this->arrCurrency[$objCarDetail->currencyId]." ".$objCarDetail->deductible?></span></li>
 								<li>Included KM/Miles<span><?php echo $objCarDetail->includedKMperMilesLowSeason?></span></li>
 								<li>Minimum Driving Experience In Months<span><?php echo $objCarDetail->driverExperience?></span></li>
 								<li>Credit Card For Warranty<span><?php echo $objCarDetail->numberOfCreditCardsForWarranty?></span></li>
@@ -168,10 +168,10 @@
                                             <td><?php echo $objCarDetail->carName?></td>
                                             <td><?php echo ($postData['days'] >= 5) ? $postData['days'] - 4 : $postData['days'];
 echo ($postData['days'] >= 5) ? " days" : " hours" ?></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td id="depTimeTd"></td>
+                                            <td id="arrTimeTd"></td>
+                                            <td id="delLocTd"></td>
+                                            <td id="arrLocTd"></td>
                                             <td><?php echo $postData['noOfPasenger']; ?></td>
                                         </tr>
                                     </tbody>
@@ -334,6 +334,23 @@ echo ($postData['days'] >= 5) ? " days" : " hours" ?></td>
 			</div>
 		</div>
 	</section>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $('body').on('change','#depTime',function(){
+                        $('#depTimeTd').html($('#depTime option:selected').text())
+                    })
+                    $('body').on('change','#arrvTime',function(){
+                        $('#arrTimeTd').html($('#arrvTime option:selected').text())
+                    })
+                    $('body').on('change','#delAddr',function(){
+                        $('#delLocTd').html($('#delAddr option:selected').text())
+                    })
+                    $('body').on('change','#dropAddr',function(){
+                        $('#arrLocTd').html($('#dropAddr option:selected').text())
+                    })
+                });
+            </script>
 	<?php $this->load->view('footer/footer') ?>
+            
 	</body>
 </html>

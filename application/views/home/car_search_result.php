@@ -242,12 +242,8 @@
                             <tr>
                                 <th>Country</th>
                                 <th>State</th>
-                                <th>Car</th>
                                 <th>Duration</th>
                                 <th>Departure</th>
-                                <th>Return</th>
-                                <th>Delivery Location</th>
-                                <th>Drop Off Location</th>
                                 <th>PASSENGER (s)</th>
                             </tr>
                         </thead>
@@ -255,11 +251,7 @@
                             <tr>
                                 <td><?php echo $postData['carCountryName']?></td>
                                 <td><?php echo $postData['carStateName']?></td>
-                                <td></td>
                                 <td><?php echo ($postData['days']>=5) ? $postData['days']-4 : $postData['days'];echo ($postData['days']>=5) ? " days" : " hours"?></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
                                 <td></td>
                                 <td><?php echo $postData['noOfPasenger'];?></td>
                             </tr>
@@ -305,11 +297,11 @@
                 <?php if($arrCarDetails){ foreach ($arrCarDetails as $objCarDetails){?>
                 <div class="col-md-4">
                     <div class="list-inner">
-                        <img class="img-responsive" src="<?php echo base_url(); ?>/assets/images/car-search/1.jpg">
+                        <img class="img-responsive" src="<?php echo $this->IMAGE_URL.str_replace("..", "", $objCarDetails->banner[0]->banner); ?>">
                         <div class="list-detail">
                             <h2><?php echo $objCarDetails->carName?></h2>
                             <ul>
-                                <li>€ <?php echo $objCarDetails->price?></li>
+                                <li><?php echo $this->arrCurrency[$objCarDetails->currencyId]." ".$objCarDetails->price?></li>
                                 <li>Passenger <?php echo $objCarDetails->numberOfPassengers?></li>
                                 <li>Fuel / <?php echo $objCarDetails->fuelType?></li>
                             </ul>
@@ -317,7 +309,7 @@
                         <div class="hover-detail" >
                             <h1><?php echo $objCarDetails->carName?></h1>
                             <ul>
-                                <li>€ <?php echo $objCarDetails->price?></li>
+                                <li><?php echo $this->arrCurrency[$objCarDetails->currencyId]." ".$objCarDetails->price?></li>
                                 <li>Passenger <?php echo $objCarDetails->numberOfPassengers?></li>
                                 <li>Fuel / <?php echo $objCarDetails->fuelType?></li>
                             </ul>
