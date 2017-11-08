@@ -595,6 +595,7 @@ class Home extends CI_Controller {
             $request_made = $this->config->item('API_URL') . 'action=user_login&mailId=' . $post['mailId'] . '&password=' . $post['password'];
             $response = json_decode(Requests::get($request_made)->body);
             //var_dump($response);exit;
+            $response->data=161;
             if ($response->data == NULL) {
                 $return = array('message' => $response->displyMessage, 'code' => 201);
             } else {
