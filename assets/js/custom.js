@@ -1,5 +1,5 @@
-var base_url = 'http://localhost/immidia.ae/';
-//var base_url = 'http://localhost/immidia_new/trunk';
+//var base_url = 'http://localhost/immidia.ae/';
+var base_url = 'http://localhost/immidia_new/trunk';
 
 
  //var base_url = 'http://localhost/immidia_new/';
@@ -464,3 +464,136 @@ $("body").on("click",".limousine_villa",function(){
         window.location.replace(url);
     }
 })
+$("body").on("click","#changepassword",function(){
+   var oldpassword=$("#oldpass").val();
+  var newpassword=$("#newpass").val();
+  var cnfpassword=$("#cnfpass").val();
+  if(oldpassword=='')
+  {
+      $('#error_user_oldpassword').show();
+      $('#error_user_oldpassword').html('Please enter your oldpassword');
+      $('#oldpass').focus();
+      return false;
+  }
+  if(newpassword=='')
+  {
+      $('#error_user_oldpassword').hide();
+   $('#error_user_newpassword').show();
+      $('#error_user_newpassword').html('Please enter your newpassword');
+      $('#newpass').focus();
+      return false;   
+  }
+ if(cnfpassword=='')
+  {
+      $('#error_user_newpassword').hide();
+   $('#error_user_cnfpassword').show();
+      $('#error_user_cnfpassword').html('Please enter your cnfpassword');
+      $('#cnfpass').focus();
+      return false;   
+  }
+  if(newpassword!=cnfpassword)
+  {
+  $('#error_user_cnfpassword').hide();
+    $('#error_user_bothpasswordnotmatch').show();
+    $('#error_user_bothpasswordnotmatch').html('Bothpassword are not match');
+  }
+  $.ajax({
+     url:base_url +'/change_password',
+     type:"POST",
+     data:{oldpass:oldpassword,newpassword:newpassword,cnfpassword:cnfpassword},
+     success:function(res)
+     {
+        var callback = $.parseJSON(res);
+            if (callback.code == '201') {
+                $('#error_user_oldpassword').hide();
+                $('#error_user_newpassword').hide();
+                 $('#error_user_cnfpassword').hide();
+                 $('.successmessagechange').html(callback.message);
+ $('#oldpass').val('');
+                $('#newpass').val('');
+                $('#cnfpass').val('');
+               /* $(function() {
+    $("button").click(function() {
+        $("button").attr("disabled", "disabled");
+        setTimeout(function() {
+            $("button").removeAttr("disabled");      
+        }, 30000);
+    });
+});*/
+                
+               return false;
+            } else {
+                //$('#error_user_emailid').hide();
+                //$('#error_user_password').hide();
+                 $('#error_user_oldpassword').hide();
+                $('#error_user_newpassword').hide();
+                 $('#error_user_cnfpassword').hide();
+               $('#oldpass').val('');
+                $('#newpass').val('');
+                $('#cnfpass').val('');
+                 $('.successmessagechange').html(callback.message);
+                return false;
+            }  
+     }
+  })
+ })
+$('body').on('click','#editprofile',function(){
+  var gender=$(".gender").val();
+  var first_name=$("#firstnameedit").val();
+  var lastname=$("#lasttnameedit").val();
+  var email=$("#emailedit").val();
+  //alert(lastname);
+  var phonenumber=$("#phonenumber").val();
+  var country=$(".country").val();
+  $.ajax({
+     url:base_url +'/edit_profile',
+     type:"POST",
+     data:{gender:gender,first_name:first_name,email:email,lastname:lastname,phonenumber:phonenumber,country:country},
+     success:function(res)
+     {
+         //alert(res);
+        var callback = $.parseJSON(res);
+            if (callback.code == '201') {
+                $('.successmessageedit').html(callback.message);
+ $('.gender').val('');
+                $('#firstnameedit').val('');
+                $('#lasttnameedit').val('');
+                $('#phonenumber').val('');
+                $(".country").val('');
+      return false;
+            } else {
+                 $('.successmessageedit').html(callback.message);
+ $('.gender').val('');
+                $('#firstnameedit').val('');
+                $('#lasttnameedit').val('');
+                $('#phonenumber').val('');
+                $(".country").val('');
+                return false;
+            }  
+     }
+     
+  })
+ })
+$('body').on('click','#user_forget',function(){
+      var mailid=$('#user_emailid').val();
+      $.ajax({
+          url:base_url +'/forget_password',
+          type:"POST",
+          data:{mailid:mailid},
+          success:function(res)
+          {
+           var callback = $.parseJSON(res);
+            if (callback.code == '201') {
+                $('.successmessageforget').html(callback.message);
+ $('#user_emailid').val('');
+               return false;
+            } else {
+                 $('.successmessageforget').html(callback.message);
+$('#user_emailid').val('');
+                return false;
+            }     
+          }
+      })
+      
+      
+  })
