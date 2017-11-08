@@ -1080,6 +1080,7 @@ class Home extends CI_Controller {
             exit;
         }
     }
+     /* ---------change_password api------------------*/
     public function change_password()
     {
        $session_user= $this -> session -> userdata('user_login');
@@ -1106,6 +1107,7 @@ class Home extends CI_Controller {
         }
         
     }
+     /* ---------edit profile api------------------*/
     public function edit_profile()
     {
      $session_user= $this -> session -> userdata('user_login');
@@ -1130,6 +1132,7 @@ class Home extends CI_Controller {
             //var_dump($post);exit;
         }   
     }
+    /* ---------forget_password api------------------*/
     public function forget_password()
     {
         $session_user= $this -> session -> userdata('user_login');
