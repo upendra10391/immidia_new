@@ -57,24 +57,26 @@
                                         <img src="<?php echo base_url() ?>/assets/images/loader.gif" id="loader" style="display:none;">
                                         <p class="errormessage" style="color: red;"></p>
                                         <p class="successmessage" style="color: green;"></p>
+                                       
+                                        
                                         <div class="form-group">
-                                            <button class="social-icon-f"><i class="fa fa-facebook" aria-hidden="true"></i>Log in With Facebook</button>
+                                            <button class="social-icon-f" id="fb"><i class="fa fa-facebook" aria-hidden="true"></i>Log in With Facebook</button>
                                         </div>
                                         <div class="form-group">
-                                            <button class="social-icon-g"><i class="fa fa-google-plus" aria-hidden="true"></i>Log in with Google </button>
+                                            <button class="social-icon-g" id="goo"><i class="fa fa-google-plus" aria-hidden="true"></i>Log in with Google </button>
                                         </div>
-                                        <div class="form-group clearfix">
+                                        <div class="form-group clearfix" id="or">
                                             <div class="col-md-5"><hr/></div><div class="col-md-2 or">OR</div><div class="col-md-5"><hr/></div>
                                         </div>
                                         <div class="form-group">
                                             <i class="fa fa-user-o i" aria-hidden="true"></i><input type="email" id="user_emailid" class="form-control" placeholder="Email"/>
                                         </div>
                                         <p id="error_user_emailid" style="color: red; display: none;"></p>
-                                        <div class="form-group">
+                                        <div class="form-group" id="password">
                                             <i class="fa fa-lock i" aria-hidden="true"></i><input type="password" id="user_password" class="form-control" placeholder="Password"/>
                                         </div>
                                         <p id="error_user_password" style="color: red; display: none;"></p>
-                                        <div class="form-group">
+                                        <div class="form-group" id="remember">
                                             <div class="checkbox checkbox-inline">
                                                 <input type="checkbox" id="inlineCheckbox2" value="option2">
                                                 <label for="inlineCheckbox2"> Remember Password </label>
@@ -83,8 +85,11 @@
                                         <div class="form-group">
                                             <input type="button" class="submit" id="user_login" name="login" value="LOGIN"/>
                                         </div>
+                                        <div class="form-group user_forget" style="display:none;" id="">
+                                            <input type="button" class="submit" id="user_forgetdata" name="login" value="Forget"/>
+                                        </div>
                                         <div class="form-group">
-                                            <p class="ca"><i class="fa fa-lock" aria-hidden="true"></i>Foregot password 
+                                            <p class="ca"><i class="fa fa-lock" aria-hidden="true"></i><a href="<?php echo base_url('forget_password');?>" id="forget" >Foregot password</a> 
                                                 <i class="fa fa-user-o" aria-hidden="true"></i> New User ? 
                                                 Create account</p>
                                         </div>
