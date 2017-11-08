@@ -108,4 +108,5 @@ $route['get_car_state/(:num)']  = 'home/getCarState/$1';
 
 // route for jet
 $route['jet-next'] = 'home/jetNext';
+$route['contact'] = "home/contact";
 

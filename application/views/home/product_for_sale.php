@@ -61,7 +61,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="row">
+<!--                    <div class="row">
                         <div class="col-md-10 col-md-offset-1">
                             <div class="col-md-3">
                                 <select class="">
@@ -91,7 +91,7 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="row">
                         <input class="reset" type="submit" name="RESET" value="RESET" />
                     </div>
@@ -118,7 +118,7 @@
                             <div class="col-md-3"><p><img src="<?php echo base_url(); ?>assets/images/product-sale/i5.png">CAR <span>(2429)</span></p></div>
                             <div class="col-md-3"><p><img src="<?php echo base_url(); ?>assets/images/product-sale/i6.png">JET <span>(444)</span></p></div>
                         </div>
-                        <div class="row">
+<!--                        <div class="row">
                             <div class="col-md-3 pull-right">
                                 <select class="showall">
                                     <option>SHOW ALL</option>
@@ -126,7 +126,7 @@
                                     <option>Country 3</option>
                                     <option>Country 4</option>
                                 </select></div>
-                        </div>
+                        </div>-->
                     </div>
 		</div>
 		<div class="container-fluid ">
