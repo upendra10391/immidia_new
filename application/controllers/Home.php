@@ -628,16 +628,18 @@ class Home extends CI_Controller {
         }
         $request_made = $this->config->item('API_URL') . 'action=get_villa_sale_list'.$varExtra;
         $response = json_decode(Requests::get($request_made)->body);
-        //echo "<pre>";
-       // var_dump($response->data);exit;
+       //echo "<pre>";
+       //var_dump($response->data);exit;
         if ($response->status == true) {
             $arrSaleaDetails = $response->data;
         }
         $this->load->view('home/product_for_sale',array('arrSaleaDetails'=>$arrSaleaDetails));
     }
 
-    public function product_for_sale_detail() {
-        $this->load->view('home/product_for_sale_detail');
+    public function product_for_sale_detail($varId = "") {
+        $this->session->unset_userdata('all_p_villa_data');
+        $arrSaleVillaDetails = $this->session->userdata('all_p_villa_data');
+        $this->load->view('home/product_for_sale_detail',array('objValue'=>$arrSaleVillaDetails[$varId]));
     }
 
     public function car_booking() {
