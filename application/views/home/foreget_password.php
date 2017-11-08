@@ -44,19 +44,19 @@
                     <div class="login clearfix">
                         <div class="col-md-5 ">
                             <div class="card">
-                                <ul class="nav nav-tabs" role="tablist">
+                              <!--  <ul class="nav nav-tabs" role="tablist">
                                     <li role="presentation" class="active">
                                         <a href="#l" aria-controls="home" role="tab" data-toggle="tab">Login</a></li>
                                     <li role="presentation">
                                         <a href="#r" aria-controls="profile" role="tab" data-toggle="tab">Sign Up</a>
                                     </li>
-                                </ul>
+                                </ul>-->
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <div role="tabpanel" class="tab-pane active" id="l">
                                         <img src="<?php echo base_url() ?>/assets/images/loader.gif" id="loader" style="display:none;">
-                                        <p class="errormessage" style="color: red;"></p>
-                                        <p class="successmessage" style="color: green;"></p>
+                                      <p class="successmessageforget" style="color: red;"></p>
+                                     <!--   <p class="successmessage" style="color: green;"></p>
                                        
                                         
                                         <div class="form-group">
@@ -67,12 +67,12 @@
                                         </div>
                                         <div class="form-group clearfix" id="or">
                                             <div class="col-md-5"><hr/></div><div class="col-md-2 or">OR</div><div class="col-md-5"><hr/></div>
-                                        </div>
+                                        </div>-->
                                         <div class="form-group">
                                             <i class="fa fa-user-o i" aria-hidden="true"></i><input type="email" id="user_emailid" class="form-control" placeholder="Email"/>
                                         </div>
                                         <p id="error_user_emailid" style="color: red; display: none;"></p>
-                                        <div class="form-group" id="password">
+                               <!--  <div class="form-group" id="password">
                                             <i class="fa fa-lock i" aria-hidden="true"></i><input type="password" id="user_password" class="form-control" placeholder="Password"/>
                                         </div>
                                         <p id="error_user_password" style="color: red; display: none;"></p>
@@ -81,18 +81,18 @@
                                                 <input type="checkbox" id="inlineCheckbox2" value="option2">
                                                 <label for="inlineCheckbox2"> Remember Password </label>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <div class="form-group">
-                                            <input type="button" class="submit" id="user_login" name="login" value="LOGIN"/>
+                                            <input type="button" class="submit" id="user_forget" name="login" value="Forget"/>
                                         </div>
-                                        <div class="form-group user_forget" style="display:none;" id="">
+                                    <!-- <div class="form-group user_forget" style="display:none;" id="">
                                             <input type="button" class="submit" id="user_forgetdata" name="login" value="Forget"/>
                                         </div>
                                         <div class="form-group">
-                                            <p class="ca"><i class="fa fa-lock" aria-hidden="true"></i><a href="<?php echo base_url('forget_password');?>" id="forget" >Foregot password</a> 
+                                            <p class="ca"><i class="fa fa-lock" aria-hidden="true"></i><a href="" id="forget" >Foregot password</a> 
                                                 <i class="fa fa-user-o" aria-hidden="true"></i> New User ? 
                                                 Create account</p>
-                                        </div>
+                                        </div>-->
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="r">
                                          <p class="errormessagesignup" style="color: red;"></p>

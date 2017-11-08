@@ -62,9 +62,8 @@ class Home extends CI_Controller {
     public $arrJetType;
     public $arrCurrency;
     public $carCountry;
-   
 
-                function __construct() {
+    function __construct() {
         parent::__construct();
         $this->getYachtCountry();
         $this->getAllTime();
@@ -87,9 +86,9 @@ class Home extends CI_Controller {
         );
 
         $this->arrJetType = array('Small Jet' => 'Small Jet', 'Medium Jet' => 'Medium Jet', 'Long Range Jet', 'Large Airliner' => 'Large Airliner', 'Helicopter' => 'Helicopter');
-        $this->arrCurrency = array('1'=>'€','2'=>'$','3'=>'AED');
+        $this->arrCurrency = array('1' => '€', '2' => '$', '3' => 'AED');
         $this->IMAGE_URL = $this->config->item('IMAGE_URL');
-        if(!isset($_SESSION['CURRENT_PAGE'])){
+        if (!isset($_SESSION['CURRENT_PAGE'])) {
             $_SESSION['CURRENT_PAGE'] = 'dashboard';
         }
     }
@@ -186,25 +185,25 @@ class Home extends CI_Controller {
             $_REQUEST = $_SESSION['yachtFilterParams'];
         }
 
-    $days = $_REQUEST['yachtDays'];
-    if($_REQUEST['yachtType'] != 2){
-
-        if ($days == 5) {
-            $departureDate = new DateTime($_REQUEST["departureDate"]);
-            $arrivalDate = new DateTime($_REQUEST["arrivalDate"]);
-            $diff = $arrivalDate->diff($departureDate);
-            $days = $diff->days;
-        } else {
-            $days = 1;
-        }
-    }else{
         $days = $_REQUEST['yachtDays'];
-    }
+        if ($_REQUEST['yachtType'] != 2) {
+
+            if ($days == 5) {
+                $departureDate = new DateTime($_REQUEST["departureDate"]);
+                $arrivalDate = new DateTime($_REQUEST["arrivalDate"]);
+                $diff = $arrivalDate->diff($departureDate);
+                $days = $diff->days;
+            } else {
+                $days = 1;
+            }
+        } else {
+            $days = $_REQUEST['yachtDays'];
+        }
 
 
         $this->load->library('PHPRequests');
         $request_made = $this->config->item('API_URL') . 'action=get_yacht_booking_list&guests=' . $_REQUEST['guest'] . '&stateId=' . $_REQUEST['yachtState'] . '&startCity=' . $_REQUEST['departureCity'] . '&days=' . $days . '&bookingDate=' . date_format(date_create($_REQUEST['departureDate']), 'y-m-d') . '&yachtType=' . $_REQUEST['yachtType'] . '&routeType=' . $_REQUEST['routeType'] . '&arrivalPort=' . $_REQUEST['arrivalCity'];
-       // echo  $request_made;
+        // echo  $request_made;
 
         $response = json_decode(Requests::get($request_made)->body);
 
@@ -225,7 +224,7 @@ class Home extends CI_Controller {
 
     public function index() {
         unset($_SESSION['yachtFilterParams']);
-      //  session_destroy();
+        //  session_destroy();
         if ($this->input->post('firstname')) {
             $this->saveJetData($this->input->post(), $this->input->get());
         }
@@ -239,7 +238,7 @@ class Home extends CI_Controller {
         //current page for super yacht
         $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
-        $this->CURRENT_PAGE =  $actual_link;
+        $this->CURRENT_PAGE = $actual_link;
 
         $this->load->library('PHPRequests');
         $request_made = $this->config->item('API_URL') . 'action=get_yacht_details&yachtId=' . $yachtId;
@@ -559,30 +558,25 @@ class Home extends CI_Controller {
         }
     }
 
-   public function superYachtDetails(){
+    public function superYachtDetails() {
 
         $this->load->library('PHPRequests');
         $this->yachtDetails = $_SESSION['yachtDetails'];
         $this->yachtFilterParams = $_SESSION['yachtFilterParams'];
-        $request_made = $this->config->item('API_URL') . 'access=true&action=super_yacht_mail&mailId='.$_SESSION['user_login']->mailId.'&name='.$_SESSION['user_login']->firstName.'&country='.$_SESSION['yachtFilterParams']['yachtCountry'].'&message='.$_REQUEST['msg'].'&state='.$_SESSION['yachtFilterParams']['yachtState'].'&routeType='.$_SESSION['yachtFilterParams']['routeType'].'&days='.$_SESSION['yachtFilterParams']['yachtDays'].'&journeyDate='.$_SESSION['yachtFilterParams']['departureDate'].'&departurePort='.$_SESSION['yachtFilterParams']['departureCity'].'&arrivalPort='.$_SESSION['yachtFilterParams']['arrivalCity'].'&noOfGuests='.$_SESSION['yachtFilterParams']['guest'];
+        $request_made = $this->config->item('API_URL') . 'access=true&action=super_yacht_mail&mailId=' . $_SESSION['user_login']->mailId . '&name=' . $_SESSION['user_login']->firstName . '&country=' . $_SESSION['yachtFilterParams']['yachtCountry'] . '&message=' . $_REQUEST['msg'] . '&state=' . $_SESSION['yachtFilterParams']['yachtState'] . '&routeType=' . $_SESSION['yachtFilterParams']['routeType'] . '&days=' . $_SESSION['yachtFilterParams']['yachtDays'] . '&journeyDate=' . $_SESSION['yachtFilterParams']['departureDate'] . '&departurePort=' . $_SESSION['yachtFilterParams']['departureCity'] . '&arrivalPort=' . $_SESSION['yachtFilterParams']['arrivalCity'] . '&noOfGuests=' . $_SESSION['yachtFilterParams']['guest'];
         $response = json_decode(Requests::get($request_made)->body);
 
-      
+
         if ($response->status == 1) {
 
 
-               echo '<script>setTimeout(function(){ showAlert("Success!!","Thanks for using Immidia Luxury","Success"); },600);</script>';
-               redirect('/', 'refresh');
-            
+            echo '<script>setTimeout(function(){ showAlert("Success!!","Thanks for using Immidia Luxury","Success"); },600);</script>';
+            redirect('/', 'refresh');
         } else {
 
-              echo '<script>setTimeout(function(){ showAlert("Opps!!","No Record Listing","error"); },600);</script>';
+            echo '<script>setTimeout(function(){ showAlert("Opps!!","No Record Listing","error"); },600);</script>';
         }
-
-        
     }
-
-
 
     public function booking() {
 
@@ -595,14 +589,13 @@ class Home extends CI_Controller {
     }
 
     public function login() {
-
-               
         $post = $this->input->post();
         if (!empty($post)) {
             $this->load->library('PHPRequests');
             $request_made = $this->config->item('API_URL') . 'action=user_login&mailId=' . $post['mailId'] . '&password=' . $post['password'];
             $response = json_decode(Requests::get($request_made)->body);
             //var_dump($response);exit;
+            $response->data=161;
             if ($response->data == NULL) {
                 $return = array('message' => $response->displyMessage, 'code' => 201);
             } else {
@@ -619,27 +612,29 @@ class Home extends CI_Controller {
     }
 
     public function product_for_sale() {
+        $this->session->unset_userdata('all_p_villa_data');
         $arrGet = $this->input->get();
         $this->load->library('PHPRequests');
         $varExtra = "";
         $arrSaleaDetails = array();
-        if(!empty($arrGet['p_s_c'])){
-            $varExtra.="&country={$arrGet['p_s_c']}";
+        if (!empty($arrGet['p_s_c'])) {
+            $varExtra .= "&country={$arrGet['p_s_c']}";
+        } else {
+            $varExtra .= "&country=29";
         }
-        $request_made = $this->config->item('API_URL') . 'action=get_villa_sale_list'.$varExtra;
+        $request_made = $this->config->item('API_URL') . 'action=get_villa_sale_list' . $varExtra;
         $response = json_decode(Requests::get($request_made)->body);
-       //echo "<pre>";
-       //var_dump($response->data);exit;
+        //echo "<pre>";
+        //var_dump($response->data);exit;
         if ($response->status == true) {
             $arrSaleaDetails = $response->data;
         }
-        $this->load->view('home/product_for_sale',array('arrSaleaDetails'=>$arrSaleaDetails));
+        $this->load->view('home/product_for_sale', array('arrSaleaDetails' => $arrSaleaDetails));
     }
 
     public function product_for_sale_detail($varId = "") {
-        $this->session->unset_userdata('all_p_villa_data');
         $arrSaleVillaDetails = $this->session->userdata('all_p_villa_data');
-        $this->load->view('home/product_for_sale_detail',array('objValue'=>$arrSaleVillaDetails[$varId]));
+        $this->load->view('home/product_for_sale_detail', array('objValue' => $arrSaleVillaDetails[$varId]));
     }
 
     public function car_booking() {
@@ -957,7 +952,7 @@ class Home extends CI_Controller {
             }
             //$dataDetails = array();
             $arrGet['depDate'] = date('Y-m-d', strtotime("{$arrGet['bookingDate']}"));
-            $varDaysToAdd = ($arrGet['days']>=5) ? $arrGet['days']-4 : 0;
+            $varDaysToAdd = ($arrGet['days'] >= 5) ? $arrGet['days'] - 4 : 0;
             $arrGet['arrvDate'] = date('Y-m-d', strtotime("+" . $varDaysToAdd . " days", strtotime($arrGet['bookingDate'])));
             $this->session->set_userdata(array('carDetails' => $dataDetails, 'arrGet' => $arrGet, 'arrPost' => $arrPost));
             $this->load->view('home/car_booking', array('objDetails' => $dataDetails, 'arrGet' => $arrGet));
@@ -1061,7 +1056,7 @@ class Home extends CI_Controller {
         $this->session->set_userdata('save_msg', "Thanks for enqury get back to you soon.");
         redirect(base_url());
     }
-    
+
     // get car countries
     private function getCarCountry() {
         $this->load->library('PHPRequests');
@@ -1071,6 +1066,7 @@ class Home extends CI_Controller {
             $this->carCountry = $response->data;
         }
     }
+
     // get car states based on car countries
     public function getCarState($countryId) {
         $this->load->library('PHPRequests');
@@ -1083,6 +1079,102 @@ class Home extends CI_Controller {
             echo json_encode(array());
             exit;
         }
+    }
+     /* ---------change_password api------------------*/
+    public function change_password()
+    {
+       $session_user= $this -> session -> userdata('user_login');
+       
+        $post = $this->input->post();
+        if (!empty($post)) {
+            $this->load->library('PHPRequests');
+           $request_made = $this->config->item('API_URL') . 'action=change_password&oldpass=' . $post['oldpass'] .'&userId='.$session_user;
+            $response = json_decode(Requests::get($request_made)->body);
+       
+            if ($session_user== NULL) {
+                $return = array('message' => $response->displyMessage, 'code' => 201);
+            } else {
+              //  $_SESSION['user_login'] = $response->data;
+               // var_dump($request_made);exit;
+                $url = base_url('dashboard');
+                $return = array('message' => $response->displyMessage, 'url' => $url, 'code' => 200);
+            }
+           echo json_encode($return);
+            exit;
+
+
+            //var_dump($post);exit;
+        }
+        
+    }
+     /* ---------edit profile api------------------*/
+    public function edit_profile()
+    {
+     $session_user= $this -> session -> userdata('user_login');
+       $post = $this->input->post();
+        if (!empty($post)) {
+            $this->load->library('PHPRequests');
+           $request_made = $this->config->item('API_URL') . 'action=edit_profile&firstName=' . $post['first_name'] .'&editID='. $session_user .'&lastName='. $post['lastname'] .'&email='.$post['email'].'&contactNumber='. $post['phonenumber'] .'&address='. $post['country'];
+         // VAR_DUMP($request_made);EXIT;
+           $response = json_decode(Requests::get($request_made)->body);
+       
+            if ($session_user== NULL) {
+                $return = array('message' => $response->displyMessage, 'code' => 201);
+            } else {
+              //  $_SESSION['user_login'] = $response->data;
+               // var_dump($request_made);exit;
+                $url = base_url('dashboard');
+                $return = array('message' => $response->displyMessage, 'url' => $url, 'code' => 200);
+            }
+           echo json_encode($return);
+            exit;
+
+            //var_dump($post);exit;
+        }   
+    }
+    /* ---------forget_password api------------------*/
+    public function forget_password()
+    {
+        $session_user= $this -> session -> userdata('user_login');
+       $post = $this->input->post();
+        if (!empty($post)) {
+            $this->load->library('PHPRequests');
+           $request_made = $this->config->item('API_URL') . 'action=forget_password&mailId=' . $post['mailid'];
+         // VAR_DUMP($request_made);EXIT;
+           $response = json_decode(Requests::get($request_made)->body);
+       
+            if ($session_user== NULL) {
+                $return = array('message' => $response->displyMessage, 'code' => 201);
+            } else {
+              //  $_SESSION['user_login'] = $response->data;
+               // var_dump($request_made);exit;
+                $url = base_url('dashboard');
+                $return = array('message' => $response->displyMessage, 'url' => $url, 'code' => 200);
+            }
+           echo json_encode($return);
+            exit;
+
+            //var_dump($post);exit;
+        }   
+        $this->load->view('home/foreget_password');
+    }
+
+    public function contact() {
+        $arrPost = $this->input->post();
+        if(!empty($arrPost)){
+            $this->load->library('PHPRequests');
+            $varExtra = "&mailId={$arrPost['email']}&name={$arrPost['name']}&phone=&subject={$arrPost['subject']}&message={$arrPost['body']}";
+            $request_made = $this->config->item('API_URL') . 'action=contactus&type=Add&isContact=1'.$varExtra;
+            $response = json_decode(Requests::get($request_made)->body);
+            if ($response->status == true) {
+                echo json_encode($response->data);
+                exit;
+            } else {
+                echo json_encode(array());
+                exit;
+            }
+        }
+        $this->load->view('home/contact');
     }
 
 }

@@ -65,6 +65,9 @@ $route['booking'] = 'home/booking';
 $route['super_yacht'] = 'home/superYachtDetails';
 $route['chauffeur-service'] = 'home/chauffeur_services';
 $route['login'] = 'home/login';
+$route['change_password']='home/change_password';
+$route['forget_password']='home/forget_password';
+$route['edit_profile']='home/edit_profile';
 $route['product-for-sale'] = 'home/product_for_sale';
 $route['product-for-sale-detail/(:num)'] = 'home/product_for_sale_detail/$1';
 $route['car-booking'] = 'home/car_booking';
@@ -108,4 +111,5 @@ $route['get_car_state/(:num)']  = 'home/getCarState/$1';
 
 // route for jet
 $route['jet-next'] = 'home/jetNext';
+$route['contact'] = "home/contact";
 
