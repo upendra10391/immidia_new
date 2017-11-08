@@ -1079,6 +1079,81 @@ class Home extends CI_Controller {
             exit;
         }
     }
+    public function change_password()
+    {
+       $session_user= $this -> session -> userdata('user_login');
+       
+        $post = $this->input->post();
+        if (!empty($post)) {
+            $this->load->library('PHPRequests');
+           $request_made = $this->config->item('API_URL') . 'action=change_password&oldpass=' . $post['oldpass'] .'&userId='.$session_user;
+            $response = json_decode(Requests::get($request_made)->body);
+       
+            if ($session_user== NULL) {
+                $return = array('message' => $response->displyMessage, 'code' => 201);
+            } else {
+              //  $_SESSION['user_login'] = $response->data;
+               // var_dump($request_made);exit;
+                $url = base_url('dashboard');
+                $return = array('message' => $response->displyMessage, 'url' => $url, 'code' => 200);
+            }
+           echo json_encode($return);
+            exit;
+
+
+            //var_dump($post);exit;
+        }
+        
+    }
+    public function edit_profile()
+    {
+     $session_user= $this -> session -> userdata('user_login');
+       $post = $this->input->post();
+        if (!empty($post)) {
+            $this->load->library('PHPRequests');
+           $request_made = $this->config->item('API_URL') . 'action=edit_profile&firstName=' . $post['first_name'] .'&editID='. $session_user .'&lastName='. $post['lastname'] .'&email='.$post['email'].'&contactNumber='. $post['phonenumber'] .'&address='. $post['country'];
+         // VAR_DUMP($request_made);EXIT;
+           $response = json_decode(Requests::get($request_made)->body);
+       
+            if ($session_user== NULL) {
+                $return = array('message' => $response->displyMessage, 'code' => 201);
+            } else {
+              //  $_SESSION['user_login'] = $response->data;
+               // var_dump($request_made);exit;
+                $url = base_url('dashboard');
+                $return = array('message' => $response->displyMessage, 'url' => $url, 'code' => 200);
+            }
+           echo json_encode($return);
+            exit;
+
+            //var_dump($post);exit;
+        }   
+    }
+    public function forget_password()
+    {
+        $session_user= $this -> session -> userdata('user_login');
+       $post = $this->input->post();
+        if (!empty($post)) {
+            $this->load->library('PHPRequests');
+           $request_made = $this->config->item('API_URL') . 'action=forget_password&mailId=' . $post['mailid'];
+         // VAR_DUMP($request_made);EXIT;
+           $response = json_decode(Requests::get($request_made)->body);
+       
+            if ($session_user== NULL) {
+                $return = array('message' => $response->displyMessage, 'code' => 201);
+            } else {
+              //  $_SESSION['user_login'] = $response->data;
+               // var_dump($request_made);exit;
+                $url = base_url('dashboard');
+                $return = array('message' => $response->displyMessage, 'url' => $url, 'code' => 200);
+            }
+           echo json_encode($return);
+            exit;
+
+            //var_dump($post);exit;
+        }   
+        $this->load->view('home/foreget_password');
+    }
 
     public function contact() {
         $arrPost = $this->input->post();
