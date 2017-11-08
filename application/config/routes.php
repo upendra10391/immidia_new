@@ -62,6 +62,7 @@ $route['yacht_limo/(:any)'] = 'home/yacht_limo/$1';
 $route['yacht_food/(:any)'] = 'home/yacht_food/$1';
 $route['yacht_payment/(:any)'] = 'home/yacht_payment/$1';
 $route['booking'] = 'home/booking';
+$route['super_yacht'] = 'home/superYachtDetails';
 $route['chauffeur-service'] = 'home/chauffeur_services';
 $route['login'] = 'home/login';
 $route['product-for-sale'] = 'home/product_for_sale';

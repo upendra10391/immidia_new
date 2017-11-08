@@ -62,6 +62,8 @@ class Home extends CI_Controller {
     public $arrJetType;
     public $arrCurrency;
     public $carCountry;
+   
+
                 function __construct() {
         parent::__construct();
         $this->getYachtCountry();
@@ -87,6 +89,9 @@ class Home extends CI_Controller {
         $this->arrJetType = array('Small Jet' => 'Small Jet', 'Medium Jet' => 'Medium Jet', 'Long Range Jet', 'Large Airliner' => 'Large Airliner', 'Helicopter' => 'Helicopter');
         $this->arrCurrency = array('1'=>'€','2'=>'$','3'=>'AED');
         $this->IMAGE_URL = $this->config->item('IMAGE_URL');
+        if(!isset($_SESSION['CURRENT_PAGE'])){
+            $_SESSION['CURRENT_PAGE'] = 'dashboard';
+        }
     }
 
     function getYachtCountry() {
@@ -181,7 +186,9 @@ class Home extends CI_Controller {
             $_REQUEST = $_SESSION['yachtFilterParams'];
         }
 
-        $days = $_REQUEST['yachtDays'];
+    $days = $_REQUEST['yachtDays'];
+    if($_REQUEST['yachtType'] != 2){
+
         if ($days == 5) {
             $departureDate = new DateTime($_REQUEST["departureDate"]);
             $arrivalDate = new DateTime($_REQUEST["arrivalDate"]);
@@ -190,11 +197,14 @@ class Home extends CI_Controller {
         } else {
             $days = 1;
         }
+    }else{
+        $days = $_REQUEST['yachtDays'];
+    }
 
 
         $this->load->library('PHPRequests');
         $request_made = $this->config->item('API_URL') . 'action=get_yacht_booking_list&guests=' . $_REQUEST['guest'] . '&stateId=' . $_REQUEST['yachtState'] . '&startCity=' . $_REQUEST['departureCity'] . '&days=' . $days . '&bookingDate=' . date_format(date_create($_REQUEST['departureDate']), 'y-m-d') . '&yachtType=' . $_REQUEST['yachtType'] . '&routeType=' . $_REQUEST['routeType'] . '&arrivalPort=' . $_REQUEST['arrivalCity'];
-
+       // echo  $request_made;
 
         $response = json_decode(Requests::get($request_made)->body);
 
@@ -215,6 +225,7 @@ class Home extends CI_Controller {
 
     public function index() {
         unset($_SESSION['yachtFilterParams']);
+      //  session_destroy();
         if ($this->input->post('firstname')) {
             $this->saveJetData($this->input->post(), $this->input->get());
         }
@@ -224,6 +235,12 @@ class Home extends CI_Controller {
     }
 
     public function yachts_details($yachtId) {
+
+        //current page for super yacht
+        $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+        $this->CURRENT_PAGE =  $actual_link;
+
         $this->load->library('PHPRequests');
         $request_made = $this->config->item('API_URL') . 'action=get_yacht_details&yachtId=' . $yachtId;
         $response = json_decode(Requests::get($request_made)->body);
@@ -542,6 +559,31 @@ class Home extends CI_Controller {
         }
     }
 
+   public function superYachtDetails(){
+
+        $this->load->library('PHPRequests');
+        $this->yachtDetails = $_SESSION['yachtDetails'];
+        $this->yachtFilterParams = $_SESSION['yachtFilterParams'];
+        $request_made = $this->config->item('API_URL') . 'access=true&action=super_yacht_mail&mailId='.$_SESSION['user_login']->mailId.'&name='.$_SESSION['user_login']->firstName.'&country='.$_SESSION['yachtFilterParams']['yachtCountry'].'&message='.$_REQUEST['msg'].'&state='.$_SESSION['yachtFilterParams']['yachtState'].'&routeType='.$_SESSION['yachtFilterParams']['routeType'].'&days='.$_SESSION['yachtFilterParams']['yachtDays'].'&journeyDate='.$_SESSION['yachtFilterParams']['departureDate'].'&departurePort='.$_SESSION['yachtFilterParams']['departureCity'].'&arrivalPort='.$_SESSION['yachtFilterParams']['arrivalCity'].'&noOfGuests='.$_SESSION['yachtFilterParams']['guest'];
+        $response = json_decode(Requests::get($request_made)->body);
+
+      
+        if ($response->status == 1) {
+
+
+               echo '<script>setTimeout(function(){ showAlert("Success!!","Thanks for using Immidia Luxury","Success"); },600);</script>';
+               redirect('/', 'refresh');
+            
+        } else {
+
+              echo '<script>setTimeout(function(){ showAlert("Opps!!","No Record Listing","error"); },600);</script>';
+        }
+
+        
+    }
+
+
+
     public function booking() {
 
         $this->load->view('home/booking');
@@ -553,6 +595,8 @@ class Home extends CI_Controller {
     }
 
     public function login() {
+
+               
         $post = $this->input->post();
         if (!empty($post)) {
             $this->load->library('PHPRequests');
@@ -563,7 +607,7 @@ class Home extends CI_Controller {
                 $return = array('message' => $response->displyMessage, 'code' => 201);
             } else {
                 $_SESSION['user_login'] = $response->data;
-                $url = base_url('dashboard');
+                $url = base_url($_SESSION['CURRENT_PAGE']);
                 $return = array('message' => $response->displyMessage, 'url' => $url, 'code' => 200);
             }
             echo json_encode($return);

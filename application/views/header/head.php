@@ -28,4 +28,12 @@ function showAlert(title,msg,type){
 		swal(title, msg, type);
 
 }
+
+ function isLogin(isLogin){
+        if(isLogin == '0'){
+            showAlert("Login Required!!","Please Login First","error");
+            return false;;
+        }
+ }
+
 </script>

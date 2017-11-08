@@ -1,8 +1,8 @@
-//var base_url = 'http://localhost/immidia.ae/';
+var base_url = 'http://localhost/immidia.ae/';
 //var base_url = 'http://localhost/immidia_new/trunk';
 
 
- var base_url = 'http://localhost/immidia_new/';
+ //var base_url = 'http://localhost/immidia_new/';
 //var base_url = 'http://localhost/immidia_new/trunk';
 
  var yachtAddToCart = [];
@@ -37,6 +37,7 @@ function diffDays(d1, d2)
 
 function getYachtState(countryId) {
     $('#loader').removeAttr('style');
+    console.log(base_url + '/get_yacht_state/' + countryId);
     $.ajax({
         url: base_url + '/get_yacht_state/' + countryId,
         type: "get",
@@ -48,7 +49,7 @@ function getYachtState(countryId) {
             $('#yachtState').html('<option value="0">State</option>')
             $.each(JSON.parse(data), function (index, value) {
 
-                $('#yachtState').append('<option value="' + value['stateId'] + '">' + value['stateName'] + '</option>')
+                $('#yachtState').append('<option value="' + value['id'] + '">' + value['stateName'] + '</option>')
             });
 
         }

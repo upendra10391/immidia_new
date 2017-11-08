@@ -332,7 +332,12 @@
 					<div class="back-next">
 						<a class="back" href="javascript:void(0)" onclick="goBack()"><i class="fa fa-angle-left" aria-hidden="true"></i>Back to Search</a>
 						<?php if($this->yachtFilterParams['yachtType'] == 2){ ?>
-						<button  class="next" style="border: none;">Submit Query<i class="fa fa-angle-right" aria-hidden="true"></i></button>
+						<a href="javascript:void(0)" onclick="isLogin('<?=isset($_SESSION['user_login']) ? 1 : 0 ?>');" 
+						<?php if(isset($_SESSION['user_login'])){ ?>
+						 data-toggle="modal" data-target="#myModal" 
+						 <?php } ?>
+
+						  class="next" style="border: none;">Submit Query<i class="fa fa-angle-right" aria-hidden="true"></i></a>
 						<?php }else{ ?>
 						<button type="submit" class="next" style="border: none;">Next<i class="fa fa-angle-right" aria-hidden="true"></i></button>
 						<?php } ?>
@@ -342,10 +347,81 @@
 			</div>
 		</div>
 	</section>
-	<!-- <script type="text/javascript">
-		
-	</script> -->
+	<script type="text/javascript">
+			
+	</script>
 		
 	<?php $this->load->view('footer/footer') ?>
 	</body>
 </html>
+
+
+	<!---------popup---------->
+							<div id="myModal" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Super Yacht Information</h4>
+										</div>
+										<div class="modal-body">
+											<h5>Yacht Booking</h5>
+											<p class="">country<span><?=$this->yachtFilterParams['yachtCountryName']?></span></p>
+											<p class="">State<span><?=$this->yachtFilterParams['yachtStateName']?>	</span></p>
+											<p class="">Vehicle<span>
+												<?php 
+												if($this->yachtFilterParams['yachtType'] == 0){
+													echo "SAIL" ;
+												}else if($this->yachtFilterParams['yachtType'] == 1){
+													echo "MOTOR" ;
+												}else{
+													echo "SUPER YACHT";
+												}
+												?>
+											</span></p>
+											<p class="">Duration<span><?php 
+								foreach ($this->daysArrayInit as $key => $value) {
+											if($value['id'] == $this->yachtFilterParams['yachtDays']){
+												echo $value['name'];
+											}
+									
+								}
+								 ?></span></p>
+											<p class="">Depart<span><?=$this->yachtFilterParams['departureDate']?></span></p>
+
+
+											<p class="">Return<span><?php 
+									if(isset($this->yachtFilterParams['arrivalDate'])){
+										echo $this->yachtFilterParams['arrivalDate'];
+									}else{
+										echo $this->yachtFilterParams['departureDate'];
+									}
+
+								 ?>	</span></p>
+											<p class="">Departure Port<span><?=$this->yachtFilterParams['yachtDepartureCityName']?></span></p>
+											<p class="">Arrival Port<span><?=$this->yachtFilterParams['yachtArrivalCityName']?></span></p>
+											<p class="">Guest (s)<span><?=$this->yachtFilterParams['guest']?></span></p>
+											<br/>
+											<h5>Yacht Booking</h5>
+											<div class="row">
+												
+												<div class="col-md-6">
+													<p class="">Customer Name<span><?=$_SESSION['user_login']->firstName .' ' . $_SESSION['user_login']->lastName?></span></p>
+													<p class="">Email<span><?=$_SESSION['user_login']->mailId?></span></p>
+													<p class="">Contact<span><?=$_SESSION['user_login']->contactNumber?></span></p>
+												</div>
+												<div class="col-md-6">
+												<form action="<?=base_url()?>super_yacht"  method="post">
+													<div class="form-group">
+														<textarea name="msg" class="form-control" rows="2" id="comment"></textarea>
+													</div>
+													<input type="submit" class="submit" name="submit" value="Send Query" />
+												</div>
+											</div>
+							
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<!------------------->

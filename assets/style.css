@@ -4163,3 +4163,52 @@ form.registration-form fieldset {
 
 /* 
 } */
+
+/******************************popup*******************************/
+.modal-content{border-radius: 0;}
+.modal-header {
+    padding: 15px;
+    border-bottom: 0px solid #e5e5e5;
+    background: #a18f61;
+}
+.modal-title {
+    color: white;
+    text-transform: uppercase;
+}
+.close {
+    float: right;
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1;
+    color: #FFF;
+    text-shadow: 0 1px 0 #fff;
+  opacity: 1; 
+    filter: alpha(opacity=20);
+}
+.modal-content h5{
+  font-size: 16px;
+    color: #a18f61;
+    font-weight: 700;
+}
+.modal-content p{
+  font-size: 14px;
+    color: rgb(131, 131, 131);
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #ddd;
+} 
+.modal-content p span{
+  text-align: right;
+    float: right;
+    color: #000;
+}
+.modal-content textarea{
+  font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    box-shadow: none;
+}
+.modal-content .submit {
+      font-size: 14px;
+    padding: 7px 15px;
+}
