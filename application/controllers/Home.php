@@ -65,32 +65,32 @@ class Home extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-//        $this->getYachtCountry();
-//        $this->getAllTime();
-//        $this->getVillaCountry();
-//        $this->getCarClassification();
-//        $this->getCarHours();
-//        //var_dump($this->carHours);exit;
-//        //$this->getVillaState();
-//        //$this->getVillaCity();
-//        $this->daysArrayInit = array(
-//            array('id' => 1, 'name' => 'Half Day (9am - 1pm)', 'Half Day (9am - 1pm)' => 1),
-//            array('id' => 2, 'name' => 'Half Day (2pm - 6pm)', 'Half Day (2pm - 6pm)' => 2),
-//            array('id' => 3, 'name' => '24 Hour (Noon - Noon)', '24 Hour (Noon - Noon)' => 3),
-//            array('id' => 4, 'name' => '1 Day (09:00 - 19:00 Hrs)', '1 Day (09:00 - 19:00 Hrs)' => 4),
-//            array('id' => 5, 'name' => 'More (----)', 'More (----)' => 5),
-//            array('id' => 6, 'name' => '1 Week (----)', '1 Week (----)' => 6),
-//            array('id' => 7, 'name' => '2 Week (----)', '2 Week (----)' => 7),
-//            array('id' => 8, 'name' => '3 Week (----)', '3 Week (----)' => 8),
-//            array('id' => 9, 'name' => '4 Week (----)', '4 Week (----)' => 9)
-//        );
-//
-//        $this->arrJetType = array('Small Jet' => 'Small Jet', 'Medium Jet' => 'Medium Jet', 'Long Range Jet', 'Large Airliner' => 'Large Airliner', 'Helicopter' => 'Helicopter');
-//        $this->arrCurrency = array('1' => '€', '2' => '$', '3' => 'AED');
-//        $this->IMAGE_URL = $this->config->item('IMAGE_URL');
-//        if (!isset($_SESSION['CURRENT_PAGE'])) {
-//            $_SESSION['CURRENT_PAGE'] = 'dashboard';
-//        }
+        $this->getYachtCountry();
+        $this->getAllTime();
+        $this->getVillaCountry();
+        $this->getCarClassification();
+        $this->getCarHours();
+        //var_dump($this->carHours);exit;
+        //$this->getVillaState();
+        //$this->getVillaCity();
+        $this->daysArrayInit = array(
+            array('id' => 1, 'name' => 'Half Day (9am - 1pm)', 'Half Day (9am - 1pm)' => 1),
+            array('id' => 2, 'name' => 'Half Day (2pm - 6pm)', 'Half Day (2pm - 6pm)' => 2),
+            array('id' => 3, 'name' => '24 Hour (Noon - Noon)', '24 Hour (Noon - Noon)' => 3),
+            array('id' => 4, 'name' => '1 Day (09:00 - 19:00 Hrs)', '1 Day (09:00 - 19:00 Hrs)' => 4),
+            array('id' => 5, 'name' => 'More (----)', 'More (----)' => 5),
+            array('id' => 6, 'name' => '1 Week (----)', '1 Week (----)' => 6),
+            array('id' => 7, 'name' => '2 Week (----)', '2 Week (----)' => 7),
+            array('id' => 8, 'name' => '3 Week (----)', '3 Week (----)' => 8),
+            array('id' => 9, 'name' => '4 Week (----)', '4 Week (----)' => 9)
+        );
+
+        $this->arrJetType = array('Small Jet' => 'Small Jet', 'Medium Jet' => 'Medium Jet', 'Long Range Jet', 'Large Airliner' => 'Large Airliner', 'Helicopter' => 'Helicopter');
+        $this->arrCurrency = array('1' => '€', '2' => '$', '3' => 'AED');
+        $this->IMAGE_URL = $this->config->item('IMAGE_URL');
+        if (!isset($_SESSION['CURRENT_PAGE'])) {
+            $_SESSION['CURRENT_PAGE'] = 'dashboard';
+        }
     }
 
     function getYachtCountry() {
@@ -612,6 +612,7 @@ class Home extends CI_Controller {
     }
 
     public function product_for_sale() {
+        $this->session->unset_userdata('all_p_villa_data');
         $arrGet = $this->input->get();
         $this->load->library('PHPRequests');
         $varExtra = "";
@@ -632,7 +633,6 @@ class Home extends CI_Controller {
     }
 
     public function product_for_sale_detail($varId = "") {
-        $this->session->unset_userdata('all_p_villa_data');
         $arrSaleVillaDetails = $this->session->userdata('all_p_villa_data');
         $this->load->view('home/product_for_sale_detail', array('objValue' => $arrSaleVillaDetails[$varId]));
     }

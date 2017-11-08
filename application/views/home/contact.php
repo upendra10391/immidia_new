@@ -79,6 +79,7 @@
             $(document).ready(function(){
                  $("#contactForm").validate({
                        submitHandler: function(form) {
+                            $('#submitContactForm').val("Please Wait ...");
                             $('#submitContactForm').attr('disabled','true');
                             $.ajax({
                                 url: "<?php echo base_url('contact')?>",
@@ -86,7 +87,10 @@
                                 data:$("#contactForm").serialize(),
                                 success: function (data) {
                                     $('#submitContactForm').removeAttr('disabled');
-                                    alert(data);
+                                    $('input.form-control').val("");
+                                    $('#exampleTextarea').val("");
+                                    alert("Thanks for contacting us.");
+                                    $('#submitContactForm').val("Submit")
                                 }
                             });
                         }
