@@ -79,11 +79,13 @@
             $(document).ready(function(){
                  $("#contactForm").validate({
                        submitHandler: function(form) {
+                            $('#submitContactForm').attr('disabled','true');
                             $.ajax({
                                 url: "<?php echo base_url('contact')?>",
                                 type: "post",
                                 data:$("#contactForm").serialize(),
                                 success: function (data) {
+                                    $('#submitContactForm').removeAttr('disabled');
                                     alert(data);
                                 }
                             });
