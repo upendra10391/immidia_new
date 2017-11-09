@@ -1,14 +1,6 @@
 //var base_url = 'http://localhost/immidia.ae/';
-<<<<<<< HEAD
-//var base_url = 'http://localhost/immidia_new/trunk';
-var base_url = 'http://localhost/immidia_new/';
-=======
 var base_url = 'http://localhost/immidia_new/trunk';
-
-
- //var base_url = 'http://localhost/immidia_new/';
->>>>>>> 99d5edef0d0ce5282f449adff6054771ca7f840d
-//var base_url = 'http://localhost/immidia_new/trunk';
+//var base_url = 'http://localhost/immidia_new/';
 
  var yachtAddToCart = [];
 
@@ -410,14 +402,14 @@ $("body").on("change", "#carCountry", function () {
     var countryId = $(this).val();
     $('#loaderCar').removeAttr('style');
     $.ajax({
-        url: base_url + '/get_yacht_state/' + countryId,
+        url: base_url + '/get_car_state/' + countryId,
         type: "get",
         success: function (data) {
             $('#carCountryName').val($('#carCountry option:selected').text());
             $('#loaderCar').attr('style', 'display:none');
             $('#carState').html('<option value="0">State</option>')
             $.each(JSON.parse(data), function (index, value) {
-                $('#carState').append('<option value="' + value['stateId'] + '">' + value['stateName'] + '</option>')
+                $('#carState').append('<option value="' + value['id'] + '">' + value['stateName'] + '</option>')
             });
         }
     });
