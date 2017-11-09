@@ -110,7 +110,7 @@
                                     <li>Specification</li>
                                     <li>Situation<span><?php echo $objValue->situation;?></span></li>
                                     <li>Hill View<span><?php echo !empty($objValue->ishillView) ? "YES" : "NO";?></span></li>
-                                    <li>Attractions And<br/> Distances<span>Emirates Tower, Burj khalifa, Dubai Mall,Dubai Metro</span></li>
+                                    <li>Attractions And<br/> Distances<span><?php echo $objValue->additional?></span></li>
                                     <li>Classical Interior Design<span><?php echo !empty($objValue->isClassicalInteriorDesign) ? "YES" : "NO";?></span></li>
                                     <li>Modern Interior Design<span><?php echo !empty($objValue->isModernInteriorDesign) ? "YES" : "NO";?></span></li>
                                     <li>Fully Equipment Kitchen<span><?php echo !empty($objValue->isKitchen) ? "YES" : "NO";?></span></li>
@@ -136,8 +136,8 @@
                             <div class="col-md-6">
                                 <ul class="first">
                                     <li>Location</li>
-                                    <li>Address<span><?php echo $objValue->address;?></span></li>
-                                    <!-- <li>Showmap<span>Showmap</span></li> -->
+                                    <li>Address<span><?php echo $objValue->addressRentalAgency;?></span></li>
+                                    <li>Showmap<span><?php echo $objValue->locationMapUrl?></span></li>
                                 </ul>
 
                                 <ul>

@@ -662,6 +662,7 @@ class Home extends CI_Controller {
 
     public function product_for_sale_detail($varId = "") {
         $arrSaleVillaDetails = $this->session->userdata('all_p_villa_data');
+        //echo "<pre>";var_dump($arrSaleVillaDetails);exit;
         $this->load->view('home/product_for_sale_detail', array('objValue' => $arrSaleVillaDetails[$varId]));
     }
 
