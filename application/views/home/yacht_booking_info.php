@@ -105,15 +105,20 @@
 							</div>
 							<div class="form-group fborder">
 							<div class="col-md-12 col-xs-12 nopd"><p class="title">Food And Beverage</p></div>
-								<div class="col-md-10 col-xs-10 nopd">
-                                                                    
+							 <?php
+                                                                    foreach($food as $objfood)
+                                                                    {
+                                                                       // var_dump($objfood);
+                                                                    ?>
+                                                        <div class="col-md-10 col-xs-10 nopd">
+                                                                   
 									<p class="fitem">
-										<span class="iname">Tomato and Mozzarella</span>
-										<span class="iqut"><?php echo $blogs->quantity;?></span>
-										<span class="iprice">€ <?php echo $blogs->itemprice;?></span>
+										<span class="iname"><?php echo $objfood->itemName;?></span>
+										<span class="iqut"><?php echo $objfood->quantity;?></span>
+										<span class="iprice">€ <?php echo $objfood->itemprice;?></span>
 									</p>
-                                                                        
-									<p class="fitem">
+                                                                   
+								<!--<p class="fitem">
 										<span class="iname">Chichen Sandwich</span>
 										<span class="iqut"><?php echo $blogs->quantity;?></span>
 										<span class="iprice">€ <?php echo $blogs->itemprice;?></span>
@@ -122,8 +127,8 @@
 										<span class="iname">Minuty Cuvee prestige - 75cl</span>
 										<span class="iqut"><?php echo $blogs->quantity;?></span>
 										<span class="iprice">€ <?php echo $blogs->itemprice;?></span>
-									</p>
-								</div>
+									</p>-->
+								</div> <?php }?>  
 							</div>
 						</div>
 						<div class="col-md-6 ">
