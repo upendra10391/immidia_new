@@ -65,8 +65,11 @@ Class Jet_model extends CI_Model{
     {
        $this->db->select('*');
        $this->db->from('tbl_booking');
-       $this->db->where('id',$id);
-      //$this->db->join('tbl_users','tbl_users.id= tbl_booking.userId');
+        $this->db->where('tbl_booking.id',$id);
+       $this->db->join('tbl_users','tbl_users.id=tbl_booking.userId','left');
+       $this->db->join(' tbl_configuration',' tbl_configuration.id=tbl_booking.websiteId','left');
+        $this->db->join(' tbl_booking_type',' tbl_booking_type.id=tbl_booking.bookingType','left');
+        $this->db->join(' tbl_food_order',' tbl_food_order.bookingId=tbl_booking.id','left');
      $query=$this->db->get();
        return $query->row();
     }

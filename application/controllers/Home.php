@@ -737,7 +737,8 @@ class Home extends CI_Controller {
     }
 
     public function yacht_booking() {
-        $this->session->set_userdata('user_booking',160);
+        $varUserId = 161;
+        $this->session->set_userdata('user_booking',$varUserId);
         $session_user= $this -> session -> userdata('user_booking');
          $this->load->model('Jet_model');
         $result['blogs']=$this->Jet_model->yacht_booking_infoall($session_user);
@@ -1111,7 +1112,16 @@ class Home extends CI_Controller {
         $request_made = $this->config->item('API_URL') . 'action=get_state_list_car&countryId=' . $countryId;
         $response = json_decode(Requests::get($request_made)->body);
         if ($response->status == true) {
-            echo json_encode($response->data);
+            //var_dump($response->data);exit;
+            $arrReturn = array();
+            if(!empty($response->data)){
+                foreach ($response->data as $objData){
+                    if($objData->countryId == $countryId){
+                        $arrReturn[] = $objData;
+                    }
+                }
+            }
+            echo json_encode($arrReturn);
             exit;
         } else {
             echo json_encode(array());

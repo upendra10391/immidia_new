@@ -89,7 +89,7 @@
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Source</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance">http://</p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->websiteLink;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Service Provider</p></div>
@@ -97,29 +97,31 @@
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Line Of Business</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance">Yacht</p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->serviceName;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Fleet Name</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance">Yacht</p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->serviceName;?></p></div>
 							</div>
 							<div class="form-group fborder">
 							<div class="col-md-12 col-xs-12 nopd"><p class="title">Food And Beverage</p></div>
 								<div class="col-md-10 col-xs-10 nopd">
+                                                                    
 									<p class="fitem">
-										<span class="iname">Tomato And Mozzarella</span>
+										<span class="iname">Tomato and Mozzarella</span>
 										<span class="iqut"><?php echo $blogs->quantity;?></span>
-										<span class="iprice"><?php echo $blogs->itemprice;?></span>
+										<span class="iprice">€ <?php echo $blogs->itemprice;?></span>
 									</p>
+                                                                        
 									<p class="fitem">
 										<span class="iname">Chichen Sandwich</span>
-										<span class="iqut">2</span>
-										<span class="iprice">€ 16</span>
+										<span class="iqut"><?php echo $blogs->quantity;?></span>
+										<span class="iprice">€ <?php echo $blogs->itemprice;?></span>
 									</p>
 									<p class="fitem">
 										<span class="iname">Minuty Cuvee prestige - 75cl</span>
-										<span class="iqut">1</span>
-										<span class="iprice">€ 32</span>
+										<span class="iqut"><?php echo $blogs->quantity;?></span>
+										<span class="iprice">€ <?php echo $blogs->itemprice;?></span>
 									</p>
 								</div>
 							</div>
@@ -130,7 +132,7 @@
 								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ 852</p></div>
 							</div>
 							<div class="form-group gborder">
-								<div class="col-md-6 col-xs-6 nopd"><p class="title">vat</p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="title">Vat</p></div>
 								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->vat;?></p></div>
 							</div>
 							<div class="form-group gborder">
@@ -144,27 +146,27 @@
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4 nopd"><p class="title">Formula</p></div>
 								<div class="col-md-4 col-xs-4 nopd"><p class="value">Regular</p></div>
-								<div class="col-md-4 col-xs-4 nopd"><p class="distance">€ 800</p></div>
+								<div class="col-md-4 col-xs-4 nopd"><p class="distance">€ <?php echo $blogs->formulaPrice;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Delivery Rate</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->deliveryArea;?></p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ <?php echo $blogs->deliveryArea;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Drop Off Rate</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->dropoffArea;?></p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ <?php echo $blogs->dropoffArea;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Extra time ?</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->extraTime;?></p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ <?php echo $blogs->extraTime;?></p></div>
 							</div>
 							<div class="form-group gborder">
-								<div class="col-md-6 col-xs-6 nopd"><p class="title">tr Charges</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ 0</p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="title">transaction Charges</p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ <?php echo $blogs->transactionFee;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title"><b>Total</b></p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><b><?php echo $blogs->total;?></b></p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><b>€ <?php echo $blogs->total;?></b></p></div>
 							</div>
 						
 						</div>
