@@ -1,5 +1,6 @@
 <?php
 //var_dump($blogs->firstName);exit;
+//echo !empty($blogs->deliveryArea) ? $blogs->deliveryArea:'0';exit;
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,7 +24,7 @@
             });
         </script>
 		<script>
-		function openCity(evt, cityName) {
+	function openCity(evt, cityName) {
     // Declare all variables
     var i, tabcontent, tablinks;
 
@@ -37,6 +38,26 @@
     tablinks = document.getElementsByClassName("tablinks");
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the link that opened the tab
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+function openCity1(evt, cityName) {
+    // Declare all variables
+    var i1, tabcontent1, tablinks1;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent1 = document.getElementsByClassName("tabcontent1");
+    for (i1 = 0; i1 < tabcontent1.length; i1++) {
+        tabcontent1[i1].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks1 = document.getElementsByClassName("tablinks1");
+    for (i1 = 0; i1 < tablinks1.length; i1++) {
+        tablinks1[i1].className = tablinks1[i1].className.replace(" active", "");
     }
 
     // Show the current tab, and add an "active" class to the link that opened the tab
@@ -133,7 +154,7 @@
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Vat</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->vat;?></p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo !empty($blogs->vat) ? $blogs->vat:'0';?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Gross</p></div>
@@ -146,23 +167,23 @@
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4 nopd"><p class="title">Formula</p></div>
 								<div class="col-md-4 col-xs-4 nopd"><p class="value">Regular</p></div>
-								<div class="col-md-4 col-xs-4 nopd"><p class="distance">€ <?php echo $blogs->formulaPrice;?></p></div>
+								<div class="col-md-4 col-xs-4 nopd"><p class="distance">€ <?php echo !empty($blogs->formulaPrice) ? $blogs->formulaPrice:'0';?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Delivery Rate</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ <?php echo $blogs->deliveryArea;?></p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ <?php echo !empty($blogs->deliveryArea) ? $blogs->deliveryArea:'0';?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Drop Off Rate</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ <?php echo $blogs->dropoffArea;?></p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ <?php echo !empty($blogs->dropoffArea) ? $blogs->dropoffArea:'0';?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Extra time ?</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ <?php echo $blogs->extraTime;?></p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ <?php echo !empty($blogs->extraTime) ? $blogs->extraTime:'0';?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">transaction Charges</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ <?php echo $blogs->transactionFee;?></p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ <?php echo !empty($blogs->transactionFee) ? $blogs->transactionFee:'0';?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title"><b>Total</b></p></div>
