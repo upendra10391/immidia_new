@@ -30,7 +30,7 @@
                 <select class="motor" name="yachtType" id="yachtType" onchange="getYachtDepartureCity('yachtCountry', 'yachtState', '1', 'yachtDays', 'yachtType', 'routeType');
                                                         validateSuperYacht('yachtType', 'yachtDays');">
                     <option value="0">SAIL</option>
-                    <option value="1" selected>MOTOR</option>
+                    <option value="1" selected>MOTOR/YACHT</option>
                     <option value="2">SUPER YACHT</option>
 
                 </select>

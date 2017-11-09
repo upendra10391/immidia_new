@@ -303,7 +303,7 @@
                             <ul>
                                 <li>€ <?php echo $villaListData->price;?></li>
                                 <li>TO SLEEP <?php echo $villaListData->guestSleeping;?></li>
-                                <li>AREA <?php echo $villaListData->surfaceArea;?></li>
+                                <li>AREA <?php echo $villaListData->surfaceArea;?> m<sup>2</sup> </li>
                                 <li>ROOMS <?php echo $villaListData->totalRooms;?></li>
                             </ul>
                         </div>
@@ -312,7 +312,7 @@
                             <ul>
                                 <li>€ <?php echo $villaListData->price;?></li>
                                 <li>TO SLEEP <?php echo $villaListData->guestSleeping;?></li>
-                                <li>AREA <?php echo $villaListData->surfaceArea;?></li>
+                                <li>AREA <?php echo $villaListData->surfaceArea;?> m<sup>2</sup> </li>
                                 <li>ROOMS <?php echo $villaListData->totalRooms;?></li>
                             </ul>
                             <?php //$objQueryString = 'villa_country='.$villaFilterParams['villa_country'].'&villaState='.$villaFilterParams['villaState'].'&destinationId='.$villaFilterParams['destination_name'];?>

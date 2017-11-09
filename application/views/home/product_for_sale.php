@@ -109,14 +109,14 @@
                                     <option>Low to High</option>
 
                                 </select>
-                                <h3 class="total">32,217 RESULTS</h3>
+                                <h3 class="total"><?php echo count($arrSaleaDetails) ?> RESULTS</h3>
                             </div>
                         </div>
                         <div class="row lg">
                             <div class="col-md-3"><p><img src="<?php echo base_url(); ?>assets/images/product-sale/i3.png">VILLA <span>(<?php echo count($arrSaleaDetails) ?>)</span></p></div>
-                            <div class="col-md-3"><p><img src="<?php echo base_url(); ?>assets/images/product-sale/i4.png">YACHT <span>(9494)</span></p></div>
-                            <div class="col-md-3"><p><img src="<?php echo base_url(); ?>assets/images/product-sale/i5.png">CAR <span>(2429)</span></p></div>
-                            <div class="col-md-3"><p><img src="<?php echo base_url(); ?>assets/images/product-sale/i6.png">JET <span>(444)</span></p></div>
+                            <div class="col-md-3"><p><img src="<?php echo base_url(); ?>assets/images/product-sale/i4.png">YACHT <span>(0)</span></p></div>
+                            <div class="col-md-3"><p><img src="<?php echo base_url(); ?>assets/images/product-sale/i5.png">CAR <span>(0)</span></p></div>
+                            <div class="col-md-3"><p><img src="<?php echo base_url(); ?>assets/images/product-sale/i6.png">JET <span>(0)</span></p></div>
                         </div>
 <!--                        <div class="row">
                             <div class="col-md-3 pull-right">
@@ -169,7 +169,7 @@
                                                            <div class="info first">
                                                                    <img src="<?php echo base_url(); ?>assets/images/product-sale/i7.png" alt="1">
                                                                    <p class="title">Area</p>
-                                                                   <p class="count"><?php echo $objValue->surfaceArea?></p>
+                                                                   <p class="count"><?php echo $objValue->surfaceArea?> m<sup>2</sup> </p>
                                                            </div>
                                                            <div class="info second">
                                                                    <img src="<?php echo base_url(); ?>assets/images/product-sale/i8.png" alt="1">

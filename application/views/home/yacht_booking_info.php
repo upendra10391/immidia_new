@@ -101,13 +101,13 @@
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Fleet Name</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->serviceName;?></p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->productName;?></p></div>
 							</div>
 							<div class="form-group fborder">
 							<div class="col-md-12 col-xs-12 nopd"><p class="title">Food And Beverage</p></div>
 								<div class="col-md-10 col-xs-10 nopd">
                                                                     
-									<p class="fitem">
+									<!-- <p class="fitem">
 										<span class="iname">Tomato and Mozzarella</span>
 										<span class="iqut"><?php echo $blogs->quantity;?></span>
 										<span class="iprice">€ <?php echo $blogs->itemprice;?></span>
@@ -122,7 +122,7 @@
 										<span class="iname">Minuty Cuvee prestige - 75cl</span>
 										<span class="iqut"><?php echo $blogs->quantity;?></span>
 										<span class="iprice">€ <?php echo $blogs->itemprice;?></span>
-									</p>
+									</p> -->
 								</div>
 							</div>
 						</div>

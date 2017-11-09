@@ -108,7 +108,7 @@
                             <div class="info sixth">
                                 <img src="<?php echo base_url(); ?>assets/images/product-sale-detail/i3.png" alt="1">
                                 <p class="title">AREA</p>
-                                <p class="count"><?php echo (!empty($villDetails->surfaceArea)) ? $villDetails->surfaceArea : 0;?></p>
+                                <p class="count"><?php echo (!empty($villDetails->surfaceArea)) ? $villDetails->surfaceArea : 0;?> m<sup>2</sup> </p>
                             </div>
                             <div class="info fourth">
                                 <img src="<?php echo base_url(); ?>assets/images/product-sale-detail/i4.png" alt="1">

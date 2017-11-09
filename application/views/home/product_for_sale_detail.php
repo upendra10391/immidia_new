@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+
+<?php
+    header('X-Frame-Options: GOFORIT'); 
+?>
 <html>
     <head>
         <title><?php echo $objValue->villaName?></title>
@@ -91,7 +95,7 @@
                             <div class="info sixth">
                                 <img src="<?php echo base_url(); ?>assets/images/product-sale-detail/i3.png" alt="1">
                                 <p class="title">AREA</p>
-                                <p class="count"><?php echo $objValue->surfaceArea?> ft² </p>
+                                <p class="count"><?php echo $objValue->surfaceArea?> m<sup>2</sup> </p>
                             </div>
                             <div class="info fourth">
                                 <img src="<?php echo base_url(); ?>assets/images/product-sale-detail/i4.png" alt="1">
@@ -137,7 +141,7 @@
                                 <ul class="first">
                                     <li>Location</li>
                                     <li>Address<span><?php echo $objValue->addressRentalAgency;?></span></li>
-                                    <li>Showmap<span><?php echo $objValue->locationMapUrl?></span></li>
+                                    <li>Showmap<span> <a href="<?php echo $objValue->locationMapUrl?>" target="_blank">View On Map</a></li>
                                 </ul>
 
                                 <ul>
@@ -154,16 +158,22 @@
                     </div>
                 </div>
             </div>
+
         </section>
+        
         <section class="map-section">
             <div class="container-fluid">
                 <div class="row">
                     <div class="map-responsive">
-                        <iframe src="<?php echo $objValue->locationMapUrl?>" width="600" height="375" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        <iframe src="<?php echo $objValue->locationMapUrl?>" width="600" height="375" frameborder="0" style="border:0" allowfullscreen="" target="_parent"></iframe>
+                
                     </div>
                 </div>
             </div>
         </section>
+
+
+
         <?php $this->load->view('footer/footer') ?>
     </body>
 </html>
