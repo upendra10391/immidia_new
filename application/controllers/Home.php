@@ -66,7 +66,7 @@ class Home extends CI_Controller {
     function __construct() {
         parent::__construct();
 
-         $this->load->database();
+        $this->load->database();
 //        $this->getYachtCountry();
 //        $this->getAllTime();
 //        $this->getVillaCountry();
@@ -121,6 +121,16 @@ class Home extends CI_Controller {
         }
     }
 
+    // check whether login or not
+    private function isLoggedIn(){
+        if(empty($_SESSION['user_login'])){
+            redirect(base_url('login'));
+            exit;
+        }
+        return true;
+    }
+            
+    
     function getYachtCountry() {
 
         $this->load->library('PHPRequests');
@@ -617,13 +627,14 @@ class Home extends CI_Controller {
     }
 
     public function login() {
+        if($this->isLoggedIn()){
         $post = $this->input->post();
         if (!empty($post)) {
             $this->load->library('PHPRequests');
             $request_made = $this->config->item('API_URL') . 'action=user_login&mailId=' . $post['mailId'] . '&password=' . $post['password'];
             $response = json_decode(Requests::get($request_made)->body);
             //var_dump($response);exit;
-            $response->data=161;
+            //$response->data=161;
             if ($response->data == NULL) {
                 $return = array('message' => $response->displyMessage, 'code' => 201);
             } else {
@@ -637,6 +648,9 @@ class Home extends CI_Controller {
             //var_dump($post);exit;
         }
         $this->load->view('auth/login');
+        }else{
+            redirect(base_url('dashboard'));
+        }
     }
 
     public function product_for_sale() {
@@ -706,23 +720,21 @@ class Home extends CI_Controller {
     }
 
     public function dashboard() {
-        $this->load->library('PHPRequests');
-        $request_made = $this->config->item('API_URL') . 'action=get_user_configuration&websiteUrl=immidialuxury.com';
-        $response = json_decode(Requests::get($request_made)->body);
-        $data['user']=$response->user;
-        $varUserId = 161;
-        $this->session->set_userdata('user_booking',$varUserId);
-        $session_user= $this -> session -> userdata('user_booking');
-         $this->load->model('Jet_model');
-        $data['blogs']=$this->Jet_model->yacht_booking_infoall($session_user);
-        
-      // var_dump($data['food']);exit;
-       // echo "<pre>";
-        //var_dump($response->user);exit;
-        if ($response->status == true) {
-            $this->dashboardParams = $response->user;
+        if($this->isLoggedIn()){
+            $this->load->library('PHPRequests');
+            $request_made = $this->config->item('API_URL') . 'action=get_user_configuration&websiteUrl=immidialuxury.com';
+            $response = json_decode(Requests::get($request_made)->body);
+            $data['user']= $_SESSION['user_login'];
+            $varUserId = $_SESSION['user_login']->id;
+            //$this->session->set_userdata('user_booking',$varUserId);
+           // $session_user= $this -> session -> userdata('user_booking');
+            $this->load->model('Jet_model');
+            $data['blogs']=$this->Jet_model->yacht_booking_infoall($varUserId);
+            if ($response->status == true) {
+                $this->dashboardParams = $response->user;
+            }
+            $this->load->view('home/dashboard', $data);
         }
-        $this->load->view('home/dashboard',$data);
     }
 
     public function food_and_drinks() {
@@ -747,12 +759,12 @@ class Home extends CI_Controller {
 
     public function yacht_booking() {
         $varUserId = 161;
-        $this->session->set_userdata('user_booking',$varUserId);
-        $session_user= $this -> session -> userdata('user_booking');
-         $this->load->model('Jet_model');
-        $result['blogs']=$this->Jet_model->yacht_booking_infoall($session_user);
-      // var_dump($result['blogs']);exit;
-        $this->load->view('home/yacht_booking',$result);
+        $this->session->set_userdata('user_booking', $varUserId);
+        $session_user = $this->session->userdata('user_booking');
+        $this->load->model('Jet_model');
+        $result['blogs'] = $this->Jet_model->yacht_booking_infoall($session_user);
+        // var_dump($result['blogs']);exit;
+        $this->load->view('home/yacht_booking', $result);
     }
 
     public function yacht_booking_info($id) {
@@ -800,9 +812,9 @@ class Home extends CI_Controller {
         //var_dump($response);exit;
         if ($response->status == true) {
             $arrReturn = array();
-            if(!empty($response->data)){
-                foreach ($response->data as $objData){
-                    if($objData->countryId == $countryId){
+            if (!empty($response->data)) {
+                foreach ($response->data as $objData) {
+                    if ($objData->countryId == $countryId) {
                         $arrReturn[] = $objData;
                     }
                 }
@@ -1132,9 +1144,9 @@ class Home extends CI_Controller {
         if ($response->status == true) {
             //var_dump($response->data);exit;
             $arrReturn = array();
-            if(!empty($response->data)){
-                foreach ($response->data as $objData){
-                    if($objData->countryId == $countryId){
+            if (!empty($response->data)) {
+                foreach ($response->data as $objData) {
+                    if ($objData->countryId == $countryId) {
                         $arrReturn[] = $objData;
                     }
                 }
@@ -1146,91 +1158,93 @@ class Home extends CI_Controller {
             exit;
         }
     }
-     /* ---------change_password api------------------*/
-    public function change_password()
-    {
-       $session_user= $this -> session -> userdata('user_login');
-       
+
+    /* ---------change_password api------------------ */
+
+    public function change_password() {
+        $session_user = $this->session->userdata('user_login');
+
         $post = $this->input->post();
         if (!empty($post)) {
             $this->load->library('PHPRequests');
-           $request_made = $this->config->item('API_URL') . 'action=change_password&oldpass=' . $post['oldpass'] .'&userId='.$session_user;
+            $request_made = $this->config->item('API_URL') . 'action=change_password&oldpass=' . $post['oldpass'] . '&userId=' . $session_user;
             $response = json_decode(Requests::get($request_made)->body);
-       
-            if ($session_user== NULL) {
+
+            if ($session_user == NULL) {
                 $return = array('message' => $response->displyMessage, 'code' => 201);
             } else {
-              //  $_SESSION['user_login'] = $response->data;
-               // var_dump($request_made);exit;
+                //  $_SESSION['user_login'] = $response->data;
+                // var_dump($request_made);exit;
                 $url = base_url('dashboard');
                 $return = array('message' => $response->displyMessage, 'url' => $url, 'code' => 200);
             }
-           echo json_encode($return);
+            echo json_encode($return);
             exit;
 
 
             //var_dump($post);exit;
         }
-        
     }
-     /* ---------edit profile api------------------*/
-    public function edit_profile()
-    {
-     $session_user= $this -> session -> userdata('user_login');
-       $post = $this->input->post();
+
+    /* ---------edit profile api------------------ */
+
+    public function edit_profile() {
+        $session_user = $this->session->userdata('user_login');
+        $post = $this->input->post();
         if (!empty($post)) {
             $this->load->library('PHPRequests');
-           $request_made = $this->config->item('API_URL') . 'action=edit_profile&firstName=' . $post['first_name'] .'&editID='. $session_user .'&lastName='. $post['lastname'] .'&email='.$post['email'].'&contactNumber='. $post['phonenumber'] .'&address='. $post['country'];
-         // VAR_DUMP($request_made);EXIT;
-           $response = json_decode(Requests::get($request_made)->body);
-       
-            if ($session_user== NULL) {
+            $request_made = $this->config->item('API_URL') . 'action=edit_profile&firstName=' . $post['first_name'] . '&editID=' . $session_user->id . '&lastName=' . $post['lastname'] . '&email=' . $post['email'] . '&contactNumber=' . $post['phonenumber'] . '&address=' . $post['country'];
+            // VAR_DUMP($request_made);EXIT;
+            $response = json_decode(Requests::get($request_made)->body);
+
+            if ($session_user == NULL) {
                 $return = array('message' => $response->displyMessage, 'code' => 201);
             } else {
-              //  $_SESSION['user_login'] = $response->data;
-               // var_dump($request_made);exit;
+                //  $_SESSION['user_login'] = $response->data;
+                // var_dump($request_made);exit;
                 $url = base_url('dashboard');
                 $return = array('message' => $response->displyMessage, 'url' => $url, 'code' => 200);
             }
-           echo json_encode($return);
+            echo json_encode($return);
             exit;
 
             //var_dump($post);exit;
-        }   
+        }
     }
-    /* ---------forget_password api------------------*/
-    public function forget_password()
-    {
-        $session_user= $this -> session -> userdata('user_login');
-       $post = $this->input->post();
+
+    /* ---------forget_password api------------------ */
+
+    public function forget_password() {
+        $session_user = $this->session->userdata('user_login');
+        $post = $this->input->post();
         if (!empty($post)) {
             $this->load->library('PHPRequests');
-           $request_made = $this->config->item('API_URL') . 'action=forget_password&mailId=' . $post['mailid'];
-         // VAR_DUMP($request_made);EXIT;
-           $response = json_decode(Requests::get($request_made)->body);
-       
-            if ($session_user== NULL) {
+            $request_made = $this->config->item('API_URL') . 'action=forget_password&mailId=' . $post['mailid'];
+            // VAR_DUMP($request_made);EXIT;
+            $response = json_decode(Requests::get($request_made)->body);
+
+            if ($session_user == NULL) {
                 $return = array('message' => $response->displyMessage, 'code' => 201);
             } else {
-              //  $_SESSION['user_login'] = $response->data;
-               // var_dump($request_made);exit;
+                //  $_SESSION['user_login'] = $response->data;
+                // var_dump($request_made);exit;
                 $url = base_url('dashboard');
                 $return = array('message' => $response->displyMessage, 'url' => $url, 'code' => 200);
             }
-           echo json_encode($return);
+            echo json_encode($return);
             exit;
 
             //var_dump($post);exit;
-        }   
+        }
         $this->load->view('home/foreget_password');
     }
 
     public function contact() {
         $arrPost = $this->input->post();
-        if(!empty($arrPost)){
+        if (!empty($arrPost)) {
             $this->load->library('PHPRequests');
             $varExtra = "&mailId={$arrPost['email']}&name={$arrPost['name']}&phone=&subject={$arrPost['subject']}&message={$arrPost['body']}";
-            $request_made = $this->config->item('API_URL') . 'action=contactus&type=Add&isContact=1'.$varExtra;
+            $request_made = $this->config->item('API_URL') . 'action=contactus&type=Add&isContact=1' . $varExtra;
             $response = json_decode(Requests::get($request_made)->body);
             if ($response->status == true) {
                 echo json_encode($response->data);
