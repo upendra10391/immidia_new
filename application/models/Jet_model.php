@@ -50,4 +50,26 @@ Class Jet_model extends CI_Model{
         }
         return $objQuery->get()->result();
     }
+    public function yacht_booking_infoall($session_user)
+    {
+        $this->db->select('*');
+       $this->db->from('tbl_users');
+       $this->db->where('userId',$session_user);
+       $this->db->join('tbl_booking','tbl_booking.userId = tbl_users.id');
+       //$food= $this->db->join('tbl_food_order','tbl_booking.id = tbl_food_order.bookingId');
+       $query=$this->db->get();
+       return $query->result();
+       //return $food->row();
+    }
+    public function yacht_booking_info($id)
+    {
+       $this->db->select('*');
+       $this->db->from('tbl_booking');
+       $this->db->where('id',$id);
+      //$this->db->join('tbl_users','tbl_users.id= tbl_booking.userId');
+     $query=$this->db->get();
+       return $query->row();
+    }
+ 
+   
 }
