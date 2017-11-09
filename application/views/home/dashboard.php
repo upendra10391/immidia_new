@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -85,7 +86,45 @@ function openCity1(evt, cityName) {
 				</div>
 				<div id="Booking" class="tabcontent " style="display: none;">
 					<h3>Booking</h3>
+                                       
+                                           <?php
+                                    if(!empty($blogs))
+                                    {
+                                        foreach($blogs as $blog)
+                                        {
+                                    
+                                    ?>
+					<div class="yyi">
+						<div class="summary-title">
+							<h5>YOUR YACHT INFORMATION</h5><!--<a href="#">Modify</a>-->
+						</div>
+						<div class="table-responsive summary-result">
+							<table class="table">
+							<tr>
+								<th>Booking Reference No</th>
+								<th>Booking Date From</th>
+								<th>Booking Date To</th>
+								<th>Booking Reference No</th>
+								<th>Line Of Business</th>
+								<th>Rent</th>
+								<th>Total</th>
+							</tr>
+							<tr>
+								<td><span><?php echo $blog->bookingSequenceNumber;?> </span></td>  						
+								<td><span><?php echo $blog->departureDateTime;?></span></td>						
+								<td><span><?php echo $blog->arrivalDateTime ;?></span></td>
+								<td><span><?php echo $blog->bookingSequenceNumber;?> </span></td>							
+								<td><span>Yacht</span></td>
+								<td><span>€ 852</span></td>	
+								<td><span><b>€ <?php echo $blog->total;?> </b></span></td>
+							</tr>
+							</table>
+						</div>
+                                            <button data-link="<?php echo base_url('yacht-booking-info/'.$blog->id);?>" class="more goToNext"><a href="#"><i class="fa fa-plus" aria-hidden="true"></i> MORE INFO</a></button>
+					</div>
+                                    <?php }} ?>
 				</div>
+				
 				<div id="Profile" class="tabcontent" style="display: block;">
 					<div class="row profile">
 						<div class="col-md-4 ">
@@ -118,12 +157,12 @@ function openCity1(evt, cityName) {
 										</div>
 										<div class="col-md-3">
 											<div class="form-group">
-												<input type="text" id="firstnameedit" class="form-control" value="john" placeholder="First Name">
+												<input type="text" id="firstnameedit" class="form-control" value="<?php echo $user->firstName;?>" placeholder="First Name">
 											</div>
 										</div>
 										<div class="col-md-3">
 											<div class="form-group">
-												<input type="text" class="form-control" id="lasttnameedit" value="violin" placeholder="Last Name">
+												<input type="text" class="form-control" id="lasttnameedit" value="<?php echo $user->lastName;?>" placeholder="Last Name">
 											</div>
 										</div>
 										
@@ -135,18 +174,18 @@ function openCity1(evt, cityName) {
 									<div class="row">
 										<div class="col-md-4">
 											<div class="form-group">
-												<input type="email" class="form-control" readonly value="johnviolin@gmail.com" placeholder="Email Id">
+												<input type="email" class="form-control" readonly value="<?php echo $user->mailId;?>" placeholder="Email Id">
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
-												<input type="text" class="form-control" id="phonenumber" value="+919874563210" placeholder="Mobile No">
+												<input type="text" class="form-control" id="phonenumber" value="<?php echo $user->contactNumber;?>" placeholder="Mobile No">
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
 												<select class="country">
-													<option>Select Country</option>
+													<option><?php echo $user->country;?></option>
 													<option>India</option>
 													<option></option>
 												</select>
@@ -273,7 +312,15 @@ function openCity1(evt, cityName) {
 					<p>HELP is your help.</p>
 				</div>
 		</div>
-	
+                <script type="text/javascript">
+                $(document).ready(function(){
+                   $('body').on('click','.goToNext',function(e){
+                       e.preventDefault();
+                       $this = $(this);
+                       window.location.href = $this.attr('data-link');
+                   }) 
+                });
+            </script>    
 	</section>
         <?php $this->load->view('footer/footer') ?>
     </body>
