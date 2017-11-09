@@ -91,7 +91,7 @@
                             <div class="info sixth">
                                 <img src="<?php echo base_url(); ?>assets/images/product-sale-detail/i3.png" alt="1">
                                 <p class="title">AREA</p>
-                                <p class="count"><?php echo $objValue->surfaceArea?></p>
+                                <p class="count"><?php echo $objValue->surfaceArea?> ft² </p>
                             </div>
                             <div class="info fourth">
                                 <img src="<?php echo base_url(); ?>assets/images/product-sale-detail/i4.png" alt="1">
@@ -137,16 +137,16 @@
                                 <ul class="first">
                                     <li>Location</li>
                                     <li>Address<span><?php echo $objValue->address;?></span></li>
-                                    <li>Showmap<span>Showmap</span></li>
+                                    <!-- <li>Showmap<span>Showmap</span></li> -->
                                 </ul>
 
                                 <ul>
-                                    <li>Accomodation</li>
+                                    <!-- <li>Accomodation</li>
                                     <li>Minimum Stay<span><?php echo $objValue->minimumStay;?></span></li>
                                     <li>Maximum Guests<span><?php echo $objValue->maximumGuests;?></span></li>
                                     <li>Pets<span><?php echo !empty($objValue->isPetsAllowed) ? "YES" : "NO";?></span></li>
                                     <li>Social events<span><?php echo !empty($objValue->isEventsAllowed) ? "YES" : "NO";?></span></li>
-                                    <li>Security Deposit<span><?php echo $this->arrCurrency[$objValue->currencyId]." ".$objValue->amountofSecurityDeposit;?></span></li>
+                                    <li>Security Deposit<span><?php echo $this->arrCurrency[$objValue->currencyId]." ".$objValue->amountofSecurityDeposit;?></span></li> -->
                                 </ul>
                             </div>
                         </div>
