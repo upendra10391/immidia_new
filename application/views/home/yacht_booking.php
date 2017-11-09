@@ -63,6 +63,13 @@
 					<button class="tablinks" onclick="openCity(event, 'Help')"><i class="fa fa-question-circle" aria-hidden="true"></i><span>Help</span></button>
 				</div>
 				<div id="Booking" class="tabcontent " style="display: block;">
+                                    <?php
+                                    if(!empty($blogs))
+                                    {
+                                        foreach($blogs as $blog)
+                                        {
+                                    
+                                    ?>
 					<div class="yyi">
 						<div class="summary-title">
 							<h5>YOUR YACHT INFORMATION</h5><!--<a href="#">Modify</a>-->
@@ -79,18 +86,19 @@
 								<th>Total</th>
 							</tr>
 							<tr>
-								<td><span>1234567890</span></td>  						
-								<td><span>2017-10-11</span></td>						
-								<td><span>2017-10-11</span></td>
-								<td><span>1234567890</span></td>							
+								<td><span><?php echo $blog->bookingSequenceNumber;?> </span></td>  						
+								<td><span><?php echo $blog->departureDateTime;?></span></td>						
+								<td><span><?php echo $blog->arrivalDateTime ;?></span></td>
+								<td><span><?php echo $blog->bookingSequenceNumber;?> </span></td>							
 								<td><span>Yacht</span></td>
 								<td><span>€ 852</span></td>	
-								<td><span><b>€ 852</b></span></td>
+								<td><span><b>€ <?php echo $blog->total;?> </b></span></td>
 							</tr>
 							</table>
 						</div>
-						<button class="more"><a href="yacht-booking-info.html" target="_blank" ><i class="fa fa-plus" aria-hidden="true"></i> MORE INFO</a></button>
+                                            <button data-link="<?php echo base_url('yacht-booking-info/'.$blog->id);?>" class="more goToNext"><a href="#"><i class="fa fa-plus" aria-hidden="true"></i> MORE INFO</a></button>
 					</div>
+                                    <?php }} ?>
 				</div>
 				<div id="Profile" class="tabcontent" style="display: none;">
 					<h3>YOUR PROFILE</h3>
@@ -104,6 +112,15 @@
 		</div>
 	
 	</section>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                   $('body').on('click','.goToNext',function(e){
+                       e.preventDefault();
+                       $this = $(this);
+                       window.location.href = $this.attr('data-link');
+                   }) 
+                });
+            </script>
 	<?php $this->load->view('footer/footer') ?>
 </body>
 
