@@ -1,3 +1,6 @@
+<?php
+//var_dump($blogs->firstName);exit;
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -66,23 +69,23 @@
 						<div class="col-md-6">
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Booking Reference No</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance">1234567890</p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->bookingSequenceNumber;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Booking Date From</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance">2017-10-11</p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->departureDateTime;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Booking Date To</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance">2017-10-11</p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->arrivalDateTime ;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Booking Date To</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance">2017-10-11</p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->arrivalDateTime ;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Customer Name</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance">John Violin</p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->firstName;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Source</p></div>
@@ -105,8 +108,8 @@
 								<div class="col-md-10 col-xs-10 nopd">
 									<p class="fitem">
 										<span class="iname">Tomato And Mozzarella</span>
-										<span class="iqut">4</span>
-										<span class="iprice">€ 76</span>
+										<span class="iqut"><?php echo $blogs->quantity;?></span>
+										<span class="iprice"><?php echo $blogs->itemprice;?></span>
 									</p>
 									<p class="fitem">
 										<span class="iname">Chichen Sandwich</span>
@@ -128,7 +131,7 @@
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">vat</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ 10</p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->vat;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Gross</p></div>
@@ -145,15 +148,15 @@
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Delivery Rate</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ 452.50</p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->deliveryArea;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Drop Off Rate</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ 442.25</p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->dropoffArea;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Extra time ?</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ 0</p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->extraTime;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">tr Charges</p></div>
@@ -161,7 +164,7 @@
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title"><b>Total</b></p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><b>€ 11,023.75</b></p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><b><?php echo $blogs->total;?></b></p></div>
 							</div>
 						
 						</div>
