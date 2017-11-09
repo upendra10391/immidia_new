@@ -662,6 +662,7 @@ class Home extends CI_Controller {
 
     public function product_for_sale_detail($varId = "") {
         $arrSaleVillaDetails = $this->session->userdata('all_p_villa_data');
+        //echo "<pre>";var_dump($arrSaleVillaDetails);exit;
         $this->load->view('home/product_for_sale_detail', array('objValue' => $arrSaleVillaDetails[$varId]));
     }
 
@@ -789,7 +790,15 @@ class Home extends CI_Controller {
         $response = json_decode(Requests::get($request_made)->body);
         //var_dump($response);exit;
         if ($response->status == true) {
-            echo json_encode($response->data);
+            $arrReturn = array();
+            if(!empty($response->data)){
+                foreach ($response->data as $objData){
+                    if($objData->countryId == $countryId){
+                        $arrReturn[] = $objData;
+                    }
+                }
+            }
+            echo json_encode($arrReturn);
         } else {
             echo json_encode(array());
         }
