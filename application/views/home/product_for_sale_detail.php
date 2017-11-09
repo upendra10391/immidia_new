@@ -11,7 +11,7 @@
             <?php $this->load->view('header/header'); ?>
             <div class="container-fluid page-title">
                 <div class="row">
-                    <h1>BURJ DAMAN 4101</h1>
+                    <h1><?php echo $objValue->villaName?></h1>
                 </div>
             </div>
         </header>
