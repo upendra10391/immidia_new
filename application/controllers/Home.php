@@ -709,12 +709,19 @@ class Home extends CI_Controller {
         $this->load->library('PHPRequests');
         $request_made = $this->config->item('API_URL') . 'action=get_user_configuration&websiteUrl=immidialuxury.com';
         $response = json_decode(Requests::get($request_made)->body);
-        //echo "<pre>";
+        $data['user']=$response->user;
+        $varUserId = 161;
+        $this->session->set_userdata('user_booking',$varUserId);
+        $session_user= $this -> session -> userdata('user_booking');
+         $this->load->model('Jet_model');
+        $data['blogs']=$this->Jet_model->yacht_booking_infoall($session_user);
+        
+       // echo "<pre>";
         //var_dump($response->user);exit;
         if ($response->status == true) {
             $this->dashboardParams = $response->user;
         }
-        $this->load->view('home/dashboard');
+        $this->load->view('home/dashboard',$data);
     }
 
     public function food_and_drinks() {
