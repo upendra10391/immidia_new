@@ -750,7 +750,7 @@ class Home extends CI_Controller {
       //  var_dump($session_user);exit;
          $this->load->model('Jet_model');
         $result['blogs']=$this->Jet_model->yacht_booking_info($id);
-       // var_dump($result['blogs']);exit;
+      //  var_dump($result['blogs']);exit;
         $this->load->view('home/yacht_booking_info',$result);
     }
 
