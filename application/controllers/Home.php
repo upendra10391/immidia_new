@@ -716,6 +716,7 @@ class Home extends CI_Controller {
          $this->load->model('Jet_model');
         $data['blogs']=$this->Jet_model->yacht_booking_infoall($session_user);
         
+      // var_dump($data['food']);exit;
        // echo "<pre>";
         //var_dump($response->user);exit;
         if ($response->status == true) {
@@ -759,7 +760,8 @@ class Home extends CI_Controller {
       //  var_dump($session_user);exit;
          $this->load->model('Jet_model');
         $result['blogs']=$this->Jet_model->yacht_booking_info($id);
-      //  var_dump($result['blogs']);exit;
+        $result['food']=$this->Jet_model->yacht_booking_info_food($id);
+     //  var_dump($result['food']);exit;
         $this->load->view('home/yacht_booking_info',$result);
     }
 
