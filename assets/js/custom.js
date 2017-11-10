@@ -624,10 +624,10 @@ $("body").on("click","#limousine_villa",function(e){
     }
     
  })
- $("body").on("change","#select_qty",function(){
+ $("body").on("change",".select_qty",function(){
      var qty = $(this).val();
-     var name = $('#select_qty').attr('data-name');
-     var price = $('#select_qty').attr('data-price');
-    alert(price);
+     var name = $(this).attr('data-name');
+     var price = $(this).attr('data-price');
+    //alert(price);
      
  })
