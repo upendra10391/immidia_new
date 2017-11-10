@@ -199,10 +199,192 @@
 						</div>
 					</div>
 				</div>
-				<div id="Profile" class="tabcontent" style="display: none;">
+				<!--<div id="Profile" class="tabcontent" style="display: none;">
 					<h3>YOUR PROFILE</h3>
 					<p>Profile is YOUR PROFILE.</p> 
+				</div>-->
+                                <div id="Profile" class="tabcontent" style="display: none;">
+					<div class="row profile">
+						<div class="col-md-4 ">
+							<div>
+								<p class="fsname"><i class="fa fa-user" aria-hidden="true"></i>
+								<span class="iname">john violin</span><span class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i><a>logout</a></span></p>
+							</div>
+							<div class="ptabs">
+								<a class="tablinks1 active" onclick="openCity1(event, 'pi')">Travellers <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+								<a class="tablinks1 " onclick="openCity1(event, 'yd')">Your Documents <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+								<a class="tablinks1 " onclick="openCity1(event, 'ms')">My Settings <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+							</div>
+						</div>
+						<div  class="col-md-8 ">
+							<div id="pi" class="tabcontent1 " style="display: block;">
+								<h3>EDIT YOUR PERSONAL INFORMATION</h3>
+								<div class="yti">
+								<div class="pbox">
+									<p>Your name as on passport</p>
+                                                                        <p class="successmessageedit" style="color: green;"></p>
+									<div class="row">
+										<div class="col-md-3">
+											<div class="form-group">
+												<select class="gender">
+													<option>MR.</option>
+													<option>MISS</option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<input type="text" id="firstnameedit" class="form-control" value="<?php echo $user->firstName;?>" placeholder="First Name">
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<input type="text" class="form-control" id="lasttnameedit" value="<?php echo $user->lastName;?>" placeholder="Last Name">
+											</div>
+										</div>
+										
+									</div>
+								</div>
+								<div class="pbox">
+									<p>Edit Your Contact Information</p>
+                                                                         
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<input type="email" class="form-control" readonly value="<?php echo $user->mailId;?>" placeholder="Email Id">
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<input type="text" class="form-control" id="phonenumber" value="<?php echo $user->contactNumber;?>" placeholder="Mobile No">
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<select class="country">
+													<option><?php echo $user->country;?></option>
+													<option>India</option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="wrap3">
+									<button class="submit" id="editprofile">Edit</button>
+									</div>
+								</div>
+								</div>
+							</div>
+							<div id="yd" class="tabcontent1 " style="display: none;">
+								<h3>YOUR PASSPORT INFORMATION</h3>
+								<div class="pbox">
+									<p>Your name as on the passport</p>
+									<div class="row">
+										<div class="col-md-3">
+											<div class="form-group">
+												<select class="">
+													<option>MR.</option>
+													<option>MISS</option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<input type="text" class="form-control" placeholder="First Name">
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<input type="text" class="form-control" placeholder="Middle Name">
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<input type="text" class="form-control" placeholder="Last Name">
+											</div>
+										</div>
+									</div>
+									
+								</div>
+								<div class="pbox">
+									<p>Passport Details</p>
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<select class="">
+													<option>Select Country</option>
+													<option>India</option>
+													<option></option>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<input type="text" class="form-control" placeholder="Document Number">
+											</div>
+										</div>
+									</div>
+									
+								</div>
+								<div class="pbox">
+									<p>Date of Expiry</p>
+									<div class="row">
+										<div class="col-md-3">
+											<div class="input-group date" id="datetimepicker10">
+												<input type="text" class="form-control date-picker" placeholder="YYYY/MM/DD">
+											</div>
+										</div>
+										
+									</div>
+									<div class="wrap3">
+									<button class="submit">Save</button>
+									</div>
+								</div>
+								
+							</div>
+							<div id="ms" class="tabcontent1 " style="display: none;">
+							<h3>YOUR SETTINGS</h3>
+								<div class="pbox">
+									<p>Change Password</p>
+                                                                         <p class="successmessagechange" style="color: green;"></p>
+                                                                        <p id="error_user_bothpasswordnotmatch" style="color: red; display: none;"></p>
+									<div class="row">
+										
+										<div class="col-md-4">
+											<div class="form-group">
+												<input type="text" class="form-control" id="oldpass" placeholder="Current Password">
+                                                                                                 <p id="error_user_oldpassword" style="color: red; display: none;"></p>
+							
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<input type="text" class="form-control" id="newpass" placeholder="New Password">
+                                                                                                <p id="error_user_newpassword" style="color: red; display: none;"></p>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<input type="text" class="form-control" placeholder="Confirm Password" id="cnfpass">
+                                                                                                <p id="error_user_cnfpassword" style="color: red; display: none;"></p>
+											</div>
+										</div>
+									</div>
+									<div class="wrap3">
+									<button class="submit" type="button" id="changepassword">Submit</button>
+									</div>
+								
+								</div>
+							
+							
+							
+							</div>
+						</div>
 				</div>
+				
+			</div>
 				<div id="Help" class="tabcontent" style="display: none;">
 					<h3>HELP</h3>
 					<p>HELP is your help.</p>
