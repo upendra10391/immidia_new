@@ -97,8 +97,8 @@ $route['villa-search-result'] = 'home/villa_search_result';
 $route['jet-category/(.*)'] = 'home/long_range_jet/$1';
 $route['challenger/(:num)'] = 'home/challenger/$1';
 $route['get_villa_city/(:num)'] = 'home/getVillaCity/$1';
-$route['get_villa_limousine/(:num)/(:any)/(:any)'] = 'home/getVillaLimousine/$1/$2/$3';
-$route['food_vill_lumousine'] = 'home/food_vill_lumousine';
+$route['villalimousineDetail/(:num)'] = 'home/villalimousineDetail/$1';
+$route['foodVillaLlumousine'] = 'home/foodVillaLlumousine';
 
 // route for the car
 $route['car'] = 'home/carListing';
