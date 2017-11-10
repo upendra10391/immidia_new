@@ -459,31 +459,6 @@ $("body").on("change", "#jetRoundType", function () {
     }
 });
 
-
-$("body").on("click","#limousine_villa",function(e){
-     e.preventDefault();
-    $('#villaNext').submit();
-//    var checkinData = '';
-//    var checkoutData = '';
-//    var villaId = $(this).attr('data-href');
-//    var checkIn = $('#dparrivalv').val();
-//    //alert(checkIn);
-//    var checkOut = $('#dpdv').val();
-//    if(checkIn == ''){
-//        checkinData = $(this).attr('data-checkin');
-//    }else{
-//       checkinData = checkIn;
-//    }
-//    if(checkOut == ''){
-//        checkoutData = $(this).attr('data-checkout');
-//    }else{
-//        checkoutData = checkOut;
-//    }
-//    var url = villaId +'/'+ checkinData + '/'+checkoutData;
-//    if(url !=''){
-//        window.location.replace(url);
-//    }
-})
 $("body").on("click","#changepassword",function(){
    var oldpassword=$("#oldpass").val();
   var newpassword=$("#newpass").val();
@@ -617,6 +592,12 @@ $('#user_emailid').val('');
       
       
   })
+  
+$("body").on("click","#limousine_villa",function(e){
+     e.preventDefault();
+    $('#villaNext').submit();
+
+})
   $("body").on("click","#villLimoAfterNext",function(e){
      e.preventDefault();
     $('#villLimoNext').submit();
@@ -645,5 +626,7 @@ $('#user_emailid').val('');
  })
  $("body").on("change","#select_qty",function(){
      var qty = $(this).val();
+     var name = $('#select_qty').attr('data-name');
+     alert(name);
      
  })
