@@ -124,11 +124,16 @@ class Home extends CI_Controller {
     // check whether login or not
     private function isLoggedIn() {
         if (empty($_SESSION['user_login'])) {
-            
-            redirect(base_url('login'));
-            exit;
+            if ($this->router->fetch_method() != "login") {
+                redirect(base_url('login'));
+                exit;
+            }else{
+                return false;
+            }
+        }else{
+            return true;
         }
-        return true;
+        
     }
 
     function getYachtCountry() {
@@ -216,69 +221,61 @@ class Home extends CI_Controller {
         }
     }
 
-
-    public function submit_yacht_order(){
+    public function submit_yacht_order() {
 
         // echo "<pre>";
         // echo "sessiondata";
         // print_r($_SESSION);
         // echo "request data";
         // print_r($_REQUEST);
-
-
-
-            //prepare parameter for yacht submit order
+        //prepare parameter for yacht submit order
         $payment = array(
-          "id"            =>  $_SESSION['yachtDetails']->id,
-          "name"          =>  $_SESSION['yachtDetails']->name,
-          "bookingType"   =>  4,
-          "departureDate" =>  date_format(date_create($_SESSION['yachtFilterParams']['departureDate']), 'Y-m-d'),
-          "arrivalDate"   =>  ($_SESSION['yachtFilterParams']['arrivalDate'] != null) ? date_format(date_create($_SESSION['yachtFilterParams']['arrivalDate']), 'Y-m-d') : date_format(date_create($_SESSION['yachtFilterParams']['departureDate']), 'Y-m-d'),
-          "ownerId"       =>  $_SESSION['yachtDetails']->ownerId,
-          "routeType"     =>  $_SESSION['yachtFilterParams']['routeType'],
-          "menuDetails"   =>  $_REQUEST['yachtMenu'],
-          "fromArea"      =>  $_SESSION['yachtFilterParams']['departureCityName'],
-          "type"          =>  "Add",
-          "toArea"        =>  $_SESSION['yachtFilterParams']['arrivalCityName'],
-          "currency"      =>  'AED',
-          "userId"        =>  $_SESSION['user_login']->id,
-          "guests"        =>  $_SESSION['yachtFilterParams']['guest'],
-          "deliveryPrice" =>   floor($_SESSION['yachtFilterParams']['yachtDeliveryRate']),
-          "dropOffRate"   =>   floor($_SESSION['yachtFilterParams']['yachtDropOff']),
-          "formulaPrice"  =>   floor($_SESSION['yachtFilterParams']['yachtFormulaPrice']),
-          "foodPrice"     =>   floor($_SESSION['yachtFilterParams']['yachtFoodPrice']),
-          "productPrice"  =>   floor($_SESSION['yachtDetails']->price),
-          "extraTime"     =>   floor($_SESSION['yachtFilterParams']['yachtExtraTime']),
-          "subtotal"      =>   floor($_SESSION['yachtFilterParams']['yachtSubTotal']),
-          "total"         =>   floor($_SESSION['yachtFilterParams']['yachtFoodPriceWithPrice']),
-          "transactionFee"=>   0,
-          "websiteId"     =>  0, // for whitelabel case either should be 0
-          "departureHours"=>  $_SESSION['yachtFilterParams']['departureHour'],
-          "arrivalHours"  =>  $_SESSION['yachtFilterParams']['arrivalHour'],
-          "limoDetails"   =>  $_SESSION['yachtFilterParams']['limoDetails'],
-          "stateId"       =>  $_SESSION['yachtFilterParams']['yachtState'],
-          "days"          =>  $_SESSION['yachtFilterParams']['yachtDays']
-      );
+            "id" => $_SESSION['yachtDetails']->id,
+            "name" => $_SESSION['yachtDetails']->name,
+            "bookingType" => 4,
+            "departureDate" => date_format(date_create($_SESSION['yachtFilterParams']['departureDate']), 'Y-m-d'),
+            "arrivalDate" => ($_SESSION['yachtFilterParams']['arrivalDate'] != null) ? date_format(date_create($_SESSION['yachtFilterParams']['arrivalDate']), 'Y-m-d') : date_format(date_create($_SESSION['yachtFilterParams']['departureDate']), 'Y-m-d'),
+            "ownerId" => $_SESSION['yachtDetails']->ownerId,
+            "routeType" => $_SESSION['yachtFilterParams']['routeType'],
+            "menuDetails" => $_REQUEST['yachtMenu'],
+            "fromArea" => $_SESSION['yachtFilterParams']['departureCityName'],
+            "type" => "Add",
+            "toArea" => $_SESSION['yachtFilterParams']['arrivalCityName'],
+            "currency" => 'AED',
+            "userId" => $_SESSION['user_login']->id,
+            "guests" => $_SESSION['yachtFilterParams']['guest'],
+            "deliveryPrice" => floor($_SESSION['yachtFilterParams']['yachtDeliveryRate']),
+            "dropOffRate" => floor($_SESSION['yachtFilterParams']['yachtDropOff']),
+            "formulaPrice" => floor($_SESSION['yachtFilterParams']['yachtFormulaPrice']),
+            "foodPrice" => floor($_SESSION['yachtFilterParams']['yachtFoodPrice']),
+            "productPrice" => floor($_SESSION['yachtDetails']->price),
+            "extraTime" => floor($_SESSION['yachtFilterParams']['yachtExtraTime']),
+            "subtotal" => floor($_SESSION['yachtFilterParams']['yachtSubTotal']),
+            "total" => floor($_SESSION['yachtFilterParams']['yachtFoodPriceWithPrice']),
+            "transactionFee" => 0,
+            "websiteId" => 0, // for whitelabel case either should be 0
+            "departureHours" => $_SESSION['yachtFilterParams']['departureHour'],
+            "arrivalHours" => $_SESSION['yachtFilterParams']['arrivalHour'],
+            "limoDetails" => $_SESSION['yachtFilterParams']['limoDetails'],
+            "stateId" => $_SESSION['yachtFilterParams']['yachtState'],
+            "days" => $_SESSION['yachtFilterParams']['yachtDays']
+        );
 
-    $queryString =  http_build_query($payment);
+        $queryString = http_build_query($payment);
 
-    $this->load->library('PHPRequests');
+        $this->load->library('PHPRequests');
 
-    $request_made = $this->config->item('API_URL') . 'access=true&action=booking&'.$queryString;
+        $request_made = $this->config->item('API_URL') . 'access=true&action=booking&' . $queryString;
 
-    $response = json_decode(Requests::get($request_made)->body);
+        $response = json_decode(Requests::get($request_made)->body);
 
-    if ($response->status == true) {
+        if ($response->status == true) {
 
-        echo '<script>window.open("http://www.immidia.co/immidia/api/ws/controller/?access=true&action=payment&bookingId='.$response->data.');</script>';
-      
-    } else {
+            echo '<script>window.open("http://www.immidia.co/immidia/api/ws/controller/?access=true&action=payment&bookingId=' . $response->data . ');</script>';
+        } else {
 
-      echo '<script>setTimeout(function(){ showAlert("Opps!!","No Record Listing","error"); },600);</script>';
-    }
-
-
-
+            echo '<script>setTimeout(function(){ showAlert("Opps!!","No Record Listing","error"); },600);</script>';
+        }
     }
 
     public function yachts() {
@@ -691,34 +688,35 @@ class Home extends CI_Controller {
         $this->load->view('home/chauffeur_service');
     }
 
-     public function login() {
-        //if($this->isLoggedIn()){
-        $post = $this->input->post();
-        if (!empty($post)) {
-            $this->load->library('PHPRequests');
-            $request_made = $this->config->item('API_URL') . 'action=user_login&mailId=' . $post['mailId'] . '&password=' . $post['password'];
-            $response = json_decode(Requests::get($request_made)->body);
-           // var_dump($request_made);exit;
-            //var_dump($response);exit;
-           // $response->data=161;
-            if ($response->data == NULL) {
-                $return = array('message' => $response->displyMessage, 'code' => 201);
-            } else {
-                $_SESSION['user_login'] = $response->data;
-                $url = base_url($_SESSION['CURRENT_PAGE']);
-                $return = array('message' => $response->displyMessage, 'url' => $url, 'code' => 200);
-            }
-            echo json_encode($return);
-            exit;
+    public function login() {
+  
+        if(!$this->isLoggedIn()){
+            $post = $this->input->post();
+            if (!empty($post)) {
+                $this->load->library('PHPRequests');
+                $request_made = $this->config->item('API_URL') . 'action=user_login&mailId=' . $post['mailId'] . '&password=' . $post['password'];
+                $response = json_decode(Requests::get($request_made)->body);
+                // var_dump($request_made);exit;
+                //var_dump($response);exit;
+                // $response->data=161;
+                if ($response->data == NULL) {
+                    $return = array('message' => $response->displyMessage, 'code' => 201);
+                } else {
+                    $_SESSION['user_login'] = $response->data;
+                    $url = base_url($_SESSION['CURRENT_PAGE']);
+                   
+                    $return = array('message' => $response->displyMessage, 'url' => $url, 'code' => 200);
+                }
+                echo json_encode($return);
+                exit;
 
-            //var_dump($post);exit;
-       // }
-      
+                //var_dump($post);exit;
+                // }
+            }
+            $this->load->view('auth/login');
+        }else{
+            redirect(base_url('dashboard'));// redirect on dashboard
         }
-          $this->load->view('auth/login');
-        /*else{
-            redirect(base_url('dashboard'));
-        }*/
     }
 
     public function product_for_sale() {
@@ -727,11 +725,13 @@ class Home extends CI_Controller {
         $this->load->library('PHPRequests');
         $varExtra = "";
         $arrSaleaDetails = array();
+        //var_dump($arrGet);exit;
         if (!empty($arrGet['p_s_c'])) {
             $varExtra .= "&country={$arrGet['p_s_c']}";
         } else {
             $varExtra .= "&country=29";
         }
+        //var_dump($varExtra);exit;
         $request_made = $this->config->item('API_URL') . 'action=get_villa_sale_list' . $varExtra;
         $response = json_decode(Requests::get($request_made)->body);
         //echo "<pre>";
@@ -743,6 +743,7 @@ class Home extends CI_Controller {
     }
 
     public function product_for_sale_detail($varId = "") {
+        // var_dump($varId);exit;
         $arrSaleVillaDetails = $this->session->userdata('all_p_villa_data');
         //echo "<pre>";var_dump($arrSaleVillaDetails);exit;
         $this->load->view('home/product_for_sale_detail', array('objValue' => $arrSaleVillaDetails[$varId]));
@@ -793,14 +794,14 @@ class Home extends CI_Controller {
             $request_made = $this->config->item('API_URL') . 'action=get_user_configuration&websiteUrl=immidialuxury.com';
             $response = json_decode(Requests::get($request_made)->body);
             $data['user'] = $_SESSION['user_login'];
-           // var_dump($data['user']);exit;
+            // var_dump($data['user']);exit;
             $varUserId = $_SESSION['user_login']->id;
-          //  var_dump($varUserId);exit;
+            //  var_dump($varUserId);exit;
             //$this->session->set_userdata('user_booking',$varUserId);
             // $session_user= $this -> session -> userdata('user_booking');
             $this->load->model('Jet_model');
             $data['blogs'] = $this->Jet_model->yacht_booking_infoall($varUserId);
-           // var_dump($data['blogs']);exit;
+            // var_dump($data['blogs']);exit;
             if ($response->status == true) {
                 $this->dashboardParams = $response->user;
             }
@@ -827,24 +828,28 @@ class Home extends CI_Controller {
     public function search_result() {
         $this->load->view('home/search_result');
     }
- /*all booking get*/
+
+    /* all booking get */
+
     public function yacht_booking() {
-      $varUserId = $_SESSION['user_login']->id;
+        $varUserId = $_SESSION['user_login']->id;
         $this->load->model('Jet_model');
         $result['blogs'] = $this->Jet_model->yacht_booking_infoall($varUserId);
         // var_dump($result['blogs']);exit;
         $this->load->view('home/yacht_booking', $result);
     }
- /* single booking get use booking id*/
+
+    /* single booking get use booking id */
+
     public function yacht_booking_info($id) {
-       $varUserId = $_SESSION['user_login']->id;
-      //  var_dump($session_user);exit;
-         $this->load->model('Jet_model');
-          $result['user']= $_SESSION['user_login'];
-        $result['blogs']=$this->Jet_model->yacht_booking_info($id);
-        $result['food']=$this->Jet_model->yacht_booking_info_food($id);
-     //  var_dump($result['food']);exit;
-        $this->load->view('home/yacht_booking_info',$result);
+        $varUserId = $_SESSION['user_login']->id;
+        //  var_dump($session_user);exit;
+        $this->load->model('Jet_model');
+        $result['user'] = $_SESSION['user_login'];
+        $result['blogs'] = $this->Jet_model->yacht_booking_info($id);
+        $result['food'] = $this->Jet_model->yacht_booking_info_food($id);
+        //  var_dump($result['food']);exit;
+        $this->load->view('home/yacht_booking_info', $result);
     }
 
     public function signup() {
@@ -1231,14 +1236,14 @@ class Home extends CI_Controller {
     /* ---------change_password api------------------ */
 
     public function change_password() {
-      $varUserId = $_SESSION['user_login']->id;
+        $varUserId = $_SESSION['user_login']->id;
 
         $post = $this->input->post();
         if (!empty($post)) {
             $this->load->library('PHPRequests');
-           $request_made = $this->config->item('API_URL') . 'action=change_password&oldpass=' . $post['oldpass'] . '&userId=' . $varUserId;
-          // var_dump($request_made);exit;
-           $response = json_decode(Requests::get($request_made)->body);
+            $request_made = $this->config->item('API_URL') . 'action=change_password&oldpass=' . $post['oldpass'] . '&userId=' . $varUserId;
+            // var_dump($request_made);exit;
+            $response = json_decode(Requests::get($request_made)->body);
 
             if ($session_user == NULL) {
                 $return = array('message' => $response->displyMessage, 'code' => 201);
@@ -1259,12 +1264,13 @@ class Home extends CI_Controller {
     /* ---------edit profile api------------------ */
 
     public function edit_profile() {
-       $varUserId = $_SESSION['user_login']->id;
+        $varUserId = $_SESSION['user_login']->id;
         $post = $this->input->post();
         if (!empty($post)) {
             $this->load->library('PHPRequests');
-            $request_made = $this->config->item('API_URL') . 'action=edit_profile&firstName=' . $post['first_name'] . '&editID=' .$varUserId. '&lastName=' . $post['lastname'] . '&email=' . $post['email'] . '&contactNumber=' . $post['phonenumber'] . '&address=' . $post['country'];
-            VAR_DUMP($request_made);EXIT;
+            $request_made = $this->config->item('API_URL') . 'action=edit_profile&firstName=' . $post['first_name'] . '&editID=' . $varUserId . '&lastName=' . $post['lastname'] . '&email=' . $post['email'] . '&contactNumber=' . $post['phonenumber'] . '&address=' . $post['country'];
+            VAR_DUMP($request_made);
+            EXIT;
             $response = json_decode(Requests::get($request_made)->body);
 
             if ($session_user == NULL) {
