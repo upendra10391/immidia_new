@@ -122,16 +122,15 @@ class Home extends CI_Controller {
     }
 
     // check whether login or not
-    private function isLoggedIn(){
-        if(empty($_SESSION['user_login'])){
+    private function isLoggedIn() {
+        if (empty($_SESSION['user_login'])) {
             
             redirect(base_url('login'));
             exit;
         }
         return true;
     }
-            
-    
+
     function getYachtCountry() {
 
         $this->load->library('PHPRequests');
@@ -789,18 +788,18 @@ class Home extends CI_Controller {
     }
 
     public function dashboard() {
-        if($this->isLoggedIn()){
+        if ($this->isLoggedIn()) {
             $this->load->library('PHPRequests');
             $request_made = $this->config->item('API_URL') . 'action=get_user_configuration&websiteUrl=immidialuxury.com';
             $response = json_decode(Requests::get($request_made)->body);
-            $data['user']= $_SESSION['user_login'];
+            $data['user'] = $_SESSION['user_login'];
            // var_dump($data['user']);exit;
             $varUserId = $_SESSION['user_login']->id;
           //  var_dump($varUserId);exit;
             //$this->session->set_userdata('user_booking',$varUserId);
-           // $session_user= $this -> session -> userdata('user_booking');
+            // $session_user= $this -> session -> userdata('user_booking');
             $this->load->model('Jet_model');
-            $data['blogs']=$this->Jet_model->yacht_booking_infoall($varUserId);
+            $data['blogs'] = $this->Jet_model->yacht_booking_infoall($varUserId);
             if ($response->status == true) {
                 $this->dashboardParams = $response->user;
             }
@@ -848,7 +847,6 @@ class Home extends CI_Controller {
 
     public function signup() {
         $post = $this->input->post();
-
         if (!empty($post)) {
             //var_dump($post);exit;
             $this->load->library('PHPRequests');
