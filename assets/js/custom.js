@@ -1,6 +1,6 @@
-//var base_url = 'http://localhost/immidia.ae/';
+var base_url = 'http://localhost/immidia.ae/';
 //var base_url = 'http://localhost/immidia_new/trunk';
-var base_url = 'http://localhost/immidia_new/';
+//var base_url = 'http://localhost/immidia_new/';
 
  var yachtAddToCart = [];
 
@@ -27,8 +27,13 @@ function diffDays(d1, d2)
     return ndays;
 }
 
+getCartDataFromStroage('yacht_menus');
 
+function getCartDataFromStroage(yachtMenus){
+    var json = (window.localStorage.getItem('yachtFood'));
+    $('#'+yachtMenus).val(json);
 
+}
 
 
 
@@ -148,54 +153,69 @@ function goBack() {
     window.history.back();
 }
 
-function uniques(arr) {
+
+
+function uniques(arr,itemsId) {
     var a = [];
+     var total = 0;
+    var  yachtFoodHTML = '';
+    var checkId =  [];
+    var flag = false;
     for (var i=0, l=arr.length; i<l; i++){
-       
-            if ($.inArray(arr[i].id, a) === -1 && arr[i] !== ''){
-                 console.log(a);
+        console.log(checkId.indexOf(arr[i].id));
+            if (checkId.indexOf(arr[i].id) === -1 && arr[i] !== ''){
+                checkId.push(arr[i].id);
                 a.push(arr[i]);
+                flag = true;
+               }else{
+
+                a[checkId.indexOf(arr[i].id)].qty = arr[i].qty;
+               }
             }
-        }
-        return a;
-    }
-
- var  yachtFoodHTML = '';
-function addToCart(id,itemName,amount,qty,price,itemsId){
-
-    var total = 0;
-    yachtAddToCart.push({"id":id, "itemName":itemName,"amount":amount,'qty':qty});
-    var yachtUniqueFoodItem = uniques(yachtAddToCart);
-
-    yachtFoodHTML += '<p class="fitem">'+
-            '<span class="iname">'+itemName+'</span>'+
-            '<span class="iqut">'+qty+'</span>'+
-            '<span class="iprice">€ '+amount+'</span>'+
+     
+      $.each(a, function (index, value) {
+         yachtFoodHTML += '<p class="fitem">'+
+            '<span class="iname">'+value.itemName+'</span>'+
+            '<span class="iqut">'+value.qty+'</span>'+
+            '<span class="iprice">€ '+value.amount+'</span>'+
             '<span class="idelete"><i class="fa fa-trash-o" aria-hidden="true"></i></span>'+
         '</p>';
 
+          total += value.qty * value.amount;
+      
+     });
 
 
-             $('#'+itemsId).append(yachtFoodHTML);
-
-
-            $.each(yachtUniqueFoodItem, function (index, value) {
-                total += value.qty * value.amount;
-
-            });
-            
-
-             setTimeout(function(){
+       setTimeout(function(){
+                window.localStorage.removeItem('yachtFood');
                 $('#yachtSubTotal').text(parseInt(total)+parseInt(price));
                 $('#yachtFoodPrice').val(total);
                 $('#yachtFoodPriceWithPrice').val(parseInt(total)+parseInt(price));
 
                // if(window.localStorage.getItem('yachtFood') != null){
-                    window.localStorage.setItem("yachtFood",JSON.stringify(yachtUniqueFoodItem));
+                    window.localStorage.setItem("yachtFood",JSON.stringify(a));
                 //}
 
 
-             },100);           
+             },100); 
+
+        $('#'+itemsId).html(yachtFoodHTML);
+
+        return {'object':a,'status':flag};
+    }
+
+
+ function removeCart(index){
+   var json =  JSON.parse(window.localStorage.getItem('yachtFood'));
+          json.splice(index,1);
+   }  
+
+function addToCart(id,itemName,amount,qty,price,itemsId){
+
+   
+    yachtAddToCart.push({"id":id, "itemName":itemName,"amount":amount,'qty':qty});
+    var yachtUniqueFoodItem = uniques(yachtAddToCart,itemsId);
+
 
 
     console.log(yachtUniqueFoodItem);

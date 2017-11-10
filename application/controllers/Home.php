@@ -216,6 +216,71 @@ class Home extends CI_Controller {
         }
     }
 
+
+    public function submit_yacht_order(){
+
+        // echo "<pre>";
+        // echo "sessiondata";
+        // print_r($_SESSION);
+        // echo "request data";
+        // print_r($_REQUEST);
+
+
+
+            //prepare parameter for yacht submit order
+        $payment = array(
+          "id"            =>  $_SESSION['yachtDetails']->id,
+          "name"          =>  $_SESSION['yachtDetails']->name,
+          "bookingType"   =>  4,
+          "departureDate" =>  date_format(date_create($_SESSION['yachtFilterParams']['departureDate']), 'Y-m-d'),
+          "arrivalDate"   =>  ($_SESSION['yachtFilterParams']['arrivalDate'] != null) ? date_format(date_create($_SESSION['yachtFilterParams']['arrivalDate']), 'Y-m-d') : date_format(date_create($_SESSION['yachtFilterParams']['departureDate']), 'Y-m-d'),
+          "ownerId"       =>  $_SESSION['yachtDetails']->ownerId,
+          "routeType"     =>  $_SESSION['yachtFilterParams']['routeType'],
+          "menuDetails"   =>  $_REQUEST['yachtMenu'],
+          "fromArea"      =>  $_SESSION['yachtFilterParams']['departureCityName'],
+          "type"          =>  "Add",
+          "toArea"        =>  $_SESSION['yachtFilterParams']['arrivalCityName'],
+          "currency"      =>  'AED',
+          "userId"        =>  $_SESSION['user_login']->id,
+          "guests"        =>  $_SESSION['yachtFilterParams']['guest'],
+          "deliveryPrice" =>   floor($_SESSION['yachtFilterParams']['yachtDeliveryRate']),
+          "dropOffRate"   =>   floor($_SESSION['yachtFilterParams']['yachtDropOff']),
+          "formulaPrice"  =>   floor($_SESSION['yachtFilterParams']['yachtFormulaPrice']),
+          "foodPrice"     =>   floor($_SESSION['yachtFilterParams']['yachtFoodPrice']),
+          "productPrice"  =>   floor($_SESSION['yachtDetails']->price),
+          "extraTime"     =>   floor($_SESSION['yachtFilterParams']['yachtExtraTime']),
+          "subtotal"      =>   floor($_SESSION['yachtFilterParams']['yachtSubTotal']),
+          "total"         =>   floor($_SESSION['yachtFilterParams']['yachtFoodPriceWithPrice']),
+          "transactionFee"=>   0,
+          "websiteId"     =>  0, // for whitelabel case either should be 0
+          "departureHours"=>  $_SESSION['yachtFilterParams']['departureHour'],
+          "arrivalHours"  =>  $_SESSION['yachtFilterParams']['arrivalHour'],
+          "limoDetails"   =>  $_SESSION['yachtFilterParams']['limoDetails'],
+          "stateId"       =>  $_SESSION['yachtFilterParams']['yachtState'],
+          "days"          =>  $_SESSION['yachtFilterParams']['yachtDays']
+      );
+
+    $queryString =  http_build_query($payment);
+
+    $this->load->library('PHPRequests');
+
+    $request_made = $this->config->item('API_URL') . 'access=true&action=booking&'.$queryString;
+
+    $response = json_decode(Requests::get($request_made)->body);
+
+    if ($response->status == true) {
+
+        echo '<script>window.open("http://www.immidia.co/immidia/api/ws/controller/?access=true&action=payment&bookingId='.$response->data.');</script>';
+      
+    } else {
+
+      echo '<script>setTimeout(function(){ showAlert("Opps!!","No Record Listing","error"); },600);</script>';
+    }
+
+
+
+    }
+
     public function yachts() {
 
         if (isset($_SESSION['yachtFilterParams'])) {

@@ -186,16 +186,23 @@
 								<div class="col-md-4 col-xs-4"><p class="distance"><b >€ <span id="yachtSubTotal"><?=$this->yachtFilterParams['yachtFoodPriceWithPrice']?></span></b></p></div>
 							</div>
 
+							<form method="post" action="<?= base_url('home/submit_yacht_order') ?>">
+							<input type="hidden" name="yachtMenu" id="yacht_menus">
+
 									<div class="col-md-12 clearfix ">
 									<div class="checkbox checkbox-inline">
-		                        <input type="checkbox" id="inlineCheckbox2" value="option2">
+		                        <input type="checkbox" id="inlineCheckbox2" title="Please accept to make payment" required value="option2">
+		                        
+
+
 		                        <label for="inlineCheckbox2" class="title"> I ACCEPT THE CONTRACT TERMS & CONDITIONS </label>
 								<p class="rlink"><a href="contract.html" target="_black" >Click</a> To Read The Cotract</p>
 		                    </div>
 								</div>
 								<div class="col-md-12 center clearfix">
-								<button class="payment">MAKE Payment</button>
+								<button type="submit" class="payment">MAKE Payment</button>
 								</div>
+								</form>
 						</div>			
 					</div> 
 
