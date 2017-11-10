@@ -55,7 +55,9 @@ Class Jet_model extends CI_Model {
         return $objQuery->get()->result();
     }
 
+    /*all booking get*/
     public function yacht_booking_infoall($session_user) {
+
         $this->db->select('*');
         $this->db->from('tbl_users');
         $this->db->where('userId', $session_user);
@@ -65,7 +67,7 @@ Class Jet_model extends CI_Model {
         return $query->result();
         //return $food->row();
     }
-
+/* single booking get use booking id*/
     public function yacht_booking_info($id) {
         $this->db->select('*');
         $this->db->from('tbl_booking');
@@ -75,15 +77,17 @@ Class Jet_model extends CI_Model {
         $this->db->join(' tbl_booking_type', ' tbl_booking_type.id=tbl_booking.bookingType', 'left');
         $query = $this->db->get();
         return $query->row();
-    }
 
-    public function yacht_booking_info_food($id) {
+    }
+/*booking food get*/
+   public function yacht_booking_info_food($id) {
         $this->db->select('tbl_food_order.itemName,tbl_food_order.quantity,tbl_food_order.itemprice');
         $this->db->from('tbl_food_order');
         $this->db->join('tbl_booking', 'tbl_booking.id=tbl_food_order.bookingId');
         $this->db->where('tbl_food_order.bookingId', $id);
         $query = $this->db->get();
         return $query->result();
+
     }
 
 }
