@@ -10,7 +10,7 @@
                         <img src="<?php echo base_url(); ?>assets/images/country-code.png">
                         <option>Country</option>
                         <?php foreach($this->villaCountry as $key=>$val){?>
-                        <option value="<?php echo $val->countryId;?>"><?php echo $val->countryName;?></option>
+                        <option value="<?php echo $val->id;?>"><?php echo $val->countryName;?></option>
                         <?php }?>
                     </select>
                     <input type="hidden" name="villaCountryName" id="villaCountry">
@@ -43,9 +43,9 @@
             </div>-->
             <div class="inner-block thirdv">
                 <label></label>
-                <select class="departure-port vd" name="destination_name">
+                <select class="departure-port vd" name="destination_name" id="villDestination">
                     <option>Select Destination</option>
-                    <option value="1">Dubai</option>
+                    
                 </select>
             </div>
             <div class="inner-block fourth fourthv">

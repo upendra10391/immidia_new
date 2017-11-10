@@ -206,6 +206,7 @@
                         </div>
                     </div>
                     <div class="col-md-12 mb30">
+                        <form action="<?php echo base_url('villalimousineDetail/'.$villDetails->id.'/?checkinData='.date('Y-m-d',strtotime($this->villaFilterParams['checkin'])).'&checkoutData='.date('Y-m-d',strtotime($this->villaFilterParams['checkout'])))?>" id="villaNext" name="villaNext" method="post">
                         <div class="col-md-3">
                         </div>
                         <div class="col-md-3">
@@ -224,11 +225,13 @@
                         </div>
                         <div class="col-md-3">
                         </div>
+                        
+                        </form>
                     </div>
                     <div class="col-md-12">
                         <div class="back-next">
-                            <a class="back" href="#"><i class="fa fa-angle-left" aria-hidden="true"></i>Back to Search</a>
-                            <a class="next limousine_villa" data-href="<?php echo base_url('get_villa_limousine').'/'.$villDetails->id;?>" data-checkin="<?php echo date('Y-m-d',strtotime($this->villaFilterParams['checkin']));?>" data-checkout="<?php echo date('Y-m-d',strtotime($this->villaFilterParams['checkout']));?>" >Next<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                            <a class="back" href="<?php echo base_url('villa-search-result');?>"><i class="fa fa-angle-left" aria-hidden="true"></i>Back to Search</a>
+                            <a class="next" id="limousine_villa" href="">Next<i class="fa fa-angle-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
