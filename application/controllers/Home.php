@@ -698,7 +698,7 @@ class Home extends CI_Controller {
             $this->load->library('PHPRequests');
             $request_made = $this->config->item('API_URL') . 'action=user_login&mailId=' . $post['mailId'] . '&password=' . $post['password'];
             $response = json_decode(Requests::get($request_made)->body);
-            var_dump($response);exit;
+           // var_dump($request_made);exit;
             //var_dump($response);exit;
            // $response->data=161;
             if ($response->data == NULL) {
@@ -800,6 +800,7 @@ class Home extends CI_Controller {
             // $session_user= $this -> session -> userdata('user_booking');
             $this->load->model('Jet_model');
             $data['blogs'] = $this->Jet_model->yacht_booking_infoall($varUserId);
+           // var_dump($data['blogs']);exit;
             if ($response->status == true) {
                 $this->dashboardParams = $response->user;
             }
@@ -826,7 +827,7 @@ class Home extends CI_Controller {
     public function search_result() {
         $this->load->view('home/search_result');
     }
-
+ /*all booking get*/
     public function yacht_booking() {
       $varUserId = $_SESSION['user_login']->id;
         $this->load->model('Jet_model');
@@ -834,11 +835,12 @@ class Home extends CI_Controller {
         // var_dump($result['blogs']);exit;
         $this->load->view('home/yacht_booking', $result);
     }
-
+ /* single booking get use booking id*/
     public function yacht_booking_info($id) {
        $varUserId = $_SESSION['user_login']->id;
       //  var_dump($session_user);exit;
          $this->load->model('Jet_model');
+          $result['user']= $_SESSION['user_login'];
         $result['blogs']=$this->Jet_model->yacht_booking_info($id);
         $result['food']=$this->Jet_model->yacht_booking_info_food($id);
      //  var_dump($result['food']);exit;
