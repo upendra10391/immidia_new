@@ -56,8 +56,8 @@
                 <label></label>
                 <select class="motor" name="driver">
                     <option value="">Type</option>
-                    <option value="0">With Driver</option>
-                    <option value="1">Without Driver</option>
+                    <option value="1">With Driver</option>
+                    <option value="0">Without Driver</option>
                 </select>
                 <select class="trip" name="classification">
                     <option value="">Car Type</option>
