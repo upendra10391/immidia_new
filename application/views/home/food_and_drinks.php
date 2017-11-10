@@ -150,7 +150,7 @@
                                                                     <div class="col-md-4 col-xs-4"><p class="name" ><?php echo $foodItemsData->itemName;?></p></div> 
                                                                     <div class="col-md-4 col-xs-4"><p class="price" >€ <?php echo $foodItemsData->amount;?></p></div> 
                                                                     <div class="col-md-4 col-xs-4">
-                                                                        <select class="select_qty" name="select_qty" id="select_qty" data-name="<?php echo $foodItemsData->itemName;?>" data-price="<?php echo $foodItemsData->amount;?>">
+                                                                        <select class="select_qty" name="select_qty_<?php echo $foodItemsData->id?>" id="select_qty_<?php echo $foodItemsData->id?>" data-name="<?php echo $foodItemsData->itemName;?>" data-price="<?php echo $foodItemsData->amount;?>">
                                                                             <option value="">select</option>
                                                                             <option value="1">1</option>
                                                                             <option value="2">2</option>
