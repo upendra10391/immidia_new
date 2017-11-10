@@ -1,4 +1,4 @@
-var base_url = 'http://localhost/immidia.ae/';
+var base_url = 'http://localhost/immidia.ae/trunk';
 //var base_url = 'http://localhost/immidia_new/trunk';
 //var base_url = 'http://localhost/immidia_new/';
 
@@ -381,6 +381,7 @@ $("body").on("click", "#signup", function () {
 })
 $("body").on("change", "#vila_country", function () {
     var countryId = $(this).val();
+    //alert(countryId);
     $('#loadervilla').removeAttr('style');
     $.ajax({
         url: base_url + '/get_villa_state/' + countryId,
@@ -393,28 +394,28 @@ $("body").on("change", "#vila_country", function () {
             $('#loadervilla').attr('style', 'display:none');
             $('#villaState').html('<option value="0">State</option>')
             $.each(JSON.parse(data), function (index, value) {
-                $('#villaState').append('<option value="' + value['stateId'] + '">' + value['stateName'] + '</option>')
+                $('#villaState').append('<option value="' + value['id'] + '">' + value['stateName'] + '</option>')
             });
 
         }
     });
 });
 $("body").on("change","#villaState",function(){
-     $('#villaStateName').val($('#villaState option:selected').text());
-//    var stateId = $(this).val();
-//    //alert(stateId);exit;
-//    $('#loadervilla').removeAttr('style');
-//    $.ajax({
-//        url: base_url + '/get_villa_city/' + stateId,
-//        type: "get",
-//        success: function (data) {
-//            $('#loadervilla').attr('style', 'display:none');
-//            $.each(JSON.parse(data), function (index, value) {
-//                $('#villaState').append('<option value="' + value['stateId'] + '">' + value['stateName'] + '</option>')
-//            });
-//
-//        }
-//    });
+    var stateId = $(this).val();
+    //alert(stateId);
+    $('#loadervilla').removeAttr('style');
+    $.ajax({
+        url: base_url + '/get_villa_city/' + stateId,
+        type: "get",
+        success: function (data) {
+            $('#villaStateName').val($('#villaState option:selected').text());
+            $('#loadervilla').attr('style', 'display:none');
+            $.each(JSON.parse(data), function (index, value) {
+                $('#villDestination').append('<option value="' + value['id'] + '">' + value['name'] + '</option>')
+            });
+
+        }
+    });
 })
 
 // when change country
@@ -458,29 +459,6 @@ $("body").on("change", "#jetRoundType", function () {
     }
 });
 
-
-$("body").on("click",".limousine_villa",function(){
-    var checkinData = '';
-    var checkoutData = '';
-    var villaId = $(this).attr('data-href');
-    var checkIn = $('#dparrivalv').val();
-    //alert(checkIn);
-    var checkOut = $('#dpdv').val();
-    if(checkIn == ''){
-        checkinData = $(this).attr('data-checkin');
-    }else{
-       checkinData = checkIn;
-    }
-    if(checkOut == ''){
-        checkoutData = $(this).attr('data-checkout');
-    }else{
-        checkoutData = checkOut;
-    }
-    var url = villaId +'/'+ checkinData + '/'+checkoutData;
-    if(url !=''){
-        window.location.replace(url);
-    }
-})
 $("body").on("click","#changepassword",function(){
    var oldpassword=$("#oldpass").val();
   var newpassword=$("#newpass").val();
@@ -614,3 +592,42 @@ $('#user_emailid').val('');
       
       
   })
+  
+$("body").on("click","#limousine_villa",function(e){
+     e.preventDefault();
+    $('#villaNext').submit();
+
+})
+  $("body").on("click","#villLimoAfterNext",function(e){
+     e.preventDefault();
+    $('#villLimoNext').submit();
+ })
+ $("body").on("click","#backVillaFoods",function(e){
+    e.preventDefault();
+    var villaId = $(this).attr('data-id');
+    var villahref = $(this).attr('data-href');
+    var backurl = villahref + '/' + villaId;
+    if(backurl != ''){
+        window.location.replace(backurl);
+        return false;
+    }
+    
+ })
+ $("body").on("click","#backVillaLimousine",function(e){
+    e.preventDefault();
+    var villaId = $(this).attr('data-id');
+    var villahref = $(this).attr('data-href');
+    var backurl = villahref + '/' + villaId;
+    if(backurl != ''){
+        window.location.replace(backurl);
+        return false;
+    }
+    
+ })
+ $("body").on("change",".select_qty",function(){
+     var qty = $(this).val();
+     var name = $(this).attr('data-name');
+     var price = $(this).attr('data-price');
+    //alert(price);
+     
+ })

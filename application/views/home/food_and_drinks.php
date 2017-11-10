@@ -144,15 +144,25 @@
                                                     </div>
                                          
                                                     <div class="fditems">
-                                                         <?php foreach($foodDetailsData->FoodItems as $foodItemsData){?>
+                                                         <?php 
+                                                         foreach($foodDetailsData->FoodItems as $foodItemsData){?>
                                                                 <div class="row fditem clearfix">
-                                                                    <div class="col-md-4 col-xs-4"><p class="name"><?php echo $foodItemsData->itemName;?></p></div> 
-                                                                    <div class="col-md-4 col-xs-4"><p class="price">€ <?php echo $foodItemsData->amount;?></p></div> 
+                                                                    <div class="col-md-4 col-xs-4"><p class="name" ><?php echo $foodItemsData->itemName;?></p></div> 
+                                                                    <div class="col-md-4 col-xs-4"><p class="price" >€ <?php echo $foodItemsData->amount;?></p></div> 
                                                                     <div class="col-md-4 col-xs-4">
-                                                                        <select class="">
-                                                                            <option>select</option>
-                                                                            <option>1</option>
-                                                                            <option>2</option>
+                                                                        <select class="select_qty" name="select_qty_<?php echo $foodItemsData->id?>" id="select_qty_<?php echo $foodItemsData->id?>" data-name="<?php echo $foodItemsData->itemName;?>" data-price="<?php echo $foodItemsData->amount;?>">
+                                                                            <option value="">select</option>
+                                                                            <option value="1">1</option>
+                                                                            <option value="2">2</option>
+                                                                            <option value="3">3</option>
+                                                                            <option value="4">4</option>
+                                                                            <option value="5">5</option>
+                                                                            <option value="6">6</option>
+                                                                            <option value="7">7</option>
+                                                                            <option value="8">8</option>
+                                                                            <option value="9">9</option>
+                                                                            <option value="10">10</option>
+                                                                            
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -1246,7 +1256,7 @@
 
                         </div>-->
                         <div class="bnbutton">
-                            <button class="bbutton"><i class="fa fa-angle-left" aria-hidden="true"></i> BACK</button>
+                            <button class="bbutton" data-href="<?php echo base_url('villalimousineDetail');?>" data-id="<?php echo $villId;?>" id="backVillaFoods"><i class="fa fa-angle-left" aria-hidden="true"></i> BACK</button>
                             <button class="nbutton">NEXT <i class="fa fa-angle-right" aria-hidden="true"></i></button>
 
                         </div>

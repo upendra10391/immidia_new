@@ -161,6 +161,7 @@
     $(function () {
         $('input#dparrivalv').change(function () {
             adatev = $("#dparrivalv").val();
+            //alert(adatev);
             var strArrayv = adatev.split(" ");
             $("#arrivalv").html("<span>" + strArrayv[0] + "</span><span>" + strArrayv[1] + "</span><span>" + strArrayv[2] + "</span>");
         })

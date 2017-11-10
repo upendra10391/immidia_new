@@ -252,7 +252,7 @@
                                 <td><?php echo $postData['carCountryName']?></td>
                                 <td><?php echo $postData['carStateName']?></td>
                                 <td><?php echo ($postData['days']>=5) ? $postData['days']-4 : $postData['days'];echo ($postData['days']>=5) ? " days" : " hours"?></td>
-                                <td></td>
+                                <td><?php echo $postData['bookingDate'];?></td>
                                 <td><?php echo $postData['noOfPasenger'];?></td>
                             </tr>
                         </tbody>
