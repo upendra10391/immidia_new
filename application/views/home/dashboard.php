@@ -130,7 +130,7 @@ function openCity1(evt, cityName) {
 						<div class="col-md-4 ">
 							<div>
 								<p class="fsname"><i class="fa fa-user" aria-hidden="true"></i>
-								<span class="iname">john violin</span><span class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i><a>logout</a></span></p>
+								<span class="iname"><?php echo $user->firstName;?> <?php echo $user->lastName;?> </span><span class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i><a>logout</a></span></p>
 							</div>
 							<div class="ptabs">
 								<a class="tablinks1 active" onclick="openCity1(event, 'pi')">Travellers <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
@@ -151,7 +151,11 @@ function openCity1(evt, cityName) {
 												<select class="gender">
 													<option>MR.</option>
 													<option>MISS</option>
-													<option></option>
+													<option>Mrs</option>
+													<option>Dr.</option>
+													<option>Sir</option>
+													<option>Lord</option>
+													<option>Lady</option>
 												</select>
 											</div>
 										</div>
@@ -193,7 +197,7 @@ function openCity1(evt, cityName) {
 										</div>
 									</div>
 									<div class="wrap3">
-									<button class="submit" id="editprofile">Edit</button>
+									<button class="submit" id="editprofile">Submit</button>
 									</div>
 								</div>
 								</div>
@@ -208,7 +212,11 @@ function openCity1(evt, cityName) {
 												<select class="">
 													<option>MR.</option>
 													<option>MISS</option>
-													<option></option>
+													<option>Mrs</option>
+													<option>Dr.</option>
+													<option>Sir</option>
+													<option>Lord</option>
+													<option>Lady</option>
 												</select>
 											</div>
 										</div>
@@ -244,7 +252,7 @@ function openCity1(evt, cityName) {
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Document Number">
+												<input type="text" class="form-control" placeholder="Passport Number">
 											</div>
 										</div>
 									</div>
