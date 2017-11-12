@@ -127,13 +127,12 @@ class Home extends CI_Controller {
             if ($this->router->fetch_method() != "login") {
                 redirect(base_url('login'));
                 exit;
-            }else{
+            } else {
                 return false;
             }
-        }else{
+        } else {
             return true;
         }
-        
     }
 
     function getYachtCountry() {
@@ -689,8 +688,8 @@ class Home extends CI_Controller {
     }
 
     public function login() {
-  
-        if(!$this->isLoggedIn()){
+
+        if (!$this->isLoggedIn()) {
             $post = $this->input->post();
             if (!empty($post)) {
                 $this->load->library('PHPRequests');
@@ -704,7 +703,7 @@ class Home extends CI_Controller {
                 } else {
                     $_SESSION['user_login'] = $response->data;
                     $url = base_url($_SESSION['CURRENT_PAGE']);
-                   
+
                     $return = array('message' => $response->displyMessage, 'url' => $url, 'code' => 200);
                 }
                 echo json_encode($return);
@@ -714,8 +713,8 @@ class Home extends CI_Controller {
                 // }
             }
             $this->load->view('auth/login');
-        }else{
-            redirect(base_url('dashboard'));// redirect on dashboard
+        } else {
+            redirect(base_url('dashboard')); // redirect on dashboard
         }
     }
 
@@ -906,7 +905,7 @@ class Home extends CI_Controller {
         $this->load->library('PHPRequests');
         $request_made = $this->config->item('API_URL') . 'action=get_city_list&villaAreaId=' . $stateId;
         $response = json_decode(Requests::get($request_made)->body);
-       if ($response->status == true) {
+        if ($response->status == true) {
             $arrReturn = array();
             if (!empty($response->data)) {
                 foreach ($response->data as $objData) {
@@ -931,6 +930,7 @@ class Home extends CI_Controller {
             $data['villaFilterParams'] = $_REQUEST;
             $data['imageUrl'] = $this->config->item('IMAGE_URL');
             $_SESSION['villaFilterParams'] = $data['villaFilterParams'];
+            //$_SESSION['villaList'] = $data['villaList'];
             $this->villaFilterParams = $_SESSION['villaFilterParams'];
             $this->load->view('home/villa_search_result', $data);
         } else {
@@ -948,11 +948,12 @@ class Home extends CI_Controller {
             $this->load->library('PHPRequests');
             $request_made = $this->config->item('API_URL') . 'action=get_villa_booking_list&villaId=' . $villaId;
             $response = json_decode(Requests::get($request_made)->body);
-            //var_dump($response);exit;
+            //echo "<pre>";var_dump($_SESSION['villaList']);exit;
             if ($response->status == true) {
                 $data['villDetails'] = json_decode(json_encode($response->data));
                 $this->villaFilterParams = $_SESSION['villaFilterParams'];
-                 $this->session->set_userdata(array('villDetails' => $data['villDetails'], 'villaFilterParams' => $this->villaFilterParams));
+                $this->session->set_userdata(array('villDetails' => $data['villDetails'], 'villaFilterParams' => $this->villaFilterParams));
+                $data['villaList'] = $_SESSION['villaList'];
                 $this->load->view('home/villa_search', $data);
             } else {
                 $this->load->view('home/villa_search_result');
@@ -1135,13 +1136,13 @@ class Home extends CI_Controller {
         $arrDataPost = $this->input->post();
         $arrDataGet = $this->input->get();
         $villaId = (!empty($id)) ? $id : 0;
-        $checkIn = (!empty($arrDataPost['checkin'])) ? date('Y-m-d',strtotime($arrDataPost['checkin'])) : $arrDataGet['checkinData'];
-        $checkOut = (!empty($arrDataPost['checkout'])) ? date('Y-m-d',strtotime($arrDataPost['checkout'])) : $arrDataGet['checkoutData'];
+        $checkIn = (!empty($arrDataPost['checkin'])) ? date('Y-m-d', strtotime($arrDataPost['checkin'])) : $arrDataGet['checkinData'];
+        $checkOut = (!empty($arrDataPost['checkout'])) ? date('Y-m-d', strtotime($arrDataPost['checkout'])) : $arrDataGet['checkoutData'];
         //var_dump($arrDataGet);exit;
         $this->load->library('PHPRequests');
         $request_made = $this->config->item('API_URL') . 'action=get_villa_booking_list&villaId=' . $villaId . '&arrivalDateTime=' . $checkIn . '&departureDateTime=' . $checkOut;
         $response = json_decode(Requests::get($request_made)->body);
-       if ($response->status == true) {
+        if ($response->status == true) {
             $data['villalimousineDetails'] = json_decode(json_encode($response->data));
             $this->villaFilterParams = $_SESSION['villaFilterParams'];
             $data['checkIn'] = $checkIn;
@@ -1165,9 +1166,9 @@ class Home extends CI_Controller {
     }
 
     public function foodVillaLlumousine() {
-      //var_dump($this->session->userdata('villalimousineDetails'));exit;
-       $objSessData = $this->session->userdata('villalimousineDetails');
-       //var_dump($objSessData->id);exit;
+        //var_dump($this->session->userdata('villalimousineDetails'));exit;
+        $objSessData = $this->session->userdata('villalimousineDetails');
+        //var_dump($objSessData->id);exit;
         $arrDetails = '';
         $arrDataget = $this->input->get();
         $arrDataPost = $this->input->post();
@@ -1190,14 +1191,39 @@ class Home extends CI_Controller {
             if ($response->status == true) {
                 $arrDetails = $response->data;
             }
-            $data['foodDetails'] = $arrDetails; 
-            if(!empty($objSessData)){
-               $data['villId'] = $objSessData->id;
+            $data['foodDetails'] = $arrDetails;
+            if (!empty($objSessData)) {
+                $data['villId'] = $objSessData->id;
             }
             //var_dump($data['foodDetails']);exit;
             $this->session->set_userdata(array('foodDetails' => $data['foodDetails']));
             $this->load->view('home/food_and_drinks', $data);
         }
+    }
+
+    // go to payment page 
+    public function villaPayment() {
+        $objSessData = $this->session->userdata('villalimousineDetails');
+        $objFoodDetails = $this->session->userdata('foodDetails');
+        $arrDataPost = $this->session->userdata('arrDataPost');
+        $arrDataGetFood = $this->session->userdata('arrDataGetFood');
+        //array('arrDataPostFood' => $arrDataPost, 'arrDataGetFood' => $arrDataget, 'arrDataPost' => $arrDataPost)
+        $arrPost = $this->input->post();
+//        //exit;
+//        echo "<pre>";
+//        var_dump($_SESSION);
+//        var_dump($arrDataGetFood);exit;
+        //
+        $arrData['villDetails'] = $_SESSION['villDetails'];
+        $arrData['villaFilterParams'] = $_SESSION['villaFilterParams'];
+        $arrData['arrDataGetFood'] = $arrDataGetFood;
+        $arrData['objFoodDetails'] = $objFoodDetails;
+        $arrData['arrDataGet'] = $_SESSION['arrDataGet'];
+        $arrData['arrPost'] = $arrPost;
+        $arrData['villalimousineDetails'] = $_SESSION['villalimousineDetails'];
+        $arrData['villaList'] = $_SESSION['villaList'];
+        //echo "<pre>";var_dump($_SESSION);exit;
+        $this->load->view('home/villa_payment', $arrData);
     }
 
     private function saveJetData($arrPost, $arrGet) {
@@ -1245,7 +1271,6 @@ class Home extends CI_Controller {
 
     public function change_password() {
         $varUserId = $_SESSION['user_login']->id;
-
         $post = $this->input->post();
         if (!empty($post)) {
             $this->load->library('PHPRequests');

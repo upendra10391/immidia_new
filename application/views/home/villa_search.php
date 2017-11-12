@@ -25,17 +25,17 @@
 
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner">
-                            <div class="item active">
-                                <img src="<?php echo base_url(); ?>assets/images/product-sale-detail/banner1.jpg">
-                            </div>
-
-                            <div class="item">
-                                <img src="<?php echo base_url(); ?>assets/images/product-sale-detail/banner1.jpg">
-                            </div>
-
-                            <div class="item">
-                                <img src="<?php echo base_url(); ?>assets/images/product-sale-detail/banner1.jpg">
-                            </div>
+                            
+                            <?php if(!empty($villaList[$villDetails->id]->banner)){ 
+                                    $i = 0;foreach ($villaList[$villDetails->id]->banner as $key=>$value){$active = ($i==0) ? "active": "";?>
+                                    <div class="item <?php echo $active;?>">
+                                        <img src="<?php echo $this->IMAGE_URL.str_replace("..", "", $value->banner); ?>">
+                                    </div>
+                                <?php $i++;}}else{?>
+                                        <div class="item active">
+                                            <img src="<?php echo base_url(); ?>assets/images/product-sale-detail/banner1.jpg">
+                                        </div>
+                                <?php }?>
                         </div>
 
                         <!-- Left and right controls -->
@@ -59,30 +59,16 @@
                     <div id="thumbnail-slider">
                         <div class="inner">
                             <ul>
-                                <li>
-                                    <img src="<?php echo base_url(); ?>assets/images/product-sale-detail/t1.png">
-                                </li>
-                                <li>
-                                    <img src="<?php echo base_url(); ?>assets/images/product-sale-detail/t1.png">
-                                </li>
-                                <li>
-                                    <img src="<?php echo base_url(); ?>assets/images/product-sale-detail/t1.png">
-                                </li>
-                                <li>
-                                    <img src="<?php echo base_url(); ?>assets/images/product-sale-detail/t1.png">
-                                </li>
-                                <li>
-                                    <<img src="<?php echo base_url(); ?>assets/images/product-sale-detail/t1.png">
-                                </li>
-                                <li>
-                                    <img src="<?php echo base_url(); ?>assets/images/product-sale-detail/t1.png">
-                                </li>
-                                <li>
-                                    <img src="<?php echo base_url(); ?>assets/images/product-sale-detail/t1.png">
-                                </li>
-                                <li>
-                                    <img src="<?php echo base_url(); ?>assets/images/product-sale-detail/t1.png">
-                                </li>
+                                 <?php if(!empty($villaList[$villDetails->id]->banner)){foreach ($villaList[$villDetails->id]->banner as $key=>$value){?>
+                                    <li>
+                                        <img width="218" height="218" src="<?php echo $this->IMAGE_URL.str_replace("..", "", $value->banner); ?>">
+                                    </li>
+                                <?php }}else{?>
+                                    <li>
+                                        <img width="218" height="218" src="<?php echo base_url(); ?>assets/images/product-sale-detail/t1.png">
+                                    </li>
+                                <?php }?>
+                                
                             </ul>
                         </div>
                     </div>
