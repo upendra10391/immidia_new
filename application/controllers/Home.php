@@ -724,14 +724,17 @@ class Home extends CI_Controller {
         $this->load->library('PHPRequests');
         $varExtra = "";
         $arrSaleaDetails = array();
-        //var_dump($arrGet);exit;
+        $varAction = "get_villa_sale_list";
         if (!empty($arrGet['p_s_c'])) {
             $varExtra .= "&country={$arrGet['p_s_c']}";
-        } else {
+        }else if (!empty($arrGet['p_c_s'])) {
+            $varAction = "get_car_sale_list";
+            $varExtra .= "&state={$arrGet['p_c_s']}";
+        }else {
             $varExtra .= "&country=29";
         }
         //var_dump($varExtra);exit;
-        $request_made = $this->config->item('API_URL') . 'action=get_villa_sale_list' . $varExtra;
+        $request_made = $this->config->item('API_URL') . 'action='.$varAction . $varExtra;
         $response = json_decode(Requests::get($request_made)->body);
         //echo "<pre>";
         //var_dump($response->data);exit;
