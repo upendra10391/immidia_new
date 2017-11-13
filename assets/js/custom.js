@@ -1,6 +1,6 @@
 //var base_url = 'http://localhost/immidia.ae/trunk';
 //var base_url = 'http://localhost/immidia_new/trunk';
-var base_url = 'http://localhost/immidia_new/';
+var base_url = 'http://localhost/immidia_newcar/';
 
  var yachtAddToCart = [];
 
@@ -624,10 +624,28 @@ $("body").on("click","#limousine_villa",function(e){
     }
     
  })
+ 
  $("body").on("change",".select_qty",function(){
      var qty = $(this).val();
      var name = $(this).attr('data-name');
      var price = $(this).attr('data-price');
-    //alert(price);
+     var id = $.trim($(this).attr('id').replace('select_qty_',""));
+     var data_counter = $(this).attr('data-id-counter');
+     //alert('amount_span_'+data_counter+"_"+id);
+     $('#amount_span_'+data_counter+"_"+id).html(price*qty);
+     var fbID = data_counter+"_"+id;
+     var varTemplate = "<p id='f_b_"+fbID+"' class='fitem'><span class='iname'>"+name+"</span>"+
+             "<span class='iqut'>"+qty+"</span><span class='iprice'>"+price*qty+"</span>"+
+             "<span class='idelete'><i class='fa fa-trash-o' aria-hidden='true'></i></span>"+
+             "<input type='hidden' name='f_b_name[]' value='"+name+"'/><input type='hidden' name='f_b_qty[]' value='"+qty+"'/>"+
+             "<input type='hidden' name='f_b_price[]' value='"+price+"'/></p>";
+             //alert($('#f_b_'+fbID).length);
+     if($('#f_b_'+fbID).length > 0){
+          $('#f_b_'+fbID).remove();
+     }
+     $('#fooAndBeverage').append(varTemplate);
      
- })
+ });
+ $('body').on('click','.idelete',function(){
+     $(this).parent().remove();
+ });
