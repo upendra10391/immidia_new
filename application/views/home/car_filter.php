@@ -26,8 +26,8 @@
                 <label>DEPARTURE</label>
                 <div class="form-group">
                     <div class='input-group date' id='datetimepicker1'>
-                        <input name="bookingDate" type='text' id="dparrivalc"  value="" class="date-picker arrival" placeholder="DD/MM/YYYY"/>
-                        <div id="arrivalc"><span>MM</span><span>DD</span><span>Day</span></div>
+                        <input name="bookingDate" type='text' id="dparrivalc"  value="<?php echo date("Y-m-d");?>" class="date-picker arrival" placeholder="DD/MM/YYYY"/>
+                        <div id="arrivalc"><span><?php echo date("F");?></span><span><?php echo date("j");?></span><span><?php echo date("D");?></span></div>
                     </div>
                 </div>
             </div>

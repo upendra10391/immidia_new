@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
     <head>
         <title>Villa Search Result</title>
@@ -232,7 +233,7 @@
             </div>
             <div class="col-md-12 search-result">
                 <div class="summary-title">
-                    <h5>Search Summary</h5><a href="#" id="modify">Modify</a>
+                    <h5>Search Summary</h5><!--<a href="#" id="modify">Modify</a>-->
                 </div>
                 <div class="table-responsive summary-result">
                     <table class="table">
@@ -250,7 +251,7 @@
                             <tr>
                                 <td><?php echo $villaFilterParams['villaCountryName'];?></td>
                                 <td><?php echo $villaFilterParams['villaStateName'];?></td>
-                                <td>Dubai</td>
+                               <td><?php echo $villaFilterParams['destination_name'];?></td>
                                 <td><?php echo $villaFilterParams['checkin'];?></td>
                                 <td><?php echo $villaFilterParams['checkout'];?></td>
                                 <td><?php echo $villaFilterParams['villa_guest'];?></td>

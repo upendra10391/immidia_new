@@ -1,4 +1,6 @@
-<?php// var_dump($blogs);exit;?>
+<?php
+$today =date("Y-m-d",strtotime("+7 days"));
+//var_dump($today);exit;?>
 <!DOCTYPE html>
 <html>
     <head>
