@@ -85,7 +85,7 @@ function openCity1(evt, cityName) {
 					<button class="tablinks"id="goToNextfaq" data-link="<?php echo base_url('faq');?>" ><i class="fa fa-question-circle" aria-hidden="true"></i><span>Help</span></button>
 				</div>
 				<div id="Booking" class="tabcontent " style="display: none;">
-					<h3>Booking</h3>
+					<!--<h3>Booking</h3>-->
                                        
                                            <?php
                                     if(!empty($blogs))
@@ -122,7 +122,8 @@ function openCity1(evt, cityName) {
 						</div>
                                             <button data-link="<?php echo base_url('yacht-booking-info/'.$blog->id);?>" class="more goToNext"><a href="#"><i class="fa fa-plus" aria-hidden="true"></i> MORE INFO</a></button>
 					</div>
-                                    <?php }} ?>
+                                    <?php }}
+?>
 				</div>
 				
 				<div id="Profile" class="tabcontent" style="display: block;">
