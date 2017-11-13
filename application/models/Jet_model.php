@@ -55,7 +55,8 @@ Class Jet_model extends CI_Model {
         return $objQuery->get()->result();
     }
 
-    /*all booking get*/
+    /* all booking get */
+
     public function yacht_booking_infoall($session_user) {
 
         $this->db->select('*');
@@ -67,7 +68,9 @@ Class Jet_model extends CI_Model {
         return $query->result();
         //return $food->row();
     }
-/* single booking get use booking id*/
+
+    /* single booking get use booking id */
+
     public function yacht_booking_info($id) {
         $this->db->select('*');
         $this->db->from('tbl_booking');
@@ -77,17 +80,26 @@ Class Jet_model extends CI_Model {
         $this->db->join(' tbl_booking_type', ' tbl_booking_type.id=tbl_booking.bookingType', 'left');
         $query = $this->db->get();
         return $query->row();
-
     }
-/*booking food get*/
-   public function yacht_booking_info_food($id) {
+
+    /* booking food get */
+
+    public function yacht_booking_info_food($id) {
         $this->db->select('tbl_food_order.itemName,tbl_food_order.quantity,tbl_food_order.itemprice');
         $this->db->from('tbl_food_order');
         $this->db->join('tbl_booking', 'tbl_booking.id=tbl_food_order.bookingId');
         $this->db->where('tbl_food_order.bookingId', $id);
         $query = $this->db->get();
         return $query->result();
-
+    }
+    
+    // getting the count of all jets
+    public function getJetCountData(){
+        $this->db->query("SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
+        $this->db->select("count(jetType) as Total,jetType")
+                ->from("tbl_jet")->where('1=1')->group_by("jetType");
+        $query = $this->db->get();
+        return $query->result();
     }
 
 }

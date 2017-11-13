@@ -35,7 +35,7 @@
         <section class="jet-list">
             <div class="container">
                 <div class="row">
-                    <h2 class="jets-title">Large Airliner <i class="fa fa-plane" aria-hidden="true"></i><span>46</span></h2>
+                    <h2 class="jets-title">Large Airliner <i class="fa fa-plane" aria-hidden="true"></i><span><?php echo $arrCountDataView['Large_Airliner'];?></span></h2>
                     <?php if($arrJetData1){ foreach($arrJetData1 as $key=>$objVal){?>
                     <div class="col-md-4 lpad0">
                         <div class="jet-item">
@@ -53,7 +53,7 @@
             </div>
             <div class="container">
                 <div class="row">
-                    <h2 class="jets-title">Long Range JETS <i class="fa fa-plane" aria-hidden="true"></i><span>46</span></h2>
+                    <h2 class="jets-title">Long Range JETS <i class="fa fa-plane" aria-hidden="true"></i><span><?php echo $arrCountDataView['Long_Range_Jets'];?></span></h2>
                     <?php if($arrJetData2){ foreach($arrJetData2 as $key=>$objVal){?>
                     <div class="col-md-4 lpad0">
                         <div class="jet-item">
@@ -71,7 +71,7 @@
             </div>
             <div class="container">
                 <div class="row">
-                    <h2 class="jets-title">Medium jets <i class="fa fa-plane" aria-hidden="true"></i><span>29</span></h2>
+                    <h2 class="jets-title">Medium jets <i class="fa fa-plane" aria-hidden="true"></i><span><?php echo $arrCountDataView['Medium_Jets'];?></span></h2>
                     <?php if($arrJetData3){ foreach($arrJetData3 as $key=>$objVal){?>
                     <div class="col-md-4 lpad0">
                         <div class="jet-item">
@@ -89,7 +89,7 @@
             </div>
             <div class="container">
                 <div class="row">
-                    <h2 class="jets-title">Small Jets <i class="fa fa-plane" aria-hidden="true"></i><span>31</span></h2>
+                    <h2 class="jets-title">Small Jets <i class="fa fa-plane" aria-hidden="true"></i><span><?php echo $arrCountDataView['Small_Jets'];?></span></h2>
                     <?php if($arrJetData4){ foreach($arrJetData4 as $key=>$objVal){?>
                     <div class="col-md-4 lpad0">
                         <div class="jet-item">

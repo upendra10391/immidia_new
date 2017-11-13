@@ -972,7 +972,7 @@ class Home extends CI_Controller {
     public function long_range_jet($jetType = "") {
         $this->load->model('Jet_model', '', true);
         $arrJetData = $this->Jet_model->getJetData(array('jet_type' => $jetType));
-        $this->load->view('home/long_range_jet', array('arrJetData' => $arrJetData));
+        $this->load->view('home/long_range_jet', array('arrJetData' => $arrJetData,'jetType'=> ucfirst(str_replace("_", " ", $jetType))));
     }
 
     // call when some one click on home page jet
@@ -982,10 +982,18 @@ class Home extends CI_Controller {
         $arrJetData2 = $this->Jet_model->getJetData(array('jet_type' => 'Long_Range_Jets', 'limit' => '3'));
         $arrJetData3 = $this->Jet_model->getJetData(array('jet_type' => 'Medium_Jets', 'limit' => '3'));
         $arrJetData4 = $this->Jet_model->getJetData(array('jet_type' => 'Small_Jets', 'limit' => '3'));
+        $arrCountData = $this->Jet_model->getJetCountData();
+        $arrCountDataView = array();
+        if(!empty($arrCountData)){
+            foreach ($arrCountData as $key=>$val){
+                $arrCountDataView[$val->jetType] = $val->Total;
+            }
+        }
         $this->load->view('home/charter_fleet_guide', array('arrJetData1' => $arrJetData1,
             'arrJetData2' => $arrJetData2,
             'arrJetData3' => $arrJetData3,
-            'arrJetData4' => $arrJetData4));
+            'arrJetData4' => $arrJetData4,
+            'arrCountDataView'=>$arrCountDataView));
     }
 
     public function challenger($varId = "") {

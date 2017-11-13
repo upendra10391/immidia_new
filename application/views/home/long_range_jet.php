@@ -25,7 +25,7 @@
         <?php $this->load->view('header/header'); ?>
         <div class="container-fluid book page-title jet-bg">
             <div class="row">
-                <h1>Long Range Jet</h1>
+                <h1><?php echo $jetType;?></h1>
             </div>
         </div>
     </header>
@@ -38,7 +38,9 @@
                     <div class="col-md-4 lpad0">
                         <div class="jet-item">
                             <div class="jet-image">
-                                <img src="<?php echo $this->IMAGE_URL.str_replace("..", "", $objVal->banner); ?>" class="img-responsive">
+                                <a href="<?php echo base_url('challenger/'.$objVal->id)?>">
+                                    <img src="<?php echo $this->IMAGE_URL.str_replace("..", "", $objVal->banner); ?>" class="img-responsive">
+                                </a>
                                 <i class="fa fa-wifi" aria-hidden="true"></i>
                             </div>
                             <h3 class="jet-title"><a href="<?php echo base_url('challenger/'.$objVal->id)?>"><?php echo $objVal->jetName;?></a></h3>
