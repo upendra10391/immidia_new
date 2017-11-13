@@ -791,12 +791,14 @@ class Home extends CI_Controller {
     }
 
     public function dashboard() {
+      
         if ($this->isLoggedIn()) {
             $this->load->library('PHPRequests');
             $request_made = $this->config->item('API_URL') . 'action=get_user_configuration&websiteUrl=immidialuxury.com';
             $response = json_decode(Requests::get($request_made)->body);
             $data['user'] = $_SESSION['user_login'];
-            // var_dump($data['user']);exit;
+           
+            //var_dump($data['user']);exit;
             $varUserId = $_SESSION['user_login']->id;
             //  var_dump($varUserId);exit;
             //$this->session->set_userdata('user_booking',$varUserId);
@@ -859,14 +861,15 @@ class Home extends CI_Controller {
         if (!empty($post)) {
             //var_dump($post);exit;
             $this->load->library('PHPRequests');
-            $request_made = $this->config->item('API_URL') . 'action=manage_users&type=Add&firstName=' . $post['firstName'] . '&lastName=' . $post['lastName'] . '&mailId=' . $post['mailId'];
+            $request_made = $this->config->item('API_URL') . 'action=manage_users&type=Add&firstName=' . $post['firstName'] . '&lastName=' . $post['lastName'] . '&mailId=' . $post['mailId'] .'&password=' . $post['password'] .'&confirm_password='. $post['confirm_password'] .'&contactNumber='. $post['contactNumber'] .'&country='. $post['country'];
             $response = json_decode(Requests::get($request_made)->body);
-            //var_dump($response);exit;
+            //var_dump($request_made);exit;
             if ($response->status == true) {
                 $return = array('message' => $response->displyMessage, 'code' => 200);
             } else {
                 $return = array('message' => $response->displyMessage, 'code' => 201);
             }
+           
             echo json_encode($return);
             exit;
         }
@@ -972,7 +975,7 @@ class Home extends CI_Controller {
     public function long_range_jet($jetType = "") {
         $this->load->model('Jet_model', '', true);
         $arrJetData = $this->Jet_model->getJetData(array('jet_type' => $jetType));
-        $this->load->view('home/long_range_jet', array('arrJetData' => $arrJetData));
+        $this->load->view('home/long_range_jet', array('arrJetData' => $arrJetData,'jetType'=> ucfirst(str_replace("_", " ", $jetType))));
     }
 
     // call when some one click on home page jet
@@ -982,10 +985,18 @@ class Home extends CI_Controller {
         $arrJetData2 = $this->Jet_model->getJetData(array('jet_type' => 'Long_Range_Jets', 'limit' => '3'));
         $arrJetData3 = $this->Jet_model->getJetData(array('jet_type' => 'Medium_Jets', 'limit' => '3'));
         $arrJetData4 = $this->Jet_model->getJetData(array('jet_type' => 'Small_Jets', 'limit' => '3'));
+        $arrCountData = $this->Jet_model->getJetCountData();
+        $arrCountDataView = array();
+        if(!empty($arrCountData)){
+            foreach ($arrCountData as $key=>$val){
+                $arrCountDataView[$val->jetType] = $val->Total;
+            }
+        }
         $this->load->view('home/charter_fleet_guide', array('arrJetData1' => $arrJetData1,
             'arrJetData2' => $arrJetData2,
             'arrJetData3' => $arrJetData3,
-            'arrJetData4' => $arrJetData4));
+            'arrJetData4' => $arrJetData4,
+            'arrCountDataView'=>$arrCountDataView));
     }
 
     public function challenger($varId = "") {
@@ -1367,6 +1378,12 @@ class Home extends CI_Controller {
             }
         }
         $this->load->view('home/contact');
+    }
+    public function logout()
+    {
+        $_SESSION['user_login']='';
+       unset($_SESSION['user_login']);
+       redirect(base_url('login'));
     }
 
 }

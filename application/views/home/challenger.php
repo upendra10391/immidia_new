@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Challenger 605</title>
+        <title><?php echo $arrJetData[0]->jetName;?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -14,7 +14,7 @@
         <?php $this->load->view('header/header'); ?>
         <div class="container-fluid book page-title jet-bg">
             <div class="row">
-                <h1>Challenger 605</h1>
+                <h1><?php echo $arrJetData[0]->jetName;?></h1>
             </div>
         </div>
     </header>

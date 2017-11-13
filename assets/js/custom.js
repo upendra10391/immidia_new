@@ -1,6 +1,22 @@
+
+//var base_url = 'http://localhost/immidia.ae/';
+
+var base_url = 'http://localhost/immidia_new/trunk';
+//var base_url = 'http://localhost/immidia_new/';
+
+//var base_url = 'http://localhost/immidia.ae/';
+
 //var base_url = 'http://localhost/immidia.ae/trunk';
+
 //var base_url = 'http://localhost/immidia_new/trunk';
+<<<<<<< HEAD
 var base_url = 'http://localhost/immidia_newcar/';
+=======
+//var base_url = 'http://localhost/immidia_new/';
+//var base_url = 'http://localhost/immidia_new/trunk';
+//var base_url = 'http://localhost/immidia_new/';
+
+>>>>>>> 30b33ee39be19ef0d01279c555f4313eaa8a7db1
 
  var yachtAddToCart = [];
 
@@ -274,13 +290,18 @@ $("body").on("click", "#user_login", function () {
     });
 })
 $("body").on("click", "#signup", function () {
+    //alert('hello');
     var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
     var first_name = $('#first_name').val();
     var last_name = $('#last_name').val();
     var email_id = $('#email_id').val();
-    var password = $('#password').val();
+    var password = $('#password_user').val();
     var confirm_password = $('#confirm_password').val();
     var mobile_no = $('#mobile_no').val();
+    var country=$('#country').val();
+    //var image=$('.icon-flag').val();
+    //alert(image);
+    
 
     if (first_name == '') {
         $('#signup_error').show();
@@ -315,7 +336,7 @@ $("body").on("click", "#signup", function () {
         $('#signup_error').show();
         $('#signup_error').addClass('error');
         $('#signup_error').html('Please enter your password');
-        $('#password').focus();
+        $('#password_user').focus();
         return false;
     }
     if (confirm_password == '') {
@@ -348,9 +369,10 @@ $("body").on("click", "#signup", function () {
     }
     $.ajax({
         url: base_url + '/signup',
-        type: "post",
-        data: {'firstName': first_name, 'lastName': last_name, 'mailId': email_id, 'password': password, 'confirm_password': confirm_password, 'contactNumber': mobile_no},
+        type: "POST",
+        data: {'firstName': first_name, 'lastName': last_name, 'mailId': email_id, 'password': password, 'confirm_password': confirm_password, 'contactNumber': mobile_no,'country':country},
         success: function (total) {
+           
             var callback = $.parseJSON(total);
             if (callback.code == '201') {
                 $('#signup_error').hide();
