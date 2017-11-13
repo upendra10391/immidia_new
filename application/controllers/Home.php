@@ -939,7 +939,7 @@ class Home extends CI_Controller {
             $_SESSION['villaFilterParams'] = $data['villaFilterParams'];
             //$_SESSION['villaList'] = $data['villaList'];
             $this->villaFilterParams = $_SESSION['villaFilterParams'];
-         //   var_dump($data['villaFilterParams']);exit;
+         //var_dump($data['villaFilterParams']);exit;
             $this->load->view('home/villa_search_result', $data);
         } else {
             $this->load->view('home/home');
@@ -960,11 +960,11 @@ class Home extends CI_Controller {
             $response = json_decode(Requests::get($request_made)->body);
             //echo "<pre>";
             //var_dump($request);exit;
-          //  echo "<pre>";var_dump($_SESSION['villDetails']);exit;
+          // echo "<pre>";var_dump($_SESSION['villDetails']);exit;
             if ($response->status == true) {
                 $data['villDetails'] = json_decode(json_encode($response->data));
                 $this->villaFilterParams = $_SESSION['villaFilterParams'];
-              //  var_dump($_SESSION['villaFilterParams']);exit;
+              // var_dump($_SESSION['villaFilterParams']);exit;
                 $this->session->set_userdata(array('villDetails' => $data['villDetails'], 'villaFilterParams' => $this->villaFilterParams));
                 $data['villaList'] = $_SESSION['villaList'];
                // var_dump($data['villaList']);exit;
@@ -1056,7 +1056,8 @@ class Home extends CI_Controller {
         $this->load->library('PHPRequests');
         $arrPost = $this->input->get();
         $days = $arrPost['days'];
-        $bookingDate = date('Y-m-d', strtotime($arrPost['bookingDate']));
+       $bookingDate = date('Y-m-d', strtotime($arrPost['bookingDate']));
+        //var_dump($bookingDate);exit;
         $varQueryString = "&days={$days}&noOfPasenger={$arrPost['noOfPasenger']}&stateId={$arrPost['carState']}&bookingDate={$bookingDate}&driver={$arrPost['driver']}&classification={$arrPost['classification']}";
         $request_made = $this->config->item('API_URL') . 'action=get_car_available_list' . $varQueryString;
         $response = json_decode(Requests::get($request_made)->body);
