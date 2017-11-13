@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php //var_dump($villaFilterParams);exit;?>
 <html>
     <head>
         <title><?php echo (!empty($villDetails->villaName)) ? $villDetails->villaName : '';?></title>
@@ -182,7 +183,7 @@
                                     <tr>
                                         <td><?php echo $this->villaFilterParams['villaCountryName'];?></td>
                                         <td><?php echo $this->villaFilterParams['villaStateName'];?></td>
-                                        <td>Dubai</td>
+                                        <td><?php echo $this->villaFilterParams['destination_name'];?></td>
                                         <td><?php echo $this->villaFilterParams['checkin'];?></td>
                                         <td><?php echo $this->villaFilterParams['checkout'];?></td>
                                         <td><?php echo $this->villaFilterParams['villa_guest'];?></td>
