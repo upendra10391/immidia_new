@@ -23,10 +23,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
+<<<<<<< .mine
+
+$config['base_url'] = 'http://localhost/immidia.ae/trunk';
+//$config['base_url'] = 'http://localhost/immidia_new/';
+//$config['base_url'] = 'http://localhost/immidia_new/trunk';
+//$config['base_url'] = 'http://localhost/immidia_new/';
+||||||| .r94
+<<<<<<< HEAD
+//$config['base_url'] = 'http://localhost/immidia.ae';
+$config['base_url'] = 'http://localhost/immidia_new/';
+=======
+$config['base_url'] = 'http://localhost/immidia_new/trunk';
+//$config['base_url'] = 'http://localhost/immidia_new/';
+>>>>>>> 99d5edef0d0ce5282f449adff6054771ca7f840d
+=======
 
 
 //$config['base_url'] = 'http://localhost/immidia.ae';
 $config['base_url'] = 'http://localhost/immidia_newcar/';
+>>>>>>> .r129
 
 
 /*
