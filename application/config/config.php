@@ -25,10 +25,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 
+$config['base_url'] = 'http://localhost/immidia.ae/trunk';
+//$config['base_url'] = 'http://localhost/immidia_new/';
+//$config['base_url'] = 'http://localhost/immidia_new/trunk';
+//$config['base_url'] = 'http://localhost/immidia_new/';
+
+//$config['base_url'] = 'http://localhost/immidia.ae';
+$config['base_url'] = 'http://localhost/immidia_new/';
+<<<<<<< HEAD
+=======
+
+$config['base_url'] = 'http://localhost/immidia_new/trunk';
+//$config['base_url'] = 'http://localhost/immidia_new/';
+>>>>>>> cf91c0102f2d5c009e014d7c89a710975ce5b427
+
+
+
 //$config['base_url'] = 'http://localhost/immidia.ae';
 $config['base_url'] = 'http://localhost/immidia_newcar/';
-
-
 /*
 |--------------------------------------------------------------------------
 | Index File

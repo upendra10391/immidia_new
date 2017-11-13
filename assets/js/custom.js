@@ -1,22 +1,9 @@
 
 //var base_url = 'http://localhost/immidia.ae/';
 
-var base_url = 'http://localhost/immidia_new/trunk';
-//var base_url = 'http://localhost/immidia_new/';
-
-//var base_url = 'http://localhost/immidia.ae/';
-
-//var base_url = 'http://localhost/immidia.ae/trunk';
-
 //var base_url = 'http://localhost/immidia_new/trunk';
-<<<<<<< HEAD
-var base_url = 'http://localhost/immidia_newcar/';
-=======
-//var base_url = 'http://localhost/immidia_new/';
-//var base_url = 'http://localhost/immidia_new/trunk';
-//var base_url = 'http://localhost/immidia_new/';
+var base_url = 'http://localhost/immidia_new/';
 
->>>>>>> 30b33ee39be19ef0d01279c555f4313eaa8a7db1
 
  var yachtAddToCart = [];
 
