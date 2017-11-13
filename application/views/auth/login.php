@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -103,7 +104,8 @@
                                                 <select class=" selecttitle" id="select_title">
                                                     <option>Title</option>
                                                     <option>Mr.</option>
-                                                    <option>Miss</option>
+                                                    <option>Miss</optio 
+                                                        n>
                                                 </select>
                                             </div>
 
@@ -118,19 +120,19 @@
                                             <input type="email" class="form-control" id="email_id" placeholder="Email"/>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control" id="password" placeholder="Password"/>
+                                            <input type="password" class="form-control" id="password_user" placeholder="Password"/>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control" id="confirm_password"  placeholder="verify Password"/>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control" id="mobile_no" placeholder="Mobile No."/>
+                                            <input type="text" class="form-control" id="mobile_no" placeholder="Mobile No."/>
                                         </div>
                                         <div class="form-group">
-                                            <div class="bfh-selectbox bfh-countries" data-country="US" data-flags="true">
-                                                <input type="hidden" value="">
+                                            <div class="bfh-selectbox bfh-countries" data-country="US"  data-flags="true">
+                                                <input type="hidden" value="" id="country">
                                                 <a class="bfh-selectbox-toggle" role="button" data-toggle="bfh-selectbox" href="#">
-                                                    <span class="bfh-selectbox-option input-medium" data-option=""></span>
+                                                    <span class="bfh-selectbox-option input-medium" id="image" data-option=""></span>
                                                     <b class="caret"></b>
                                                 </a>
                                                 <div class="bfh-selectbox-options">
