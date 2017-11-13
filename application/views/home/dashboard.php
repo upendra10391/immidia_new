@@ -82,7 +82,7 @@ function openCity1(evt, cityName) {
 				<div class="tab">
 					<button class="tablinks " onclick="openCity(event, 'Booking')"><i class="fa fa-desktop" aria-hidden="true"></i><span>Booking</span></button>
 					<button class="tablinks active" onclick="openCity(event, 'Profile')"><i class="fa fa-user" aria-hidden="true"></i><span>Profile</span></button>
-					<button class="tablinks" onclick="openCity(event, 'Help')"><i class="fa fa-question-circle" aria-hidden="true"></i><span>Help</span></button>
+					<button class="tablinks"id="goToNextfaq" data-link="<?php echo base_url('faq');?>" ><i class="fa fa-question-circle" aria-hidden="true"></i><span>Help</span></button>
 				</div>
 				<div id="Booking" class="tabcontent " style="display: none;">
 					<h3>Booking</h3>
@@ -130,7 +130,7 @@ function openCity1(evt, cityName) {
 						<div class="col-md-4 ">
 							<div>
 								<p class="fsname"><i class="fa fa-user" aria-hidden="true"></i>
-								<span class="iname"><?php echo $user->firstName;?> <?php echo $user->lastName;?> </span><span class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i><a>logout</a></span></p>
+								<span class="iname"><?php echo $user->firstName;?> <?php echo $user->lastName;?> </span><span class="logout" id="gologout" data-link="<?php echo base_url('logout');?>"><i class="fa fa-sign-out" aria-hidden="true"></i><a>logout</a></span></p>
 							</div>
 							<div class="ptabs">
 								<a class="tablinks1 active" onclick="openCity1(event, 'pi')">Travellers <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
@@ -326,7 +326,17 @@ function openCity1(evt, cityName) {
                        e.preventDefault();
                        $this = $(this);
                        window.location.href = $this.attr('data-link');
-                   }) 
+                       }) 
+                       $('body').on('click','#goToNextfaq',function(e){
+                       e.preventDefault();
+                       $this = $(this);
+                       window.location.href = $this.attr('data-link');
+                       })
+                       $('body').on('click','#gologout',function(e){
+                       e.preventDefault();
+                       $this = $(this);
+                       window.location.href = $this.attr('data-link');
+                       })
                 });
             </script>    
 	</section>
