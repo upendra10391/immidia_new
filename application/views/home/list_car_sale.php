@@ -29,7 +29,7 @@
         </div>
 
         <div class="listing-detail">
-            <h4><?php echo $objValue->villaName ?></h4>
+            <h4><?php echo $objValue->carName ?></h4>
             <p class="listprice">
                 <?php echo $this->arrCurrency[$objValue->currencyId]." ".$objValue->dayPriceHighestHighSeason?>
                </p>

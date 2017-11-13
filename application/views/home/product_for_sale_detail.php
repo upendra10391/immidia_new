@@ -15,7 +15,11 @@
             <?php $this->load->view('header/header'); ?>
             <div class="container-fluid page-title">
                 <div class="row">
+                    <?php if(!empty($_GET['c'])){?>
+                    <h1><?php echo $objValue->carName?></h1>
+                    <?php }else{?>
                     <h1><?php echo $objValue->villaName?></h1>
+                    <?php }?>
                 </div>
             </div>
         </header>
@@ -82,6 +86,7 @@
                 $this->load->view('home/vila_sale_details',array('objValue'=>$objValue));
             }
          ?>
+         <?php if(empty($_GET['c'])){?>
         <section class="map-section">
             <div class="container-fluid">
                 <div class="row">
@@ -93,7 +98,7 @@
             </div>
         </section>
 
-
+         <?php }?>
 
         <?php $this->load->view('footer/footer') ?>
     </body>
