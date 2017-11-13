@@ -89,6 +89,7 @@ $route['search-result'] = 'home/search_result';
 $route['yacht-booking'] = 'home/yacht_booking';
 $route['yacht-booking-info/(.*)'] = 'home/yacht_booking_info/$1';
 $route['signup'] = 'home/signup';
+$route['logout'] = 'home/logout';
 $route['get_villa_state/(:num)'] = 'home/getVillaState/$1';
 $route['villas'] = 'home/villas';
 $route['villa-rental-agreement'] = 'home/villa_rental_agreement';
