@@ -929,9 +929,9 @@ class Home extends CI_Controller {
 
     public function villas() {
         $this->load->library('PHPRequests');
-        $request_made = $this->config->item('API_URL') . 'action=get_villa_booking_list&destinationId=' . $_REQUEST['destination_name'] . '&guests=' . $_REQUEST['villa_guest'] . '&arrivalDateTime=' . date('y-m-d', strtotime($_REQUEST['checkin'])) . '&departureDateTime=' . date('y-m-d', strtotime($_REQUEST['checkout']));
+        $request_made = $this->config->item('API_URL') . 'action=get_villa_booking_list&destinationId=' . $_REQUEST['destination_name'] . '&guests=' . $_REQUEST['villa_guest'] . '&destname='.$_REQUEST['villaDestinationName']. '&arrivalDateTime=' . date('Y-m-d', strtotime($_REQUEST['checkin'])) . '&departureDateTime=' . date('Y-m-d', strtotime($_REQUEST['checkout']));
         $response = json_decode(Requests::get($request_made)->body);
-      
+   //   var_dump($request_made);
         if ($response->status == true) {
             $data['villaList'] = json_decode(json_encode($response->data));
             $data['villaFilterParams'] = $_REQUEST;
@@ -1328,8 +1328,8 @@ class Home extends CI_Controller {
         if (!empty($post)) {
             $this->load->library('PHPRequests');
             $request_made = $this->config->item('API_URL') . 'action=edit_profile&firstName=' . $post['first_name'] . '&editID=' . $varUserId . '&lastName=' . $post['lastname'] . '&email=' . $post['email'] . '&contactNumber=' . $post['phonenumber'] . '&address=' . $post['country'];
-            VAR_DUMP($request_made);
-            EXIT;
+            //VAR_DUMP($request_made);
+           // EXIT;
             $response = json_decode(Requests::get($request_made)->body);
 
             if ($session_user == NULL) {
