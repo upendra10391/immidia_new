@@ -1355,7 +1355,7 @@ class Home extends CI_Controller {
         if (!empty($post)) {
             $this->load->library('PHPRequests');
             $request_made = $this->config->item('API_URL') . 'action=forget_password&mailId=' . $post['mailid'];
-            // VAR_DUMP($request_made);EXIT;
+             //VAR_DUMP($request_made);EXIT;
             $response = json_decode(Requests::get($request_made)->body);
 
             if ($session_user == NULL) {
