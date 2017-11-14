@@ -44,16 +44,18 @@
             <div class="inner-block thirdv">
                 <label></label>
                 <select class="departure-port vd" name="destination_name" id="villDestination">
+                
                     <option>Select Destination</option>
                     
                 </select>
+                 <input type="hidden" name="villaDestinationName" id="villaDestinationName">
             </div>
             <div class="inner-block fourth fourthv">
                 <div class="form-group">
                     <label>CHECKIN</label>
                     <div class='input-group date' id='datetimepicker1'>
-                        <input type='text' id="dparrivalv" name="checkin"  value="<?php echo date("Y-m-d");?>" class="date-picker arrival" placeholder="DD/MM/YYYY"/>
-                        <div id="arrivalv"><span><?php echo date("F");?></span><span><?php echo date("j");?></span><span><?php echo date("D");?></span></div>
+                        <input type='text' id="dparrivalv" name="checkin"  value="<?php echo date("F j,l");?>" class="date-picker arrival" placeholder="DD/MM/YYYY"/>
+                        <div id="arrivalv"><span><?php echo date("F");?></span><span><?php echo date("j");?></span><span><?php echo date("l");?></span></div>
                     </div>
 
                 </div>
@@ -62,8 +64,8 @@
                 <div class="form-group">
                     <label>CHECKOUT</label>
                     <div class='input-group date' id='datetimepicker1'>
-                        <input type='text' id="dpdv" name="checkout" value="<?php echo date("Y-m-d",strtotime("+7 days"));?>" class="date-picker departure" placeholder="DD/MM/YYYY"/>
-                        <div id="departurev"><span><?php echo date("F",strtotime("+7 days"));?></span><span><?php echo date("j",strtotime("+7 days"));?></span><span><?php echo date("D",strtotime("+7 days"));?></span></div>
+                        <input type='text' id="dpdv" name="checkout" value="<?php echo date("F j,l",strtotime("+7 days"));?>" class="date-picker departure" placeholder="DD/MM/YYYY"/>
+                        <div id="departurev"><span><?php echo date("F",strtotime("+7 days"));?></span><span><?php echo date("j",strtotime("+7 days"));?></span><span><?php echo date("l",strtotime("+7 days"));?></span></div>
                     </div>
                 </div>
             </div>
@@ -97,3 +99,4 @@
         </div>
     </form>
 </div>
+
