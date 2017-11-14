@@ -420,7 +420,8 @@ $("body").on("change","#villaState",function(){
             $('#villaStateName').val($('#villaState option:selected').text());
             $('#loadervilla').attr('style', 'display:none');
             $.each(JSON.parse(data), function (index, value) {
-                $('#villDestination').append('<option value="' + value['id'] + '">' + value['name'] + '</option>')
+                $('#villDestination').append('<option  value="' + value['id'] + '">' + value['name'] + '</option>')
+              
             });
 
         }
@@ -579,7 +580,23 @@ $('body').on('click','#editprofile',function(){
   })
  })
 $('body').on('click','#user_forget',function(){
-      var mailid=$('#user_emailid').val();
+     var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/; 
+    var mailid=$('#user_emailid').val();
+      if(mailid =='')
+      {
+          $('#error_user_emailid').show();
+          $('#error_user_emailid').html("Please enter email id");
+          $('#user_emailid').focus();
+          return false;
+      }
+       if (reg.test(mailid) == false) {
+        $('#error_user_emailid').show();
+       // $('#signup_error').addClass('error');
+        $('#error_user_emailid').html('Please enter your valid emailid');
+        $('#user_emailid').focus();
+        return false;
+
+    }
       $.ajax({
           url:base_url +'/forget_password',
           type:"POST",
@@ -588,10 +605,12 @@ $('body').on('click','#user_forget',function(){
           {
            var callback = $.parseJSON(res);
             if (callback.code == '201') {
+                $('#error_user_emailid').hide();
                 $('.successmessageforget').html(callback.message);
  $('#user_emailid').val('');
                return false;
             } else {
+                $('#error_user_emailid').hide();
                  $('.successmessageforget').html(callback.message);
 $('#user_emailid').val('');
                 return false;
@@ -658,3 +677,7 @@ $("body").on("click","#limousine_villa",function(e){
  $('body').on('click','.idelete',function(){
      $(this).parent().remove();
  });
+ $('body').on('change','#villDestination',function(){
+     $('#villaDestinationName').val($('#villDestination option:selected').text());
+ })
+ 
