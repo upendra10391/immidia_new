@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
     <head>
         <title>Villa Search Result</title>
@@ -251,7 +250,7 @@
                             <tr>
                                 <td><?php echo $villaFilterParams['villaCountryName'];?></td>
                                 <td><?php echo $villaFilterParams['villaStateName'];?></td>
-                               <td><?php echo $villaFilterParams['destination_name'];?></td>
+                               <td><?php echo $villaFilterParams['villaDestinationName'];?></td>
                                 <td><?php echo $villaFilterParams['checkin'];?></td>
                                 <td><?php echo $villaFilterParams['checkout'];?></td>
                                 <td><?php echo $villaFilterParams['villa_guest'];?></td>
