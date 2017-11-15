@@ -262,7 +262,7 @@ class Home extends CI_Controller {
             "stateId" => $_SESSION['yachtFilterParams']['yachtState'],
             "days" => $_SESSION['yachtFilterParams']['yachtDays']
         );
-        var_dump($payment);exit;
+       // var_dump($payment);exit;
 
         $queryString = http_build_query($payment);
 
