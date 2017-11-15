@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php 
+$villaFilterParams=date('F-j-D');
+//var_dump($villaFilterParams);exit;?>
 <html>
     <head>
         <title><?php echo (!empty($villDetails->villaName)) ? $villDetails->villaName : '';?></title>
@@ -182,7 +185,7 @@
                                     <tr>
                                         <td><?php echo $this->villaFilterParams['villaCountryName'];?></td>
                                         <td><?php echo $this->villaFilterParams['villaStateName'];?></td>
-                                        <td>Dubai</td>
+                                        <td><?php echo $this->villaFilterParams['villaDestinationName'];?></td>
                                         <td><?php echo $this->villaFilterParams['checkin'];?></td>
                                         <td><?php echo $this->villaFilterParams['checkout'];?></td>
                                         <td><?php echo $this->villaFilterParams['villa_guest'];?></td>
@@ -199,14 +202,14 @@
                            <label>CHECKIN</label>
                                 <div class='input-group date' id='datetimepicker1'>
                                     <input type='text' id="dparrivalv" name="checkin"  value="" class="date-picker arrival" placeholder="DD/MM/YYYY"/>
-                                    <div id="arrivalv"><span>MM</span><span>DD</span><span>Day</span></div>
+                                    <div id="arrivalv"><span><?php echo $this->villaFilterParams['checkin'];?></span></div>
                                 </div>
                         </div>
                         <div class="col-md-3">
                             <label>CHECKOUT</label>
                                 <div class='input-group date' id='datetimepicker1'>
                                     <input type='text' id="dpdv" name="checkout" value="" class="date-picker departure" placeholder="DD/MM/YYYY"/>
-                                    <div id="departurev"><span>MM</span><span>DD</span><span>Day</span></div>
+                                    <div id="departurev"><span><?php echo $this->villaFilterParams['checkout'];?></span></div>
                                 </div>
                         </div>
                         <div class="col-md-3">

@@ -88,19 +88,31 @@
 								<p>Book Your Reservation</p>
 								<span class="expand" href="#"><img src="<?php echo base_url();?>/assets/images/arrow_1.png"/><u>Expand</u><img src="<?php echo base_url();?>/assets/images/arrow_2.png"/></span>
 							</div>
+							<form method="post" action="chauffeur-booking">
 							<div class="destination">
 								<div class="from">
 									<h4>From</h4>
-									<input type="text" class="dest-from">
+									<input type="text" class="dest-from" name="origin-input" id="origin-input">
 								</div>
 								<div class="to">
 									<h4>To</h4>
-									<input type="text" class="dest-to">
+									<input type="text" class="dest-to" name="destination-input" id="destination-input">
 								</div>
 									
 							</div>
 							<div class="app-book">
-							    <a class="book-now" href="">Book Now</a> </br>
+
+								<input type="hidden" id="orig_latitude" name="orig_latitude"  />
+								<input type="hidden" id="orig_longitude" name="orig_longitude"  />
+								<input type="hidden" id="dest_latitude" name="dest_latitude"  />
+								<input type="hidden" id="dest_longitude" name="dest_longitude"  />
+								<input type="hidden" id="estimatedTime" name="estimatedTime"  />
+								<input type="hidden" id="estimatedDistance" name="estimatedDistance"  />
+								<input type="hidden" id="estimatedTimeInSecond" name="estimatedTimeInSecond"  />
+								<input type="hidden" id="short_name" name="short_name"  />
+
+							    <button type="submit" name="isSubmit" class="book-now" >Book Now</button> </br>
+							   </form>
 								<a href="#"><img src="<?php echo base_url();?>/assets/images/android.png"></a>
 								<a href="#"><img src="<?php echo base_url();?>/assets/images/apple.png"></a>
 							
@@ -108,7 +120,150 @@
 						</div>
 						<div class="map-section">
 							<div class="expand-map">
-								<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d68436.06048923!2d-74.04761800088724!3d40.70755539893427!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY%2C+USA!5e0!3m2!1sen!2sin!4v1506333999345" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+								<div id="map" ></div>
+
+									<style>
+										#map {
+											  height: 580px;
+											}
+
+									</style>
+
+								
+								<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJBsyZL8XGklwkovQ-uk3ixOASbjP9wAY&libraries=places&callback=initMap"
+        						async defer></script>
+
+								        <script type="text/javascript">
+								          
+								function initMap() {
+								  var map = new google.maps.Map(document.getElementById('map'), {
+								    mapTypeControl: false,
+								    center: {lat: -33.8688, lng: 151.2195},
+								    zoom: 13
+								  });
+
+								  new AutocompleteDirectionsHandler(map);
+								}
+
+								 /**
+								  * @constructor
+								 */
+								function AutocompleteDirectionsHandler(map) {
+								  this.map = map;
+								  this.originPlaceId = null;
+								  this.destinationPlaceId = null;
+								  this.travelMode = 'DRIVING';
+								  var originInput = document.getElementById('origin-input');
+								  var destinationInput = document.getElementById('destination-input');
+								 // var modeSelector = document.getElementById('mode-selector');
+								  this.directionsService = new google.maps.DirectionsService;
+								  this.directionsDisplay = new google.maps.DirectionsRenderer;
+								  this.directionsDisplay.setMap(map);
+
+								  var originAutocomplete = new google.maps.places.Autocomplete(
+								      originInput /*, {placeIdOnly: true} */);
+								  var destinationAutocomplete = new google.maps.places.Autocomplete(
+								      destinationInput /*, {placeIdOnly: true} */);
+
+
+								  this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
+								  this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
+
+								
+								}
+
+							
+
+								AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(autocomplete, mode) {
+								  var me = this;
+								  autocomplete.bindTo('bounds', this.map);
+								  autocomplete.addListener('place_changed', function() {
+								    var place = autocomplete.getPlace();
+								    for(var i = 0; i < place.address_components.length; i += 1) {
+					                var addressObj = place.address_components[i];
+					                for(var j = 0; j < addressObj.types.length; j += 1) {
+					                  if (addressObj.types[j] === 'country') {
+					                  
+					                    if(mode == 'ORIG'){
+					                         console.log(addressObj.types[j]); // confirm that this is 'country'
+					                        console.log(addressObj.long_name); // confirm that this is the country name
+					                        console.log(addressObj.short_name); 
+					                       this.countryCode = addressObj.short_name;
+					                       this.countryStartName = addressObj.long_name;
+					                       $('#short_name').val(addressObj.short_name);
+
+
+					                 
+					                    }else{
+					                      this.countryEndName = addressObj.long_name;
+					                     
+					                    }
+
+
+
+
+					                  }
+					                }
+					              }
+
+
+								    if (!place.place_id) {
+								      window.alert("Please select an option from the dropdown list.");
+								      return;
+								    }
+								    if (mode === 'ORIG') {
+								      me.originPlaceId = place.place_id;
+								      document.getElementById("orig_latitude").value= place.geometry.location.lat();
+								      document.getElementById("orig_longitude").value= place.geometry.location.lng();
+								    } else {
+								      me.destinationPlaceId = place.place_id;
+								      document.getElementById("dest_latitude").value= place.geometry.location.lat();
+								      document.getElementById("dest_longitude").value= place.geometry.location.lng();
+								    }
+								    me.route();
+								  });
+
+								};
+
+								AutocompleteDirectionsHandler.prototype.route = function() {
+								  if (!this.originPlaceId || !this.destinationPlaceId) {
+								    return;
+								  }
+								  var me = this;
+
+								  this.directionsService.route({
+								    origin: {'placeId': this.originPlaceId},
+								    destination: {'placeId': this.destinationPlaceId},
+								    travelMode: this.travelMode
+								  }, function(response, status) {
+								    if (status === 'OK') {
+								      me.directionsDisplay.setDirections(response);
+
+								 var point = response.routes[ 0 ].legs[ 0 ];
+                                  var estimatedTime = point.duration.text ;
+                                  var estimatedDistance = point.distance.text;
+                                  var estimatedTimeInSecond = point.duration.value;
+
+                                  $('#estimatedTime').val(estimatedTime);
+                                  $('#estimatedDistance').val(estimatedDistance);
+                                  $('#estimatedTimeInSecond').val(estimatedTimeInSecond);
+
+                                  console.log(estimatedTimeInSecond)
+                                  console.log(estimatedTime);
+                                  console.log(estimatedDistance);
+
+
+
+								    } else {
+								      window.alert('Directions request failed due to ' + status);
+								    }
+								  });
+								};
+								        </script>
+	
+								
+
 							</div>
 						</div>
 					</div>
@@ -176,7 +331,7 @@
 				</div>
 				<div class="sedan">
 					<p>Sedan</p>
-					<a href="#">Book Now</a>
+					<a href="chauffeur-booking">Book Now</a>
 				</div>
 			</div>
 		</div>
@@ -185,23 +340,23 @@
 				<div class="col-md-3 col-sm-6 sedan">
 					<img src="<?php echo base_url();?>/assets/images/cs/sedan-t.jpg">
 					<p>Sedan</p>
-					<a href="#">Book Now</a>
+					<a href="chauffeur-booking">Book Now</a>
 				</div>
 				<div class="col-md-3 col-sm-6 sedan">
 					<img src="<?php echo base_url();?>/assets/images/cs/lsedan-t.jpg">
 					<p>Luxury Sedan</p>
-					<a href="#">Book Now</a>
+					<a href="chauffeur-booking">Book Now</a>
 				</div>
 				<div class="clearfix visible-sm"></div>
 				<div class="col-md-3 col-sm-6 sedan">
 					<img src="<?php echo base_url();?>/assets/images/cs/v-class-t.jpg">
 					<p>V Class</p>
-					<a href="#">Book Now</a>
+					<a href="chauffeur-booking">Book Now</a>
 				</div>
 				<div class="col-md-3 col-sm-6 sedan">
 					<img src="<?php echo base_url();?>/assets/images/cs/suv-t.JPG">
 					<p>SUV's</p>
-					<a href="#">Book Now</a>
+					<a href="chauffeur-booking">Book Now</a>
 				</div>
 			</div>
 		</div>
@@ -219,21 +374,21 @@
 									<h5>Airport Limo Service</h5>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-									<a class="book-link" href="#">Book Now</a>
+									<a class="book-link" href="chauffeur-booking">Book Now</a>
 								</div>
 
 								<div class="item">
 									<h5>Airport Limo Service</h5>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-									<a class="book-link" href="#">Book Now</a>
+									<a class="book-link" href="chauffeur-booking">Book Now</a>
 								</div>
 
 								<div class="item">
 									<h5>Airport Limo Service</h5>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-									<a class="book-link" href="#">Book Now</a>
+									<a class="book-link" href="chauffeur-booking">Book Now</a>
 								</div>
 							  </div>
 
@@ -274,6 +429,9 @@
 		
 		<!-- Footer -->
 		<?php $this->load->view('footer/footer') ?>
+					
+		 
+
 	</body>
 </html>
 

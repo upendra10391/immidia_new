@@ -62,6 +62,8 @@ class Home extends CI_Controller {
     public $arrJetType;
     public $arrCurrency;
     public $carCountry;
+    public $chauffeurListing;
+    public $ClassType;
 
     function __construct() {
         parent::__construct();
@@ -682,10 +684,125 @@ class Home extends CI_Controller {
         $this->load->view('home/booking');
     }
 
+   
     public function chauffeur_services() {
 
         $this->load->view('home/chauffeur_service');
     }
+
+    public function chauffeur_booking(){
+
+        $this->load->view('home/chauffeur_booking');
+
+        if(isset($_REQUEST['isSubmit'])){
+
+            $_SESSION['chauffeurFilterParams'] = $_REQUEST;
+
+        }
+    }
+
+
+     public function chauffeur_listing(){
+
+        if(isset($_REQUEST['isSubmit'])){
+            $_SESSION['chauffeurFilterParams'] = $_REQUEST;
+            $_SESSION['CURRENT_PAGE'] = 'chauffeur-listing';
+
+            $time = floor(intval($_SESSION['chauffeurFilterParams']['estimatedTimeInSecond']) / 60);
+
+            $this->load->library('PHPRequests');
+            $request_made = $this->config->item('API_URL') .'access=true&action=web_get_chauffeur_list_by_country&time='.$time.'&country_code='.$_SESSION['chauffeurFilterParams']['short_name'];
+
+            $response = json_decode(Requests::get($request_made)->body);
+
+            if ($response->status == true) {
+               
+                $_SESSION['chauffeurFilterParams']['response'] =  $response->data; 
+                $this->chauffeurListing = $_SESSION['chauffeurFilterParams']['response'];
+                 $this->load->view('home/chauffeur_listing'); 
+                
+            } else {
+
+                  $this->load->view('home/chauffeur_booking');
+                  echo '<script>setTimeout(function(){ showAlert("Opps!!","No Record Listing","error"); },600);</script>';
+            }
+
+ 
+        }
+
+
+    }
+
+
+     public function chauffeur_customer_info($type){
+        $isLogin = $this->isLoggedIn();
+
+            if($type == ''){
+                      $this->load->view('home/chauffeur_listing');
+                      return false;
+            }
+
+        if($isLogin){
+           $this->ClassType = $type;
+           $this->load->view('home/chauffeur_customer_info');
+        }
+
+     }  
+
+
+     public function submit_chauffeur_order(){
+
+        $payment = array(
+            "id" => "",
+            "name" => "",
+            "bookingType" => 5,
+            "departureDate" => date_format(date_create($_SESSION['chauffeurFilterParams']['pick_date']), 'Y-m-d'),
+            "arrivalDate" => "",
+            "ownerId" => "",
+            "routeType" => "",
+            "menuDetails" => "",
+            "fromArea" => urlencode($_SESSION['chauffeurFilterParams']['origin-input']),
+            "type" => "Add",
+            "toArea" => urlencode($_SESSION['chauffeurFilterParams']['destination-input']),
+            "currency" => $_SESSION['chauffeurFilterParams']['response']->currency,
+            "userId" => $_SESSION['user_login']->id,
+            "guests" => "",
+            "deliveryPrice" => "",
+            "dropOffRate" => "",
+            "formulaPrice" => "",
+            "foodPrice" => "",
+            "productPrice" => $_SESSION['chauffeurFilterParams']['updated_details']['price'],
+            "extraTime" => "",
+            "subtotal" => $_SESSION['chauffeurFilterParams']['updated_details']['price'],
+            "total" => $_SESSION['chauffeurFilterParams']['updated_details']['price'],
+            "transactionFee" => 0,
+            "websiteId" => 0, // for whitelabel case either should be 0
+            "departureHours" => "",
+            "arrivalHours" => "",
+            "limoDetails" => "",
+            "stateId" => "",
+            "days" => ""
+        );
+
+        $queryString = http_build_query($payment);
+
+        $this->load->library('PHPRequests');
+
+        $request_made = $this->config->item('API_URL') . 'access=true&action=booking&' . $queryString;
+
+        echo $request_made;
+        $response = json_decode(Requests::get($request_made)->body);
+
+        print_r($response);
+        if ($response->status == true) {
+
+            echo '<script>window.open("http://www.immidia.co/immidia/api/ws/controller/?access=true&action=payment&bookingId=' . $response->data . ');</script>';
+        } else {
+                echo "<script>alert('Sorry Your Request Could not be completed');</script>";
+               $this->load->view('home/chauffeur_customer_info');
+        
+        }
+     }
 
     public function login() {
 
@@ -929,8 +1046,9 @@ class Home extends CI_Controller {
 
     public function villas() {
         $this->load->library('PHPRequests');
-        $request_made = $this->config->item('API_URL') . 'action=get_villa_booking_list&destinationId=' . $_REQUEST['destination_name'] . '&guests=' . $_REQUEST['villa_guest'] . '&arrivalDateTime=' . date('y-m-d', strtotime($_REQUEST['checkin'])) . '&departureDateTime=' . date('y-m-d', strtotime($_REQUEST['checkout']));
+        $request_made = $this->config->item('API_URL') . 'action=get_villa_booking_list&destinationId=' . $_REQUEST['destination_name'] . '&guests=' . $_REQUEST['villa_guest'] . '&destname='.$_REQUEST['villaDestinationName']. '&arrivalDateTime=' . date('Y-m-d', strtotime($_REQUEST['checkin'])) . '&departureDateTime=' . date('Y-m-d', strtotime($_REQUEST['checkout']));
         $response = json_decode(Requests::get($request_made)->body);
+   //   var_dump($request_made);
         if ($response->status == true) {
             $data['villaList'] = json_decode(json_encode($response->data));
             $data['villaFilterParams'] = $_REQUEST;
@@ -938,6 +1056,7 @@ class Home extends CI_Controller {
             $_SESSION['villaFilterParams'] = $data['villaFilterParams'];
             //$_SESSION['villaList'] = $data['villaList'];
             $this->villaFilterParams = $_SESSION['villaFilterParams'];
+         //var_dump($data['villaFilterParams']);exit;
             $this->load->view('home/villa_search_result', $data);
         } else {
             $this->load->view('home/home');
@@ -946,7 +1065,9 @@ class Home extends CI_Controller {
     }
 
     public function villa_rental_agreement() {
-        $this->load->view('home/villa_rental_agreement');
+       $data['blogs']=$_SESSION['villDetails'];
+       // var_dump($data['blogs']);
+ $this->load->view('home/villa_rental_agreement',$data);
     }
 
     public function villa_search($villaId) {
@@ -954,12 +1075,16 @@ class Home extends CI_Controller {
             $this->load->library('PHPRequests');
             $request_made = $this->config->item('API_URL') . 'action=get_villa_booking_list&villaId=' . $villaId;
             $response = json_decode(Requests::get($request_made)->body);
-            //echo "<pre>";var_dump($_SESSION['villaList']);exit;
+            //echo "<pre>";
+            //var_dump($request);exit;
+          // echo "<pre>";var_dump($_SESSION['villDetails']);exit;
             if ($response->status == true) {
                 $data['villDetails'] = json_decode(json_encode($response->data));
                 $this->villaFilterParams = $_SESSION['villaFilterParams'];
+              // var_dump($_SESSION['villaFilterParams']);exit;
                 $this->session->set_userdata(array('villDetails' => $data['villDetails'], 'villaFilterParams' => $this->villaFilterParams));
                 $data['villaList'] = $_SESSION['villaList'];
+               // var_dump($data['villaList']);exit;
                 $this->load->view('home/villa_search', $data);
             } else {
                 $this->load->view('home/villa_search_result');
@@ -1048,7 +1173,8 @@ class Home extends CI_Controller {
         $this->load->library('PHPRequests');
         $arrPost = $this->input->get();
         $days = $arrPost['days'];
-        $bookingDate = date('Y-m-d', strtotime($arrPost['bookingDate']));
+       $bookingDate = date('Y-m-d', strtotime($arrPost['bookingDate']));
+        //var_dump($bookingDate);exit;
         $varQueryString = "&days={$days}&noOfPasenger={$arrPost['noOfPasenger']}&stateId={$arrPost['carState']}&bookingDate={$bookingDate}&driver={$arrPost['driver']}&classification={$arrPost['classification']}";
         $request_made = $this->config->item('API_URL') . 'action=get_car_available_list' . $varQueryString;
         $response = json_decode(Requests::get($request_made)->body);
@@ -1150,6 +1276,7 @@ class Home extends CI_Controller {
         $arrDataPost = $this->input->post();
         $arrDataGet = $this->input->get();
         $villaId = (!empty($id)) ? $id : 0;
+        //var_dump($villaId);exit;
         $checkIn = (!empty($arrDataPost['checkin'])) ? date('Y-m-d', strtotime($arrDataPost['checkin'])) : $arrDataGet['checkinData'];
         $checkOut = (!empty($arrDataPost['checkout'])) ? date('Y-m-d', strtotime($arrDataPost['checkout'])) : $arrDataGet['checkoutData'];
         //var_dump($arrDataGet);exit;
@@ -1158,7 +1285,9 @@ class Home extends CI_Controller {
         $response = json_decode(Requests::get($request_made)->body);
         if ($response->status == true) {
             $data['villalimousineDetails'] = json_decode(json_encode($response->data));
+            
             $this->villaFilterParams = $_SESSION['villaFilterParams'];
+            //var_dump($data['villalimousineDetails']);exit;
             $data['checkIn'] = $checkIn;
             $data['checkOut'] = $checkOut;
             if (!empty($data['checkIn'])) {
@@ -1316,8 +1445,8 @@ class Home extends CI_Controller {
         if (!empty($post)) {
             $this->load->library('PHPRequests');
             $request_made = $this->config->item('API_URL') . 'action=edit_profile&firstName=' . $post['first_name'] . '&editID=' . $varUserId . '&lastName=' . $post['lastname'] . '&email=' . $post['email'] . '&contactNumber=' . $post['phonenumber'] . '&address=' . $post['country'];
-            VAR_DUMP($request_made);
-            EXIT;
+            //VAR_DUMP($request_made);
+           // EXIT;
             $response = json_decode(Requests::get($request_made)->body);
 
             if ($session_user == NULL) {
@@ -1343,7 +1472,7 @@ class Home extends CI_Controller {
         if (!empty($post)) {
             $this->load->library('PHPRequests');
             $request_made = $this->config->item('API_URL') . 'action=forget_password&mailId=' . $post['mailid'];
-            // VAR_DUMP($request_made);EXIT;
+             //VAR_DUMP($request_made);EXIT;
             $response = json_decode(Requests::get($request_made)->body);
 
             if ($session_user == NULL) {

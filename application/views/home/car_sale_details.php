@@ -53,7 +53,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+<!--                    <div class="col-md-6">
                         <ul class="second">
                             <li>Rental Conditions</li>
                             <li>Deductible<span><?php echo $this->arrCurrency[$objValue->currencyId] . " " . $objValue->deductible ?></span></li>
@@ -61,7 +61,7 @@
                             <li>Minimum Driving Experience In Months<span><?php echo $objValue->driverExperience ?></span></li>
                             <li>Credit Card For Warranty<span><?php echo $objValue->numberOfCreditCardsForWarranty ?></span></li>
                         </ul>
-                    </div>
+                    </div>-->
                 </div>
 
             </div>

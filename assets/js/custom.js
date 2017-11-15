@@ -1,8 +1,8 @@
 
 //var base_url = 'http://localhost/immidia.ae/';
 
+var base_url = 'http://localhost/immidia_new/;
 //var base_url = 'http://localhost/immidia_new/trunk';
-var base_url = 'http://localhost/immidia_new/';
 
 
  var yachtAddToCart = [];
@@ -420,7 +420,8 @@ $("body").on("change","#villaState",function(){
             $('#villaStateName').val($('#villaState option:selected').text());
             $('#loadervilla').attr('style', 'display:none');
             $.each(JSON.parse(data), function (index, value) {
-                $('#villDestination').append('<option value="' + value['id'] + '">' + value['name'] + '</option>')
+                $('#villDestination').append('<option  value="' + value['id'] + '">' + value['name'] + '</option>')
+              
             });
 
         }
@@ -579,7 +580,23 @@ $('body').on('click','#editprofile',function(){
   })
  })
 $('body').on('click','#user_forget',function(){
-      var mailid=$('#user_emailid').val();
+     var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/; 
+    var mailid=$('#user_emailid').val();
+      if(mailid =='')
+      {
+          $('#error_user_emailid').show();
+          $('#error_user_emailid').html("Please enter email id");
+          $('#user_emailid').focus();
+          return false;
+      }
+       if (reg.test(mailid) == false) {
+        $('#error_user_emailid').show();
+       // $('#signup_error').addClass('error');
+        $('#error_user_emailid').html('Please enter your valid emailid');
+        $('#user_emailid').focus();
+        return false;
+
+    }
       $.ajax({
           url:base_url +'/forget_password',
           type:"POST",
@@ -588,11 +605,19 @@ $('body').on('click','#user_forget',function(){
           {
            var callback = $.parseJSON(res);
             if (callback.code == '201') {
-                $('.successmessageforget').html(callback.message);
+                $('#error_user_emailid').hide();
+               var message= $('.successmessageforget').html(callback.message);
+                setTimeout(function() {
+        message.hide();
+    }, 10000);
  $('#user_emailid').val('');
                return false;
             } else {
-                 $('.successmessageforget').html(callback.message);
+                $('#error_user_emailid').hide();
+                  var message= $('.successmessageforget').html(callback.message);
+                setTimeout(function() {
+        message.hide();
+    }, 10000);
 $('#user_emailid').val('');
                 return false;
             }     
@@ -608,7 +633,80 @@ $("body").on("click","#limousine_villa",function(e){
 
 })
   $("body").on("click","#villLimoAfterNext",function(e){
-     e.preventDefault();
+     
+      var limodeprt_name=$('#limodeprt_name').val();
+         var limodeprt_address=$('#limodeprt_address').val();
+         var limodeprt_special_request=$('#limodeprt_special_request').val();
+         var limodip_transferhr=$('#limodip_transferhr').val();
+         if(limodeprt_name=='')
+         {
+           $('#limodeprt_nameerror').show();
+         $('#limodeprt_nameerror').html("Pleas enter limo deprtname");
+         $('#limodeprt_name').focus();
+         return false;   
+         }
+         if(limodeprt_address=='')
+         {
+           $('#limodeprt_nameerror').hide();
+           $('#limodeprt_addresserror').show();
+         $('#limodeprt_addresserror').html("Pleas enter limo deprtaddress");
+         $('#limodeprt_address').focus();
+         return false;  
+         }
+         if(limodeprt_special_request=='')
+         {
+           $('#limodeprt_addresserror').hide();
+           $('#limodeprt_special_requesterror').show();
+         $('#limodeprt_special_requesterror').html("Pleas enter limo deprtrequest");
+         $('#limodeprt_special_request').focus();
+         return false;  
+         }
+         if(limodip_transferhr=='')
+         {
+             $('#limodeprt_special_requesterror').hide();
+           $('#limodip_transferhrerror').show();
+         $('#limodip_transferhrerror').html("Pleas select Transfer Hour");
+         $('#limodip_transferhr').focus();
+         return false;  
+         }
+         if($('#inlineCheckbox2').is(":checked"))
+         {
+            var limoarrivl_name=$('#limoarrivl_name').val(); 
+            var limoarrivl_address=$('#limoarrivl_address').val();
+            var limoarrivl_special_request=$('#limoarrivl_special_request').val();
+            var limoarr_transferhr1=$('#limoarr_transferhr1').val();
+            if(limoarrivl_name=='')
+            {
+                $('#limodip_transferhrerror').hide();
+              $('#limoarrivl_nameerror').show();
+         $('#limoarrivl_nameerror').html("Pleas enter limo arrivlname");
+         $('#limoarrivl_name').focus();
+         return false;   
+            }
+            if(limoarrivl_address==''){
+              $('#limoarrivl_nameerror').hide(); 
+              $('#limoarrivl_addresserror').show();
+         $('#limoarrivl_addresserror').html("Pleas enter limo arrivl address");
+         $('#limoarrivl_address').focus();
+         return false; 
+            }
+            if(limoarrivl_special_request==''){
+              $('#limoarrivl_addresserror').hide(); 
+              $('#limoarrivl_special_requesterror').show();
+         $('#limoarrivl_special_requesterror').html("Pleas enter limo arrivl request");
+         $('#limoarrivl_special_request').focus();
+         return false; 
+            }
+            if(limoarr_transferhr1=='')
+            {
+              $('#limoarrivl_special_requesterror').hide(); 
+              $('#limoarr_transferhr1error').show();
+         $('#limoarr_transferhr1error').html("Pleas select limoarr transferhr");
+         $('#limoarr_transferhr1').focus();
+         return false;   
+            }
+         }
+         e.preventDefault();
     $('#villLimoNext').submit();
  })
  $("body").on("click","#backVillaFoods",function(e){
@@ -658,3 +756,69 @@ $("body").on("click","#limousine_villa",function(e){
  $('body').on('click','.idelete',function(){
      $(this).parent().remove();
  });
+ $('body').on('change','#villDestination',function(){
+     $('#villaDestinationName').val($('#villDestination option:selected').text());
+ })
+ $('body').on('click','#nextdriverpage',function(){
+     var name=$('#driver1Name').val();
+     var driver1Dob=$('#driver1Dob').val();
+     var driver1LicenceDate=$('#driver1LicenceDate').val();
+     
+     if(name=='')
+     {
+       $('#driver_name').show();
+         $('#driver_name').html("Pleas enter driver name");
+         $('#driver1Name').focus();
+         return false;
+     }
+     if(driver1Dob=='')
+     {
+         $('#driver_name').hide();
+      $('#driver1Doberror').show();
+         $('#driver1Doberror').html("Please enter data of birth");
+         $('#driver1Dob').focus();
+         return false;
+     }
+     if(driver1LicenceDate=='')
+     {
+        $('#driver1Doberror').hide();
+        $('#driver1LicenceDateerror').show();
+         $('#driver1LicenceDateerror').html("Please enter driving license issue date");
+         $('#driver1LicenceDate').focus();
+         return false;
+     }
+     if ($('#inlineCheckbox2').is(":checked"))
+     {
+      var driver2Name=$('#driver2Name').val();
+     var driver2Dob=$('#driver2Dob').val();
+     var driver2LicenceDate=$('#driver2LicenceDate').val();
+     if(driver2Name=='')
+     {
+         $('#driver1LicenceDateerror').hide();
+         $('#driver2Nameerror').show();
+         $('#driver2Nameerror').html("Pleas enter second driver name");
+         $('#driver2Name').focus();
+         return false;
+     }
+     if(driver2Dob=='')
+     {
+         $('#driver2Nameerror').hide();
+         $('#driver2Doberror').show();
+         $('#driver2Doberror').html("Pleas enter second driving license issue date");
+         $('#driver2Dob').focus();
+         return false;
+     }
+      if(driver2LicenceDate=='')
+     {
+         $('#driver2Doberror').hide();
+         $('#driver2LicenceDateerror').show();
+         $('#driver2LicenceDateerror').html("Pleas enter second driving license issue date");
+         $('#driver2LicenceDate').focus();
+         return false;
+     }
+     }
+     })
+     /*$('body').on('click','#villLimoAfterNext',function(){
+        
+     })*/
+ 

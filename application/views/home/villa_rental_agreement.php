@@ -1,3 +1,6 @@
+<?php
+$today =date("Y-m-d",strtotime("+7 days"));
+//var_dump($today);exit;?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,7 +31,7 @@
                     <div class="col-md-6">
                         <p>between</p>
                         <div class="gbox">
-                            <p>Name:<span>Elite Rent-A-Car</span></p>
+                            <p>Name:<span><?php echo $blogs->villaName;?></span></p>
                             <p>Passport number:<span>Antibes</span></p>
                             <p>Phone:<br/><br/>(hereinafter called “the Tenant(s)”)<br/><br/>ON THE OTHER HAND</p>
 
@@ -37,8 +40,8 @@
                     <div class="col-md-6">
                         <p>and</p>
                         <div class="gbox">
-                            <p>The Service Provider:<span>Sotheby's International Reality</span></p>
-                            <p>Address:<span>Courchevel 1850 </span></p>
+                            <p>The Service Provider:<span><?php echo $blogs->ownerName;?></span></p>
+                            <p>Address:<span><?php echo $blogs->address;?></span></p>
                             <p>Name:<span>Diamond</span></p>
                             <p>Located in:<span>Courchevel</span><br/><br/>concerning the short-term rental of the property</p>
 
@@ -54,11 +57,11 @@
                             <p>Number of Guests:<span> 1</span></p>
                             <p>Rental period begins at 2 pm on:<span> 2017-10-28 and ends at 10 am on 2017-11-04</span></p>
                             <p>Rental Amount:<span> EURO  130410</span></p>
-                            <p>Security deposit:<span> EURO 0 (Will be Collected by service provider at the time of Check In *)</span></p>
-                            <p>Local taxes:<span> (where applicable)</span></p>
+                            <p>Security deposit:<span><?php echo $blogs->amountofSecurityDeposit;?></span></p>
+                            <p>Local taxes:<span><?php echo $blogs->cityTaxPercentage;?></span></p>
                             <p>Total Amount:<span> EURO  130410</span></p>
                             <p>Address of the property:<span> Courchevel 1850</span></p>
-                            <p>Type of property:<span> to be exclusively used for furnished holiday home rental.</span></p>
+                            <p>Type of property:<span><?php echo $blogs->view;?></span></p>
                         </div>
                     </div>
                 </div>
@@ -157,7 +160,7 @@
                             </tr>
                             <tr>
                                 <td>Guest name: <span>Ju Violin</span></td>
-                                <td>Service Provider : <span>Sotheby's International Reality</span></td>
+                                <td>Service Provider : <span><?php echo $blogs->ownerName;?></span></td>
                             </tr>
                             <tr>
                                 <td>Date of signature:  <span>2017-10-10</span></td>

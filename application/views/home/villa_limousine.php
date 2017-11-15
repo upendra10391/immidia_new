@@ -103,14 +103,18 @@
 
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="limodeprt_name" id="limodeprt_name" placeholder="Name"/>
+                                            <p id="limodeprt_nameerror" style="color:red;display:none;"></p>
                                         </div>
 
                                         <div class="form-group">
+                                            
                                             <input type="text" class="form-control" name="limodeprt_address" id="limodeprt_address" placeholder="Address"/>
+                                        <p id="limodeprt_addresserror" style="color:red;display:none;"></p>
                                         </div>
 
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="limodeprt_special_request" id="limodeprt_special_request" placeholder="Special Request"/>
+                                       <p id="limodeprt_special_requesterror" style="color:red;display:none;"></p> 
                                         </div>
 
 
@@ -132,8 +136,8 @@
                                         </div>
                                         <div class="form-group clearfix">
                                             <label class="col-md-3">Transfer Hour:</label>
-                                            <select class="selectcss col-md-2" name="limodip_transferhr">
-                                                <option>select</option>
+                                            <select class="selectcss col-md-2" name="limodip_transferhr" id="limodip_transferhr">
+                                                <option value="">select</option>
                                                     <option value="9:00">9:00</option>
                                                     <option value="9:30">9:30</option>
                                                     <option value="10:00">10:00</option>
@@ -141,6 +145,7 @@
                                                     <option value="11:00">11:00</option>
                                                     <option value="11:30">11:30</option>
                                             </select>
+                                            <p id="limodip_transferhrerror" style="color:red;display:none;"></p>
                                         </div>
                                         </div>
                                         <div class="checkbox checkbox-inline">
@@ -163,15 +168,16 @@
                                                     <div class="form-group">
                                                         <input type="text" name="limoarrivl_name" id="limoarrivl_name" class="form-control" placeholder="Name"/>
                                                     </div>
-
+ <p id="limoarrivl_nameerror" style="color:red;display:none;"></p>
                                                     <div class="form-group">
                                                         <input type="text" name="limoarrivl_address" id="limoarrivl_address" class="form-control" placeholder="Address"/>
                                                     </div>
+ <p id="limoarrivl_addresserror" style="color:red;display:none;"></p>
 
                                                     <div class="form-group">
                                                         <input type="text" name="limoarrivl_special_request" id="limoarrivl_special_request" class="form-control" placeholder="Special Request"/>
                                                     </div>
-
+<p id="limoarrivl_special_requesterror" style="color:red;display:none;"></p>
 
                                                     <div class="form-group clearfix">
                                                         <label class="col-md-3">Number Of person</label>
@@ -191,8 +197,8 @@
                                                     </div>
                                                     <div class="form-group clearfix">
                                                         <label class="col-md-3">Transfer Hour:</label>
-                                                        <select class="selectcss col-md-2" name="limoarr_transferhr">
-                                                            <option>select</option>
+                                                        <select class="selectcss col-md-2" name="limoarr_transferhr" id="limoarr_transferhr1">
+                                                            <option value="">select</option>
                                                             <option value="9:00">9:00</option>
                                                             <option value="9:30">9:30</option>
                                                             <option value="10:00">10:00</option>
@@ -200,6 +206,7 @@
                                                             <option value="11:00">11:00</option>
                                                             <option value="11:30">11:30</option>
                                                         </select>
+                      <p id="limoarr_transferhr1error" style="color:red;display:none;"></p>                                  
                                                     </div>
                                                     </div>
                                                     <div class="bnbutton">

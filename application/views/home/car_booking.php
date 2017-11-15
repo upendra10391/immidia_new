@@ -96,20 +96,24 @@
                                 <h4 class="btitle">AGE BETWEEN 25 AND 70 YEARS</h4>
 
                                 <div class="form-group">
-                                    <input name="driver1Name" type="text" class="form-control" placeholder="Name"/>
+                                    <p id="driver_name" style="color:red;display:none;"></p>
+                                    <input name="driver1Name" type="text" class="form-control" placeholder="Name" id="driver1Name"/>
                                 </div>
 
                                 <div class="form-group">
                                     <label>DATE OF BIRTH</label>
                                     <div class="date" id="datetimepicker4">
-                                        <input name="driver1Dob" type="text"  value="" class="date-picker" placeholder="DD/MM/YYYY">
+                                        <input name="driver1Dob" type="text" id="driver1Dob" value="" class="date-picker" placeholder="DD/MM/YYYY">
+                                        <p id="driver1Doberror" style="color:red;display:none;"></p>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label>DRIVING LICENSE ISSUE DATE</label>
                                     <div class="date" id="datetimepicker5">
-                                        <input name="driver1LicenceDate" type="text"  value="" class="date-picker" placeholder="DD/MM/YYYY">
+                                        
+       <input name="driver1LicenceDate" id="driver1LicenceDate" type="text"  value="" class="date-picker" placeholder="DD/MM/YYYY">
+                                    <p id="driver1LicenceDateerror" style="color:red;display:none;"></p>
                                     </div>
                                 </div>
                             </div>
@@ -130,20 +134,24 @@
                                 <h4 class="btitle">AGE BETWEEN 25 AND 70 YEARS<h4>
 
                                         <div class="form-group">
-                                            <input name="driver2Name" type="text" class="form-control" placeholder="Name"/>
+                                            
+                                            <input name="driver2Name" id="driver2Name" type="text" class="form-control" placeholder="Name"/>
+                                         <p id="driver2Nameerror" style="color:red;display:none;"></p>
                                         </div>
 
                                         <div class="form-group">
                                             <label>DATE OF BIRTH</label>
                                             <div class="date" id="datetimepicker4">
-                                                <input name="driver2Dob" type="text"  value="" class="date-picker" placeholder="DD/MM/YYYY">
+                                                <input name="driver2Dob" type="text" id="driver2Dob" value="" class="date-picker" placeholder="DD/MM/YYYY">
+                                           <p id="driver2Doberror" style="color:red;display:none;"></p>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label>DRIVING LICENSE ISSUE DATE</label>
                                             <div class="date" id="datetimepicker5">
-                                                <input name="driver2LicenceDate" type="text"  value="" class="date-picker" placeholder="DD/MM/YYYY">
+                                                <input name="driver2LicenceDate" id="driver2LicenceDate" type="text"  value="" class="date-picker" placeholder="DD/MM/YYYY">
+                                            <p id="driver2LicenceDateerror" style="color:red;display:none;"></p>
                                             </div>
                                         </div>
                                         </div>
@@ -151,7 +159,7 @@
 
                                         <div class="bnbutton">
                                             <button class="nbutton" type="button"><a class="bbutton" href="<?php echo base_url('car-details/' . $objDetails->id . '/?' . $_SERVER['QUERY_STRING']) ?>" ><i class="fa fa-angle-left" aria-hidden="true"></i> BACK</a></button>
-                                            <button class="nbutton" type="submit"><a href="#" >NEXT <i class="fa fa-angle-right" aria-hidden="true"></i></a></button>
+                                            <button class="nbutton" type="submit" id="nextdriverpage"><a href="#" >NEXT <i class="fa fa-angle-right" aria-hidden="true"></i></a></button>
                                         </div>
                                         </div>
                                         </form>
