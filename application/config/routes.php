@@ -104,6 +104,7 @@ $route['challenger/(:num)'] = 'home/challenger/$1';
 $route['get_villa_city/(:num)'] = 'home/getVillaCity/$1';
 $route['villalimousineDetail/(:num)'] = 'home/villalimousineDetail/$1';
 $route['foodVillaLlumousine'] = 'home/foodVillaLlumousine';
+$route['villa-payment'] = 'home/villaPayment';
 
 // route for the car
 $route['car'] = 'home/carListing';

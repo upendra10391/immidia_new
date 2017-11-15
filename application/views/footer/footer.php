@@ -25,7 +25,13 @@
                     </div>
                     <div class="right">
                         <ul>
+<!--<<<<<<< .mine
+                            <li><a href="<?php echo base_url('contact');?>">Contact Us</a></li>
+||||||| .r120
+                            <li><a href="#">Contact Us</a></li>
+=======-->
                             <li><a href="<?php echo base_url("contact") ?>">Contact Us</a></li>
+
                             <li><a href="#">Sitemap</a></li>
                         </ul>
                     </div>

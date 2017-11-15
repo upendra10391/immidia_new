@@ -38,31 +38,6 @@ a, a:hover, a:focus{
 .navbar-toggle .icon-bar {
   background: #173648 none repeat scroll 0 0;
 }
-.yacht_filter{
-  width: 238px;
-    height: 49px;
-    text-align-last:center;
-}
-
-
-.ban_large{
-height: 600px !important;
-
-}
-
-.ban{
-   width: 250px !important;
-    height: 230px !important;
-}
-
-.loader
-{
-        width: 10%;
-    position: absolute;
-    top: 25%;
-    left: -2%;
-}
-
 .main-menu .nav a {
   color: #fff;
   margin: 0 15px;
@@ -310,16 +285,13 @@ height: 600px !important;
   margin: 0 auto;
 }
 .map-responsive{
-    overflow:hidden;
-    position:relative;
     height:350px;
 	width:100%;
 }
 .map-responsive iframe{
-    left:0;
-    top:0;
-    width:100%;
-    position:absolute;
+       height:350px;
+	width:100%;
+
 }
 .how-works {
   background-image: url("images/our-services.jpg");
@@ -619,7 +591,7 @@ video {
   border-radius: 0;
 }
 .video {
-  height: 320px;
+  height: 300px;
 }
 .book-tab .nav-tabs > li.active > a, 
 .book-tab .nav-tabs > li.active > a:hover, 
@@ -712,6 +684,26 @@ video {
 }
 
 /******** book form ********/
+.pf1{
+	width: 23% ! important;
+}
+.pf {
+    width: 15% ! important;
+}
+.eighth i,.pf i{
+	display: block;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 36px;
+    color: white;
+}
+.pf select{
+	    height: 94px;
+    background: rgb(255, 255, 255) url(images/drop_down_blue.png) no-repeat scroll 97% 35px;
+}
+.pf1 textarea{width: 100%;
+    height: 94px;
+    padding: 10px 15px;}
 .inner-block.seventhv {
     width: 15% ! important;
 }
@@ -1180,9 +1172,17 @@ select.trip,select.motor {
 .calender-img {
   margin-top: 15px;
 }
+.dh .calender-img {
+    margin-top: 0px;
+}
 .ride-detail .ride-right .input-group.date {
   float: right;
   width: 88%;
+}
+.pick-time .checkbox{float: right;}
+.pick-time .adh1{
+ 	color: #838383;
+    font-weight: 700;
 }
 .ride-left .pick-date,
 .ride-right .pick-date {
@@ -1194,6 +1194,7 @@ select.trip,select.motor {
     float: right;
     width: 50%;
 }
+.morep1{margin: -25% 0px ! important;}
 
 .bottom-border {
   border-bottom: 2px solid #848484 !important;
@@ -1400,7 +1401,7 @@ select.trip,select.motor {
   width: 100%;
 }
 .summary-result {
-  float: left;
+  
   width: 100%;
 }
 .summary-result th {
@@ -1431,7 +1432,7 @@ select.trip,select.motor {
   background: #a18f61 none repeat scroll 0 0;
   color: #fff;
   float: right;
-  padding: 15px 15px 8px;
+  padding: 10px 15px;
   text-align: center;
   text-transform: uppercase;
   width: 170px;
@@ -1509,7 +1510,7 @@ select.trip,select.motor {
 .result-list .col-md-4 {
   padding: 0;
 }
-.result-list img{width:100%; height: 500px;}
+.result-list img{width:100%;}
 .list-inner {
   position: relative;
 }
@@ -1525,6 +1526,7 @@ select.trip,select.motor {
   display: table;
   margin: 0 auto;
   padding: 0px;
+  text-align:center;
 }
 .list-detail li {
   color: #fff;
@@ -1566,6 +1568,7 @@ select.trip,select.motor {
   display: table;
   margin: 0 auto;
   padding: 0px;
+  text-align:center;
 }
 .hover-detail li {
   color: #fff;
@@ -1608,12 +1611,11 @@ select.trip,select.motor {
 }
 .hover-detail > h1::after {
   background: #a18f61 none repeat scroll 0 0;
-  content: "";
-  height: 4px;
-  left: 38%;
-  position: absolute;
-  top: 45%;
-  width: 100px;
+    content: "";
+    display: block;
+    height: 5px;
+    margin: 10px auto 0;
+    width: 100px;
 }
 .hover-detail li::after {
   content: "|";
@@ -2323,17 +2325,16 @@ right: 0;
 }
 .fborder{
 	border-bottom:2px solid rgb(161, 143, 97);
-	padding: 2% 0px 35%;
 }
 .fitem span{	  
 	font-size: 18px;
     color: rgb(131, 131, 131);
     line-height: 1.2;
 }
-.fitem span.iname{width:69%;display: inline-block;}
-.fitem span.iqut{width:4%;display: inline-block;}
-.fitem span.iprice{width:19%;display: inline-block; text-align: center;}
-.fitem span.idelete{width:4%;display: inline-block;}
+.fitem span.iname{width:55%;display: inline-block;}
+.fitem span.iqut{width:5%;display: inline-block;}
+.fitem span.iprice{width:20%;display: inline-block; text-align: center;}
+.fitem span.idelete{width:5%;display: inline-block;}
 
 .food-drink {    
 	margin: 60px 0px;
@@ -2523,7 +2524,7 @@ right: 0;
 }
 #payment .carousel-control {
     left: 0;
-    right: 0; margin-top: -40%;
+    right: 0; margin-top: -25%;
 }
 /*************************** LOGIN *****************************/
 .login{margin:60px 0px;}
@@ -2599,7 +2600,7 @@ right: 0;
     border-radius: 0;
     padding: 10px 40px;
 	    margin: 0px auto;
-    display: block;
+    display: inline-block;
 }
 .padding0{padding:0 ! important;}
 
@@ -2653,6 +2654,7 @@ right: 0;
     text-transform: uppercase;
     line-height: 1.2;
     margin: 10px 0px;
+	text-align: center;
 }
 .login .form-group .i{position: absolute;
     padding: 15px 10px;}
@@ -2844,7 +2846,7 @@ right: 0;
 }
 .yacht-booking .moreinfo .fborder {
     border-bottom: 1px solid rgb(161, 143, 97);
-    padding: 2% 0px 35%;
+    padding: 0px;
 }
 .yacht-booking .moreinfo .fitem span {
     font-size: 15px;
@@ -2937,12 +2939,12 @@ button a:hover{color:white;}
     text-align: center;
     padding: 20px 0px;
 }
-.profile input[type="text"],.profile select{
+.profile input[type="text"] ,.profile input[type="email"],.profile select{
 	    border: 0;
     border-radius: 0;
     font-size: 14px;
     /* font-family: "Poppins"; */
-    color: rgb(159, 159, 159);
+    color: rgb(0, 0, 0) ! important;
     text-transform: uppercase;
     line-height: 1.2;
     text-align: left;
@@ -2975,6 +2977,18 @@ color: rgb(131, 131, 131);
     text-transform: uppercase;
     line-height: 1.2;
     text-align: center;
+}
+.profile input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #000 ! important;
+}
+.profile input::-moz-placeholder { /* Firefox 19+ */
+  color: #000  ! important;
+}
+.profile input:-ms-input-placeholder { /* IE 10+ */
+  color: #000 ! important;
+}
+.profile input:-moz-placeholder { /* Firefox 18- */
+  color: #000 ! important;
 }
 .ypi i{
 	font-size: 50px;
@@ -3068,7 +3082,7 @@ h2.jets-title:after {
     font-size: 30px;
     color: #000;
 }
-.jet-image img{width:100%; height: 230px !important;}
+.jet-image img{width:100%;}
 .jet-title{
 	font-size: 15px;
 	color: rgb(0, 0, 0);
@@ -3157,7 +3171,7 @@ h3.jet-title a {
     padding: 0;
 }
 .jet-description ul li{
-	background: url(images/jet/ch-890/i.PNG) no-repeat left;
+	background: url(images/jet/ch-890/i.png) no-repeat left;
     padding: 0px 0px 0px 30px;
     list-style: none;
 	font-size: 14px;
@@ -3191,6 +3205,7 @@ width: 25%;}
     height: 40px;
     border: 0;
     padding: 5px 10px;
+	margin-bottom: 10px;
 }
 .mb30{
 	    margin: 0px 0px 30px 0px;
@@ -3214,6 +3229,116 @@ width: 25%;}
     margin-bottom: 10px;
     border-radius: 0;
     border: 0;
+}
+/************************contact form**********************************/
+.contact-form{margin: 60px 30px;}
+.contact-form .input-group{width: 100%;
+    margin-bottom: 20px;}
+	.contact-form  .form-control{
+		border: 1px solid #000;
+    box-shadow: none;
+    color: #000;
+	    border-radius: 0;
+	}
+.contact-form  .submit{
+	background-color: rgb(161, 143, 97);
+    font-size: 20px;
+    color: rgb(255, 254, 254);
+    text-transform: uppercase;
+    line-height: 1.2;
+    border: 0;
+    border-radius: 0;
+    margin: 0px auto;
+    text-align: center;
+    display: block;
+    padding: 8px 30px;
+	}
+.address{margin: 60px 0px;}
+.address p{
+	font-size: 15px;
+    /* font-family: "Poppins"; */
+    color: rgb(0, 0, 0);
+    line-height: 1.6;
+    text-align: left;
+	padding: 0px 0px 0px 40px;
+}
+.address p i{
+	    font-size: 20px;
+    margin: 0px 15px 0px 0px;
+}
+.address .mobile i{margin: 0px 25px 0px 0px;}
+.address p span{
+	width: 38px;
+    height: 20px;
+    display: inline-block;
+}
+.wrap3{
+	text-align:center;
+}
+#yd .pbox {
+    margin-bottom: 30px;
+}
+.yti .pbox {
+    margin-bottom: 30px;
+}
+ul.dropdown-menu{margin-left: 20px;}
+.logout{background: #000;
+    color: wheat;
+    float: right;
+   padding: 5px 10px;
+    margin: 20px 0px;}
+.logout i{font-size: 14px;
+    padding: 5px;
+    color: white;}
+	
+	
+/******************************popup*******************************/
+.modal-content{border-radius: 0;}
+.modal-header {
+    padding: 15px;
+    border-bottom: 0px solid #e5e5e5;
+    background: #a18f61;
+}
+.modal-title {
+    color: white;
+    text-transform: uppercase;
+}
+.close {
+    float: right;
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1;
+    color: #FFF;
+    text-shadow: 0 1px 0 #fff;
+	opacity: 1; 
+    filter: alpha(opacity=20);
+}
+.modal-content h5{
+	font-size: 16px;
+    color: #a18f61;
+    font-weight: 700;
+}
+.modal-content p{
+	font-size: 14px;
+    color: rgb(131, 131, 131);
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #ddd;
+}	
+.modal-content p span{
+	text-align: right;
+    float: right;
+    color: #000;
+}
+.modal-content textarea{
+	font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    box-shadow: none;
+}
+.modal-content .submit {
+	    font-size: 14px;
+    padding: 7px 15px;
 }
 /******************************jet booking Button text***************************
 .contact-slide {
@@ -3516,9 +3641,6 @@ form.registration-form fieldset {
 	
 /****** Responsive Media Queries *******/
 @media all and (max-width: 1024px) {
-	/* #datetimepicker1 input {
-	  width: 135px;
-	} */
 	#duration span:first-child {
 		font-size: 23px;
 	}
@@ -3629,6 +3751,33 @@ form.registration-form fieldset {
 	.col-two .right > ul {
 		padding-left: 35px;
 	}
+	.lg p {
+		font-size: 15px;
+	}
+	.searchresult .total {
+		font-size: 16px;
+	}
+	.your-choice p.distance {
+		font-size: 15px;
+	}
+	.your-choice p.value {
+		font-size: 15px;
+	}
+	.your-choice label.title, .your-choice p.title {
+		font-size: 15px;
+	}
+	.fitem span {
+		font-size: 15px;
+	}
+	.main-menu .nav a {
+		margin: 0 10px;
+	}
+	.profile {
+		width: 100%;
+	}
+	#thumbnail-slider {
+		width: 94% ! important;
+    }
 }
 
 @media all and (max-width: 992px) {
@@ -3676,6 +3825,9 @@ form.registration-form fieldset {
 	.inner-block.fourth {
 		padding-right: 2px;
 	}
+	.inner-block.fourth, .inner-block.fifth {
+		height: 115px;
+	}
 	.duration {
 		background: rgb(255, 255, 255) url(images/drop_down_blue.png) no-repeat scroll 99% 35px !important;
 	}
@@ -3710,6 +3862,9 @@ form.registration-form fieldset {
 	.inner-block.third select.duration {
 		color: rgb(131, 131, 131);
 	}
+	#tab_default_3 .inner-block.third {
+		height: 97px;
+	}
 	.eight-inner {
 		width: 22%;
 		margin: 0 auto;
@@ -3718,16 +3873,31 @@ form.registration-form fieldset {
 		float: left;
 		margin: 0 auto;
 	}
+	#durationc {
+		margin: -80px 0px 0px 0;
+	}
 	.book-submit {
 		margin: 0;
 		float: right;
+	}
+	.inner-block.fourthv, .inner-block.fifthv {
+		width: 100% ! important;padding-right: 0px;
+	}
+	.inner-block.firstv {
+		width: 100% ! important;
+	}
+	.inner-block.thirdv {
+		width: 100% ! important;
+	}
+	.inner-block.seventhv {
+		width: 100% ! important;
 	}
 	section.video {
 		display: none;
 	}
 	#datetimepicker1 input {
 		border: 1px solid #fff;
-		margin: 0 0px 9px 2px !important;
+		margin: 0px 0px 10px 2px !important;
 		width: 7%;
 	}
 	.footer .col-one .col-inner, .footer .col-two .col-inner {
@@ -3809,11 +3979,90 @@ form.registration-form fieldset {
 	.yacht-booking .moreinfo .fitem span {
 		font-size: 13px;
 	}
+	.yyi .summary-result table {
+    overflow: scroll;
+	}
+	.table-responsive {
+		overflow-x: scroll;
+	}
+	.list-detail > ul{    text-align: center;}
+	#thumbnail-slider {
+		width: 92% ! important;
+	}
+	.info-details ul {
+		clear: both;
+	}
+	#contract .gbox p span {
+		float: none;
+    }
+	#contract p{padding: 0px 15px;}
+	.sp h3,.sp h4{padding: 0px 15px;}
+	.vlisting-box .img-responsive{width:100%;}
+	.searchresult .row select.showall {width: 125px;}
+	.product-for-sale select{margin-bottom: 10px;}
+	.searcharea .row .keyword {
+		width: 93%;
+		margin-bottom: 10px;
+	}
+	.lg img{
+		width: 50px;
+		height: auto;	
+	}  
+	.lg p {
+		font-size: 12px;
+	} 
+	.fborder {
+		padding: 0px 15px;
+	}
+	.login #myCarousel6{
+		margin: 30px 0px 0px;
+	}
+	.selecttitle {
+		background: #fff url(images/booking/icon_6.png) no-repeat scroll 100% 10px ! important;
+		width: 100%;
+		box-shadow: none;
+		margin-bottom:10px;
+	}
+	.info-section {
+		width: 80%;
+	}
+	.selectad {
+		width: 100%;
+	}
+	.limousine-services {
+		padding: 0px 15px;
+	}
+	.food-drink {
+    	padding: 0px 15px;
+	}
+	.profile select {
+		width: 100%;
+	}
+	.profile .pbox .wrap3{
+		margin-top: 10px;
+	}
+	#contract section{
+		padding: 0px 15px;
+	}
+	.jet-description {
+		padding: 0px 15px;
+	}
+	#tab_default_1 label {
+		height: auto;
+	}
+	#tab_default_2 label {
+		height: auto;
+	}
+	#tab_default_3 label {
+		height: auto;
+	}
+	#tab_default_4 label {
+		height: auto;
+	}
+	
 }
 @media all and (max-width: 767px) {
-	.map-responsive {
-	  padding-bottom: 58.6%;
-	}
+	
 	.work-block .content {
 	  font-size: 15px;
 	}
@@ -3889,6 +4138,26 @@ form.registration-form fieldset {
 		margin-bottom: 5px;
 		padding: 0;
 	}
+	.page-title h1 {
+		margin: 0px 0;
+		padding: 30px 0;
+	}
+	.breadcrumb {
+		padding: 25px 30px;
+	}
+	.info-section {
+    	width: 100%;
+	}
+	#thumbnail-slider {
+		width: 90%;
+	}
+	.info-details .first {
+		clear: both;
+	}
+	.lg img{
+		width: 30px;
+		height: auto;	
+	}  
 }
 @media all and (max-width: 640px) {
 	.eight-inner {
@@ -3949,9 +4218,7 @@ form.registration-form fieldset {
 	.serv-inner span {
 	  font-size: 22px;
 	}
-	.map-responsive {
-	  padding-bottom: 78%;
-	}
+	
 	.ic {font-size: 10px;}
 	.ic img{width: 20px;}
 	.car-box h4{font-size: 14px;}
@@ -3967,12 +4234,7 @@ form.registration-form fieldset {
 	.eight-inner {
 		width: 30%;
 	}
-	.map-responsive {
-	  padding-bottom: 104%;
-	}
-	/* #datetimepicker1 input {
-	  width: 100%;
-	} */
+	
 	.guest span {
 		font-size: 14px;
 		padding-left: 0px;
@@ -4114,7 +4376,9 @@ form.registration-form fieldset {
 		font-family: Oswald Regular;
 		font-size: 30px;
 		margin: 15px 0;
+		padding: 0;
 	}
+	
 	.yacht-booking div.tab {
 		width: 25%;
 	}
@@ -4139,10 +4403,174 @@ form.registration-form fieldset {
 	.yacht-booking .moreinfo .fitem span {
 		font-size: 12px;
 	}
+	.download-section .brochure {
+		float: left;
+		width: 100%;
+	}
+	.download-section .email {
+		float: left;
+		width: 100%;
+	}
+	.download-section .right {
+		float: left;
+	}
+	.download-section {
+		margin-top: 10px;
+	}
+	.hover-detail > ul {
+		text-align: center;
+	}
+	.hover-detail > h1 {
+		font-size: 30px;
+	}
+	.hover-detail li{
+		font-size: 12px;
+		text-align: center;
+	}
+	.info img {
+		width: 65%;
+	}
+	.info p {
+		font-size: 10px;
+		line-height: 12px;
+		word-break: break-word;
+	}
+	.info-details li span {
+		float: none;
+		display: block;
+	}
+	.back-next .next{
+		width: 115px;
+	}
+	#contract .gbox p span {
+		float: none;
+	}
+	.lg img{
+		display:none;
+	} 
+	.lg p {
+		font-size: 12px;
+		text-align: center;
+	}
+	.pagination ul li {
+		margin: 5px 5px;
+	}
+	.pagination .next {
+		padding: 5px 10px;
+		margin: 15px 0px 0px 0px;
+	}
+	.listing-detail .info-section {
+		width: 98%;
+	}
+	
+	.fsubmit {width: 18%;}
+    .fsearch {width: 80%;}
+	.searchresult .total {
+		float: none;
+		text-align: center;
+	}
+	.listing-detail .center button {
+		padding: 10px 5px;
+		margin: 0px 5px 0px 0px;
+		font-size: 12px;
+	}
+	.your-choice label.title, .your-choice p.title {
+		font-size: 12px;
+	}
+	.your-choice p.value {
+		font-size: 12px;
+	}
+	.your-choice p.distance {
+		font-size: 12px;
+	}
+	.fitem span.iname {
+		width: 64%;
+	}
+	.fborder {
+		padding: 0px 15px;
+	}
+	.fitem span {
+		font-size: 12px;
+	}
+	#login .carousel-control {
+		margin-top: -100%;
+	}
+	.center button {
+		font-size: 12px;
+		margin: 0px 10px 0px 0px;
+	}
+	.bnbutton .bbutton {
+		padding: 10px 15px 10px 15px;
+		margin: 0px 10px;
+	}
+	.bnbutton .bbutton i {
+		padding-right: 10px;
+		font-size: 16px;
+	}
+	.bnbutton .nbutton {
+		padding: 10px 15px 10px 15px;
+		margin: 0px 10px;
+	}
+	.bnbutton .nbutton i {
+		padding-left: 10px;
+		font-size: 16px;
+	}
+	.fditem select, .selectcss {
+		width: 100%;
+	}
+	#faqAccordion h4 a {
+		font-size: 14px;
+	}
+	#faqAccordion p {
+		padding: 0;
+	}
+	.profile {
+		width: 100%;
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.profile > div {
+		padding: 0;
+	}
+	.yacht-booking .tabcontent h3 {
+		font-size: 20px;
+	}
+	.logout {
+		padding: 5px 5px;
+		margin: 0px 0px;
+		font-size: 12px;
+	}
+	.logout i{font-size: 12px ! important;}
+	.fsname i {
+		font-size: 20px;
+		padding: 5px 1px;
+	}
+	.fsname .iname {
+		font-size: 14px;
+	}
+	.profile .name span {
+		padding: 2px 10px;font-size: 12px;
+	}
+	.ypi i {
+		font-size: 25px;
+	}
+	.ride-title > h1 {
+		font-size: 26px;
+		padding: 10px 0 10px;
+	}
+	.customerinfo p {
+		line-height: 28px;
+	}
+	.customerinfo .radio label.tc {
+		font-size: 14px;
+		line-height: 26px;
+	}
+	.customerinfo input[type="submit"] {
+		font-size: 23px;
+	}
 }
 
 @media all and (max-width: 320px) {
-	.map-responsive {padding-bottom: 117%;}
 	.previous-step {width: 140px;}
 	.previous-step h4 {margin: 17px 0;font-size: 14px;}
 	.next-step h4{margin: 17px 0;font-size: 14px;}
@@ -4150,65 +4578,17 @@ form.registration-form fieldset {
 	.car-box .row .col-md-3 {margin: 10px 0px 0px;}
 	.ic {font-size: 12px;}
 	.ic img{width: 28px;}
-	.eight-inner {
-		width: 57%;
+	.eight-inner {width: 57%;}
+	.section-title::before {left: 32%;}
+	.book-form > h3 {font-size: 22px;}
+	.back-next .next{width: 85px;}
+	.center button i {padding: 0px 5px 0px 0px;}
+	.listing-detail .center button {padding: 10px 5px;margin: 0px 2px 0px 0px;font-size: 10px;}
+	.pagination ul {display: block;}
+	.pagination .next {margin: 5px 0px 0px 0px;}
+	#login .carousel-control {margin-top: -115%;}
+	.fditem select, .selectcss {
+		width: 130%;
+		margin: 0px -15px;
 	}
-	.section-title::before {
-		left: 32%;
-	}
-	.book-form > h3 {
-		font-size: 22px;
-	}
-}
-
-/* 
-} */
-
-/******************************popup*******************************/
-.modal-content{border-radius: 0;}
-.modal-header {
-    padding: 15px;
-    border-bottom: 0px solid #e5e5e5;
-    background: #a18f61;
-}
-.modal-title {
-    color: white;
-    text-transform: uppercase;
-}
-.close {
-    float: right;
-    font-size: 21px;
-    font-weight: bold;
-    line-height: 1;
-    color: #FFF;
-    text-shadow: 0 1px 0 #fff;
-  opacity: 1; 
-    filter: alpha(opacity=20);
-}
-.modal-content h5{
-  font-size: 16px;
-    color: #a18f61;
-    font-weight: 700;
-}
-.modal-content p{
-  font-size: 14px;
-    color: rgb(131, 131, 131);
-    padding-bottom: 5px;
-    margin-bottom: 5px;
-    border-bottom: 1px solid #ddd;
-} 
-.modal-content p span{
-  text-align: right;
-    float: right;
-    color: #000;
-}
-.modal-content textarea{
-  font-size: 14px;
-    border: 1px solid #ddd;
-    border-radius: 0;
-    box-shadow: none;
-}
-.modal-content .submit {
-      font-size: 14px;
-    padding: 7px 15px;
 }

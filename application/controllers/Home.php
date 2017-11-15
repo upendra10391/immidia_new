@@ -261,6 +261,7 @@ class Home extends CI_Controller {
             "stateId" => $_SESSION['yachtFilterParams']['yachtState'],
             "days" => $_SESSION['yachtFilterParams']['yachtDays']
         );
+        var_dump($payment);exit;
 
         $queryString = http_build_query($payment);
 
@@ -706,7 +707,7 @@ class Home extends CI_Controller {
 
         if(isset($_REQUEST['isSubmit'])){
             $_SESSION['chauffeurFilterParams'] = $_REQUEST;
-            $_SESSION['CURRENT_PAGE'] = 'chauffeur-listing';
+            $_SESSION['CURRENT_PAGE'] = 'chauffeur_listing';
 
             $time = floor(intval($_SESSION['chauffeurFilterParams']['estimatedTimeInSecond']) / 60);
 
@@ -1513,6 +1514,13 @@ class Home extends CI_Controller {
         $_SESSION['user_login']='';
        unset($_SESSION['user_login']);
        redirect(base_url('login'));
+    }
+    public function villa_payment() {
+      /*  $_SESSION['yachtFilterParams']['yachtFoodPrice'] = $_REQUEST['yachtFoodPrice'];
+        $_SESSION['yachtFilterParams']['yachtFoodPriceWithPrice'] = $_REQUEST['yachtFoodPriceWithPrice'];
+        $this->yachtFilterParams = $_SESSION['yachtFilterParams'];
+        $this->yachtDetails = $_SESSION['yachtDetails'];*/
+        $this->load->view('home/villa_payment');
     }
 
 }

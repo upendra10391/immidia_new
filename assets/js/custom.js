@@ -3,10 +3,6 @@
 
 var base_url = 'http://localhost/immidia_new/;
 //var base_url = 'http://localhost/immidia_new/trunk';
-<<<<<<< HEAD
-=======
-var base_url = 'http://localhost/immidia_new/trunk';
->>>>>>> 17ed1e23ecb2beb8b12107ef24d27fe7efd88b44
 
 
  var yachtAddToCart = [];
