@@ -31,7 +31,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //$config['base_url'] = 'http://localhost/immidia.ae';
 //$config['base_url'] = 'http://localhost/immidia_new/';
 
+<<<<<<< HEAD
 $config['base_url'] = 'http://localhost/immidia_new/';
+=======
+$config['base_url'] = 'http://localhost/immidia_new/trunk';
+>>>>>>> cfbf623252a68c9200a742873bddf60e8e35b054
 //$config['base_url'] = 'http://localhost/immidia_new/';
 
 //$config['base_url'] = 'http://localhost/immidia_new/trunk';

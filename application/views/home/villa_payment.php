@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    
     <head>
         <title>Payment</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -96,6 +97,7 @@
                                     <div class="col-md-4 col-xs-4"><p class="value">2017-10-10</p></div>
                                     <div class="col-md-4 col-xs-4"><p class="distance"></p></div>
                                 </div>-->
+ <form method="post" action="<?= base_url('home/submit_villa_order') ?>">
                                 <div class="form-group fborder">
                                     <div class="col-md-12 col-xs-12"><p class="title">Food And Beverage</p></div>
                                     <div class="col-md-10 col-xs-10">
@@ -107,7 +109,7 @@
                                                 <span class="iname"><?php echo $val?></span>
                                                 <span class="iqut"><?php echo $arrPost['f_b_qty'][$key]?></span>
                                                 <span class="iprice"><?php echo $varTotalInner = $arrPost['f_b_qty'][$key]*$arrPost['f_b_price'][$key]?></span>
-                                                <span class="idelete"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                                           <!--     <span class="idelete"><i class="fa fa-trash-o" aria-hidden="true"></i></span>-->
                                             </p>
                                         <?php $varTotal+=$varTotalInner;}}?>
                                     </div>
@@ -140,6 +142,7 @@
                                     <div class="col-md-4 col-xs-4"><p class="distance"><b><?php echo $this->arrCurrency[$villDetails->currencyId]." ";echo $varTotal = $varCT+$varST+$varTT+$varTotal;?></b></p></div>
                                 </div>
                             </div>	
+                           
                             <div class="col-md-12 clearfix ">
                                 <div class="checkbox checkbox-inline">
                                     <input type="checkbox" id="inlineCheckbox2" value="option2">
@@ -148,9 +151,10 @@
                                 </div>
                             </div>
                             <div class="col-md-12 center clearfix">
-                                <button class="payment">MAKE Payment</button>
+                                <button type="submit" class="payment">MAKE Payment</button>
                             </div>
                         </div> 
+</form>
                     </div>
                 </div>
             </div>

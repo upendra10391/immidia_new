@@ -92,7 +92,7 @@
                                     <div class="col-md-4 col-xs-4"><p class="distance"><b><?php echo $this->arrCurrency[$arrDetails['carDetails']->currencyId]." ".($arrDetails['arrGet']['price']+$arrDetails['carDetails']->deliveryDetails->deliveryRate+$arrDetails['carDetails']->deliveryDetails->dropoffRate)?></b></p></div>
                                 </div>
                             </div>			
-
+<form method="post" action="<?= base_url('home/submit_car_order') ?>">
                             <div class="col-md-12 clearfix ">
                                 <div class="checkbox checkbox-inline">
                                     <input type="checkbox" id="inlineCheckbox2" value="option2">
@@ -103,6 +103,7 @@
                             <div class="col-md-12 center clearfix">
                                 <button class="payment">MAKE Payment</button>
                             </div>
+</form>
                         </div> 
                     </div>
                 </div>
