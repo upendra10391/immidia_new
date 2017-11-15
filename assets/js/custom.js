@@ -1,12 +1,11 @@
 
 //var base_url = 'http://localhost/immidia.ae/';
 
-var base_url = 'http://localhost/immidia_new/;
+//var base_url = 'http://localhost/immidia_new/;
 //var base_url = 'http://localhost/immidia_new/trunk';
-<<<<<<< HEAD
-=======
+
 var base_url = 'http://localhost/immidia_new/trunk';
->>>>>>> 17ed1e23ecb2beb8b12107ef24d27fe7efd88b44
+
 
 
  var yachtAddToCart = [];
@@ -186,6 +185,7 @@ function uniques(arr,itemsId) {
             '<span class="iqut">'+value.qty+'</span>'+
             '<span class="iprice">€ '+value.amount+'</span>'+
             '<span class="idelete"><i class="fa fa-trash-o" aria-hidden="true"></i></span>'+
+            
         '</p>';
 
           total += value.qty * value.amount;
@@ -740,6 +740,7 @@ $("body").on("click","#limousine_villa",function(e){
      var qty = $(this).val();
      var name = $(this).attr('data-name');
      var price = $(this).attr('data-price');
+   
      var id = $.trim($(this).attr('id').replace('select_qty_',""));
      var data_counter = $(this).attr('data-id-counter');
      //alert('amount_span_'+data_counter+"_"+id);
@@ -749,8 +750,11 @@ $("body").on("click","#limousine_villa",function(e){
              "<span class='iqut'>"+qty+"</span><span class='iprice'>"+price*qty+"</span>"+
              "<span class='idelete'><i class='fa fa-trash-o' aria-hidden='true'></i></span>"+
              "<input type='hidden' name='f_b_name[]' value='"+name+"'/><input type='hidden' name='f_b_qty[]' value='"+qty+"'/>"+
-             "<input type='hidden' name='f_b_price[]' value='"+price+"'/></p>";
-             //alert($('#f_b_'+fbID).length);
+            
+             "<input type='hidden' name='f_b_price[]' value='"+price+"'/></p>"+
+    "<input type='hidden' id='total' name='f_b_total[]' value='"+price*qty+"'/></p>";
+            // alert($('#f_b_'+fbID).length);
+            
      if($('#f_b_'+fbID).length > 0){
           $('#f_b_'+fbID).remove();
      }
@@ -759,7 +763,8 @@ $("body").on("click","#limousine_villa",function(e){
  });
  $('body').on('click','.idelete',function(){
      $(this).parent().remove();
- });
+   
+});
  $('body').on('change','#villDestination',function(){
      $('#villaDestinationName').val($('#villDestination option:selected').text());
  })
@@ -822,11 +827,10 @@ $("body").on("click","#limousine_villa",function(e){
      }
      }
      })
-<<<<<<< HEAD
      /*$('body').on('click','#villLimoAfterNext',function(){
         
      })*/
-=======
+
     $('body').on('submit','#yachtlimonext',function(){
          alert('hello');
          var yachtarrivl_name=$('#yachtarrivl_name').val();
@@ -904,5 +908,5 @@ $("body").on("click","#limousine_villa",function(e){
      })
    
    
->>>>>>> 17ed1e23ecb2beb8b12107ef24d27fe7efd88b44
+
  
