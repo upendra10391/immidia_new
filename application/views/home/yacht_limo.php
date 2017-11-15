@@ -111,17 +111,19 @@
 					<h4 class="btitle">LIMOUSINE PICKUP<h4>
 					
 					<div class="form-group">
-						<input type="text" name="limodepName" class="form-control disabledClass" placeholder="Name"/>
+						<input type="text" name="limodepName" id="yachtarrivl_name"" class="form-control disabledClass" placeholder="Name"/>
 					</div>
+                                                <p id="yachtarrivl_nameerror" style="color:red;display:none;"></p>
 					
 					<div class="form-group">
-						<input type="text" name="limodepAddress" class="form-control disabledClass" placeholder="Address"/>
+						<input type="text" name="limodepAddress" id="yachtdepAddress" class="form-control disabledClass" placeholder="Address"/>
 					</div>
+                                           <p id="yachtdepAddresserror" style="color:red;display:none;"></p>       
 					
 					<div class="form-group">
-						<input type="text" name="limodepReq" class="form-control disabledClass" placeholder="Special Request"/>
+						<input type="text" name="limodepReq" id="yachtdepReq" class="form-control disabledClass" placeholder="Special Request"/>
 					</div>
-					
+					   <p id="yachtdepReqerror" style="color:red;display:none;"></p>
 					
 					<div class="form-group clearfix">
 						<label class="col-md-3">Number Of person</label>
@@ -141,7 +143,7 @@
 					</div>
 					<div class="form-group clearfix">
 					<label class="col-md-3">Transfer Hour:</label>
-					<select class="selectcss col-md-2 disabledClass" name="limodepHour">
+					<select class="selectcss col-md-2 disabledClass" name="limodepHour" id="yachtdepHour">
 						<option>select</option>
 						<option>6:00</option>
 						<option>6:30</option>
@@ -150,6 +152,7 @@
 						<option>8:00</option>
 						<option>8:30</option>
 					</select>
+                                        <p id="yachtdepHourerror" style="color:red;display:none;"></p>
 					</div>
 					</div>
 					<div class="checkbox checkbox-inline">
@@ -180,17 +183,18 @@ function valueChanged()
 					<h4 class="btitle">LIMOUSINE ARRIVAL<h4>
 					
 					<div class="form-group">
-						<input type="text" name="limoarrName" class="form-control disabledClassArr" placeholder="Name"/>
+						<input type="text" name="limoarrName" id="yachtarrName" class="form-control disabledClassArr" placeholder="Name"/>
 					</div>
+                                                <p id="yachtarrNameerror" style="color:red;display:none;"></p>
 					
 					<div class="form-group">
-						<input type="text" name="limoarrAddress" class="form-control disabledClassArr" placeholder="Address"/>
+						<input type="text" name="limoarrAddress" id="yachtarrAddress" class="form-control disabledClassArr" placeholder="Address"/>
 					</div>
-					
+				<p id="yachtarrAddresserror" style="color:red;display:none;"></p>	
 					<div class="form-group">
-						<input type="text" name="limoarrReq" class="form-control disabledClassArr" placeholder="Special Request"/>
+						<input type="text" name="limoarrReq" id="yachtarrReq" class="form-control disabledClassArr" placeholder="Special Request"/>
 					</div>
-					
+				<p id="yachtarrReqerror" style="color:red;display:none;"></p>	
 					
 					<div class="form-group clearfix">
 						<label class="col-md-3">Number Of person</label>
@@ -210,7 +214,7 @@ function valueChanged()
 					</div>
 					<div class="form-group clearfix">
 					<label class="col-md-3">Transfer Hour:</label>
-					<select class="selectcss col-md-2 disabledClassArr" name="limoarrHour">
+					<select class="selectcss col-md-2 disabledClassArr" name="limoarrHour" id="yachtarrHour">
 						<option>select</option>
 						<option>19:00</option>
 						<option>19:30</option>
@@ -219,11 +223,12 @@ function valueChanged()
 						<option>21:00</option>
 
 					</select>
+                                        <p id="yachtarrHourerror" style="color:red;display:none;"></p>
 					</div>
 					</div>
 					<div class="bnbutton">
 						<button class="bbutton" onclick="goBack();"><i class="fa fa-angle-left" aria-hidden="true"></i> BACK</button>
-						<button type="submit" class="nbutton">NEXT <i class="fa fa-angle-right" aria-hidden="true"></i></button>
+						<button type="submit" id="yachtlimonext" class="nbutton" onclick="return check();">NEXT <i class="fa fa-angle-right" aria-hidden="true"></i></button>
 					</div>
 				</div>
 				

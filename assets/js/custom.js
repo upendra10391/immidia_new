@@ -3,6 +3,10 @@
 
 var base_url = 'http://localhost/immidia_new/;
 //var base_url = 'http://localhost/immidia_new/trunk';
+<<<<<<< HEAD
+=======
+var base_url = 'http://localhost/immidia_new/trunk';
+>>>>>>> 17ed1e23ecb2beb8b12107ef24d27fe7efd88b44
 
 
  var yachtAddToCart = [];
@@ -818,7 +822,87 @@ $("body").on("click","#limousine_villa",function(e){
      }
      }
      })
+<<<<<<< HEAD
      /*$('body').on('click','#villLimoAfterNext',function(){
         
      })*/
+=======
+    $('body').on('submit','#yachtlimonext',function(){
+         alert('hello');
+         var yachtarrivl_name=$('#yachtarrivl_name').val();
+         var yachtdepAddress=$('#yachtdepAddress').val();
+         var yachtdepReq=$('#yachtdepReq').val();
+         var yachtdepHour=$('#yachtdepHour').val();
+         if(yachtarrivl_name=='')
+         {
+           $('#yachtarrivl_nameerror').show();
+         $('#yachtarrivl_nameerror').html("Pleas enter limo deprtname");
+         $('#yachtarrivl_name').focus();
+         return false;   
+         }
+         if(yachtdepAddress=='')
+         {
+           $('#yachtarrivl_nameerror').hide();
+           $('#yachtdepAddresserror').show();
+         $('#yachtdepAddresserror').html("Pleas enter limo deprtaddress");
+         $('#yachtdepAddress').focus();
+         return false;  
+         }
+         if(yachtdepReq=='')
+         {
+           $('#yachtarrivl_nameerror').hide();
+           $('#yachtdepReqerror').show();
+         $('#yachtdepReqerror').html("Pleas enter limo deprtrequest");
+         $('#yachtdepReq').focus();
+         return false;  
+         }
+         if(yachtdepHour=='')
+         {
+             $('#yachtdepReqerror').hide();
+           $('#yachtdepHourerror').show();
+         $('#yachtdepHourerror').html("Pleas select Transfer Hour");
+         $('#yachtdepHour').focus();
+         return false;  
+         }
+       if($('#inlineCheckbox2').is(":checked"))
+         {
+            var yachtarrName=$('#yachtarrName').val(); 
+            var yachtarrAddress=$('#yachtarrAddress').val();
+            var yachtarrReq=$('#yachtarrReq').val();
+            var yachtarrHour=$('#yachtarrHour').val();
+            if(yachtarrName=='')
+            {
+                $('#yachtdepHourerror').hide();
+              $('#yachtarrNameerror').show();
+         $('#yachtarrNameerror').html("Pleas enter yachtarrNameerror");
+         $('#yachtarrName').focus();
+         return false;   
+            }
+            if(yachtarrAddress==''){
+              $('#yachtdepHourerror').hide(); 
+              $('#yachtarrAddresserror').show();
+         $('#yachtarrAddresserror').html("Pleas enter yachtdepHourerror");
+         $('#yachtarrAddress').focus();
+         return false; 
+            }
+            if(yachtarrReq==''){
+              $('#yachtdepHourerrorerror').hide(); 
+              $('#yachtarrReqerror').show();
+         $('#yachtarrReqerror').html("Pleas enter yacht arrivl request");
+         $('#yachtarrReq').focus();
+         return false; 
+            }
+            if(yachtarrHour=='')
+            {
+              $('#yachtarrReqerror').hide(); 
+              $('#yachtarrHourerror').show();
+         $('#yachtarrHourerror').html("Pleas select yachtarr hour");
+         $('#yachtarrHour').focus();
+         return false;   
+            }
+         }
+     })
+   
+   
+>>>>>>> 17ed1e23ecb2beb8b12107ef24d27fe7efd88b44
  
