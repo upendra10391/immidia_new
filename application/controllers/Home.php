@@ -230,6 +230,7 @@ class Home extends CI_Controller {
         // echo "request data";
         // print_r($_REQUEST);
         //prepare parameter for yacht submit order
+     //  var_dump($_SESSION['yachtFilterParams']['departureDate']);exit;
         $payment = array(
             "id" => $_SESSION['yachtDetails']->id,
             "name" => $_SESSION['yachtDetails']->name,
@@ -261,6 +262,7 @@ class Home extends CI_Controller {
             "stateId" => $_SESSION['yachtFilterParams']['yachtState'],
             "days" => $_SESSION['yachtFilterParams']['yachtDays']
         );
+        var_dump($payment);exit;
 
         $queryString = http_build_query($payment);
 
@@ -1261,6 +1263,8 @@ class Home extends CI_Controller {
      */
 
     public function carPayment() {
+       $data= $this->session->userdata('carDetails');
+      //var_dump($data);exit;
         $this->load->view('home/car_payment', array('arrDetails' => $this->session->userdata()));
     }
 
@@ -1315,6 +1319,7 @@ class Home extends CI_Controller {
         $arrDetails = '';
         $arrDataget = $this->input->get();
         $arrDataPost = $this->input->post();
+       
         $departureDate = new DateTime($arrDataPost['checkIn']);
         $arrivalDate = new DateTime($arrDataPost['checkOut']);
         $diff = $arrivalDate->diff($departureDate);
@@ -1352,6 +1357,11 @@ class Home extends CI_Controller {
         $arrDataGetFood = $this->session->userdata('arrDataGetFood');
         //array('arrDataPostFood' => $arrDataPost, 'arrDataGetFood' => $arrDataget, 'arrDataPost' => $arrDataPost)
         $arrPost = $this->input->post();
+       // $arrget = $this->input->get();
+         $price=$arrPost['f_b_total'];
+      $total_price=array_sum($price);
+        $_SESSION['toatal']=$total_price;
+       
 //        //exit;
 //        echo "<pre>";
 //        var_dump($_SESSION);
@@ -1361,8 +1371,10 @@ class Home extends CI_Controller {
         $arrData['villaFilterParams'] = $_SESSION['villaFilterParams'];
         $arrData['arrDataGetFood'] = $arrDataGetFood;
         $arrData['objFoodDetails'] = $objFoodDetails;
-        $arrData['arrDataGet'] = $_SESSION['arrDataGet'];
-        $arrData['arrPost'] = $arrPost;
+      $arrData['arrDataGet'] = $_SESSION['arrDataGet'];
+      $arrData['arrPost'] = $arrPost;
+      //var_dump($arrData['arrPost']['f_b_total']);exit;
+      $_SESSION['fooddata']=$arrData['arrPost'];
         $arrData['villalimousineDetails'] = $_SESSION['villalimousineDetails'];
         $arrData['villaList'] = $_SESSION['villaList'];
         //echo "<pre>";var_dump($_SESSION);exit;
@@ -1513,6 +1525,116 @@ class Home extends CI_Controller {
         $_SESSION['user_login']='';
        unset($_SESSION['user_login']);
        redirect(base_url('login'));
+    }
+    public function submit_villa_order() {
+        $objSessData = $this->session->userdata('villalimousineDetails');
+        $objFoodDetails = $this->session->userdata('foodDetails');
+        $arrDataPost = $this->session->userdata('arrDataPost');
+        $arrDataGetFood = $this->session->userdata('arrDataGetFood');
+    //   var_dump($_SESSION['villaFilterParams']['villaDestinationName']);exit;
+        // print_r($_SESSION);
+        // echo "request data";
+        // print_r($_REQUEST);
+        //prepare parameter for yacht submit order
+    //  var_dump($_SESSION['villalimousineDetails']);exit;
+        $payment = array(
+            "id" => $_SESSION['villalimousineDetails']->id,
+            "name" => $_SESSION['arrDataPost']['villa_name'],
+            "bookingType" => 4,
+            "departureDate" => date_format(date_create($_SESSION['villaFilterParams']['checkout']), 'Y-m-d'),
+            "arrivalDate" => ($_SESSION['villaFilterParams']['checkin'] != null) ? date_format(date_create($_SESSION['villaFilterParams']['checkin']), 'Y-m-d') : date_format(date_create($_SESSION['villaFilterParams']['checkout']), 'Y-m-d'),
+            "ownerId" => $_SESSION['villalimousineDetails']->ownerId,
+            "routeType" => $_SESSION['villaFilterParams']['routeType'],
+            "menuDetails" => $_SESSION['fooddata'],
+            "fromArea" => $_SESSION['villaFilterParams']['villaDestinationName'],
+            "type" => "Add",
+            "toArea" => $_SESSION['villaFilterParams']['villaDestinationName'],
+            "currency" => 'AED',
+            "userId" => $_SESSION['user_login']->id,
+            "guests" => $_SESSION['villaFilterParams']['villa_guest'],
+            "deliveryPrice" =>'',
+            "dropOffRate" => '',
+            "formulaPrice" =>'',
+            "foodPrice" => floor($_SESSION['villaFilterParams']['f_b_price']),
+            "productPrice" => floor($_SESSION['villaFilterParams']['f_b_price']),
+            "extraTime" => '',
+            "subtotal" => floor($_SESSION['toatal']),
+            "total" => floor($_SESSION['toatal']),
+            "transactionFee" => 0,
+            "websiteId" => 0, // for whitelabel case either should be 0
+            "departureHours" =>'2:00 PM',
+            "arrivalHours" => '12:00 PM',
+            "villaDetails" => $_SESSION['villaFilterParams']['villaDescription'],
+            "stateId" => $_SESSION['yachtFilterParams']['yachtState'],
+            "days" => $_SESSION['yachtFilterParams']['yachtDays']
+        );
+        //var_dump($payment);exit;
+
+        $queryString = http_build_query($payment);
+
+        $this->load->library('PHPRequests');
+
+        $request_made = $this->config->item('API_URL') . 'access=true&action=booking&' . $queryString;
+
+        $response = json_decode(Requests::get($request_made)->body);
+
+        if ($response->status == true) {
+
+            echo '<script>window.open("http://www.immidia.co/immidia/api/ws/controller/?access=true&action=payment&bookingId=' . $response->data . ');</script>';
+        } else {
+
+            echo '<script>setTimeout(function(){ showAlert("Opps!!","No Record Listing","error"); },600);</script>';
+        }
+    }
+     public function submit_car_order() {
+        $payment = array(
+            "id" => $_SESSION['carDetails']->id,
+            "name" => $_SESSION['carDetails']['carName'],
+            "bookingType" => 4,
+            "departureDate" => date_format(date_create($_SESSION['arrGet']['arrvDate']), 'Y-m-d'),
+            "arrivalDate" => ($_SESSION['arrGet']['arrvDate'] != null) ? date_format(date_create($_SESSION['arrGet']['arrvDate']), 'Y-m-d') : date_format(date_create($_SESSION['arrGet']['arrvDate']), 'Y-m-d'),
+            "ownerId" => $_SESSION['carDetails']->ownerId,
+           // "routeType" => $_SESSION['villaFilterParams']['routeType'],
+            "menuDetails" =>'',
+           "fromArea" =>'',
+            "type" => "Add",
+            "toArea" =>'',
+            "currency" => 'AED',
+            "userId" => $_SESSION['user_login']->id,
+            "guests" => $_SESSION['arrGet']['noOfPasenger'],
+            "deliveryPrice" =>'',
+            "dropOffRate" => '',
+            "formulaPrice" =>'',
+            "foodPrice" =>'',
+            "productPrice" => floor($_SESSION['arrGet']['price']),
+            "extraTime" => '',
+           "subtotal" =>'',
+            "total" => floor($_SESSION['arrGet']['price']),
+            "transactionFee" => 0,
+            "websiteId" => 0, // for whitelabel case either should be 0
+            "departureHours" =>$_SESSION['arrPost']['depTime'],
+            "arrivalHours" =>$_SESSION['arrPost']['arrvTime'],
+            "limoDetails" => $_SESSION['yachtFilterParams']['limoDetails'],
+            "stateId" => $_SESSION['carDetails']['stateId'],
+            "days" => $_SESSION['yachtFilterParams']['yachtDays']
+        );
+        var_dump($payment);exit;
+
+        $queryString = http_build_query($payment);
+
+        $this->load->library('PHPRequests');
+
+        $request_made = $this->config->item('API_URL') . 'access=true&action=booking&' . $queryString;
+
+        $response = json_decode(Requests::get($request_made)->body);
+
+        if ($response->status == true) {
+
+            echo '<script>window.open("http://www.immidia.co/immidia/api/ws/controller/?access=true&action=payment&bookingId=' . $response->data . ');</script>';
+        } else {
+
+            echo '<script>setTimeout(function(){ showAlert("Opps!!","No Record Listing","error"); },600);</script>';
+        }
     }
 
 }
