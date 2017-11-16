@@ -905,6 +905,19 @@ $("body").on("click","#limousine_villa",function(e){
             }
          }
      }
+     $('body').on('change','#cartypeselect',function(){
+        $('#cartype').val($('#cartypeselect option:selected').text());
+         
+     })
+      $('body').on('change','#yachtType',function(){
+        $('#yachtTypename').val($('#yachtType option:selected').text());
+         
+     })
+      $('body').on('change','#routeType',function(){
+        $('#routeTypename').val($('#routeType option:selected').text());
+         
+     })
+    
    
    
 
