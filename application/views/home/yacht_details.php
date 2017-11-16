@@ -196,7 +196,8 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="summary-title">
-						<h5>Search Summary</h5><!--<a href="#">Modify</a>-->
+						<h5>Search Summary</h5>
+                                                <a href="#">Modify</a>
 					</div>
 					<div class="table-responsive summary-result">
 						<table class="table">

@@ -1,3 +1,4 @@
+<?php //var_dump($_SESSION['yachtFilterParams']);?>
 <div class="book-form">
     <img src="<?php echo base_url() ?>/assets/images/loader.gif" id="loader" style="display:none" class="loader">
     <h3>Book Your Yacht Now</h3>
@@ -8,10 +9,10 @@
                 <div class="country-icon">
                     <select id="yachtCountry" name="yachtCountry" class="country" onchange="getYachtState(this.value)">
                         <img src="<?php echo base_url() ?>/assets/images/country-code.png">
-                        <option>Country</option>
+                        <option><?php if(!empty($_SESSION['yachtFilterParams']['yachtCountryName'])){echo $_SESSION['yachtFilterParams']['yachtCountryName'] ;}else { echo 'Country';}?></option>
                         <?php foreach ($this->yachtCountry as $key => $value) {
                             ?>
-                            <option value="<?php echo $value->countryId ?>"><?php echo $value->countryName ?></option>
+                            <option value="<?php echo $value->countryId ?>" <?php if($value->id==$_SESSION['yachtFilterParams']['yachtCountry']){?> selected="selected" <?php }?>><?php echo $value->countryName ?></option>
                         <?php } ?>
                     </select>
                     <input type="hidden" name="yachtCountryName" id="countryName">
@@ -19,7 +20,7 @@
                 </div>
                 <div class="state-icon">
                     <select class="state" name="yachtState" id="yachtState" onchange="getYachtDepartureCity('yachtCountry', 'yachtState', '1', 'yachtDays', 'yachtType', 'routeType')">>
-                        <option>State</option>
+                        <option><?php if(!empty($_SESSION['yachtFilterParams']['yachtStateName'])){echo $_SESSION['yachtFilterParams']['yachtStateName'] ;}else { echo 'State';}?></option>
                     </select>
                     <input type="hidden" name="yachtStateName" id="stateName">
                     <span class="subline">Sub<br>Area</span>
@@ -29,14 +30,14 @@
                 <label></label>
                 <select class="motor" name="yachtType" id="yachtType" onchange="getYachtDepartureCity('yachtCountry', 'yachtState', '1', 'yachtDays', 'yachtType', 'routeType');
                                                         validateSuperYacht('yachtType', 'yachtDays');">
-                    <option value="0">SAIL</option>
+                    <option value="0" <?php if($_SESSION['yachtFilterParams']['yachtType']==0){?> selected="selected" <?php }?>><?php if(!empty($_SESSION['yachtFilterParams']['yachtTypename'])){echo $_SESSION['yachtFilterParams']['yachtTypename'] ;}else { echo 'SAIL';}?></option>
                     <option value="1" selected>MOTOR/YACHT</option>
-                    <option value="2">SUPER YACHT</option>
+                    <option value="2" <?php if($_SESSION['yachtFilterParams']['yachtType']==2){?> selected="selected" <?php }?>>SUPER YACHT</option>
 
                 </select>
                 <select name="routeType" class="trip" id="routeType" onchange="getYachtDepartureCity('yachtCountry', 'yachtState', '1', 'yachtDays', 'yachtType', 'routeType')">
-                    <option value="0">One Way</option>
-                    <option value="1">Return</option>		
+                    <option value="0" <?php if($_SESSION['yachtFilterParams']['routeType']==0){?> selected="selected" <?php }?>><?php if(!empty($_SESSION['yachtFilterParams']['routeTypename'])){echo $_SESSION['yachtFilterParams']['routeTypename'] ;}else { echo 'One Way';}?></option>
+                    <option value="1" <?php if($_SESSION['yachtFilterParams']['routeType']==1){?> selected="selected" <?php }?>>Return</option>		
                 </select>
             </div>
             <div class="inner-block third">
@@ -70,11 +71,11 @@
             <div class="inner-block sixth">
                 <label></label>
                 <select name="departureCity" class="departure-port" id="departureCity" onchange="getYachtArrivalCity('yachtCountry', 'yachtState', '1', 'yachtDays', 'departureCity', 'yachtType', 'routeType')"">
-                    <option>Departure Port</option>
+                    <option><?php if(!empty($_SESSION['yachtFilterParams']['yachtDepartureCityName'])){echo $_SESSION['yachtFilterParams']['yachtDepartureCityName'] ;}else { echo 'Departure Port';}?></option>
                 </select>
                 <input type="hidden" name="yachtDepartureCityName" id="departureCityName">
                 <select name="arrivalCity" class="arrival-port" id="arrivalCity" onchange="getArrivalCityName('arrivalCity');">
-                    <option>Arrival Port</option>
+                    <option><?php if(!empty($_SESSION['yachtFilterParams']['yachtArrivalCityName'])){echo $_SESSION['yachtFilterParams']['yachtArrivalCityName'] ;}else { echo 'Arrival Port';}?></option>
                 </select>
                 <input type="hidden" name="yachtArrivalCityName" id="arrivalCityName">
             </div>
@@ -93,7 +94,8 @@
             <div class="inner-block eighth">
                 <div class="eight-inner">
                     <img src="<?php echo base_url(); ?>assets/images/search.png">
-
+<input type="hidden" name="yachtTypename" value="" id="yachtTypename">
+<input type="hidden" name="routeTypename" value="" id="routeTypename">
                     <button class="book-submit" type="submit">Search</button>
                 </div>
             </div>

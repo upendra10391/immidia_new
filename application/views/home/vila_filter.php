@@ -1,3 +1,4 @@
+<?php// var_dump($_SESSION['villaFilterParams']); ?>
 <div class="book-form">
     <img src="<?php echo base_url() ?>/assets/images/loader.gif" id="loadervilla" style="display:none" class="loader">
     <h3>Book Your Villa Now</h3>
@@ -10,7 +11,7 @@
                         <img src="<?php echo base_url(); ?>assets/images/country-code.png">
                         <option>Country</option>
                         <?php foreach($this->villaCountry as $key=>$val){?>
-                        <option value="<?php echo $val->id;?>"><?php echo $val->countryName;?></option>
+                        <option value="<?php echo $val->id;?>" <?php if($val->id==$_SESSION['villaFilterParams']['villa_country']){?> selected="selected" <?php }?>><?php echo $val->countryName;?></option>
                         <?php }?>
                     </select>
                     <input type="hidden" name="villaCountryName" id="villaCountry">
@@ -18,7 +19,7 @@
                 </div>
                 <div class="state-icon">
                     <select class="state" id="villaState" name="villaState">
-                        <option>State</option>
+                        <option value="<?php if(!empty($_SESSION['villaFilterParams']['villaState'])){echo $_SESSION['villaFilterParams']['villaState'] ;}?>"><?php if(!empty($_SESSION['villaFilterParams']['villaStateName'])){echo $_SESSION['villaFilterParams']['villaStateName'] ;}else { echo 'State';}?></option>
                        
                         
                     </select>
@@ -45,7 +46,7 @@
                 <label></label>
                 <select class="departure-port vd" name="destination_name" id="villDestination">
                 
-                    <option>Select Destination</option>
+                    <option value="<?php if(!empty($_SESSION['villaFilterParams']['destination_name'])){echo $_SESSION['villaFilterParams']['destination_name'] ;}?>"><?php if(!empty($_SESSION['villaFilterParams']['villaDestinationName'])){echo $_SESSION['villaFilterParams']['villaDestinationName'] ;}else { echo 'Select Destination';}?></option>
                     
                 </select>
                  <input type="hidden" name="villaDestinationName" id="villaDestinationName">
@@ -83,7 +84,7 @@
                     <p>
                         <img class="fa-plus add" src="<?php echo base_url(); ?>assets/images/plus.png">
                         <span>Guest(S)</span>
-                        <input id="qty1" type="text" value="1" class="qty" name="villa_guest"/>
+                        <input id="qty1" type="text" value="<?php if(!empty($_SESSION['villaFilterParams']['villa_guest'])){echo $_SESSION['villaFilterParams']['villa_guest'] ;}else { echo '1';}?>" class="qty" name="villa_guest"/>
                         <img class="fa-minus minus" src="<?php echo base_url(); ?>assets/images/minus.png">
                     </p>
                 </div>

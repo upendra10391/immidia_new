@@ -1,19 +1,70 @@
-
-
 <!DOCTYPE html>
 <html>
 	<head>
+           
  		<?php $this->load->view('header/head'); ?>
+             <script type="text/javascript">
+             $(document).ready(function () {
+                $("#modifyy").click(function () {
+                    
+                    $(".tabbable-line").toggle("");
+                    $('#tab_default_3_y').click();
+                });
+            });
+            </script>
 	</head>
 	
 	<header>
 		<?php $this->load->view('header/header');?>
 				<div class="container-fluid book-tab">
 			<div class="row">
-				<div class="tabbable-line hide">
+				
+                                    <div class="tabbable-line" style="display:none;">
+                        <ul class="nav nav-tabs ">
+                            <li class="option-tab">
+                                <a href="#tab_default_1" data-toggle="tab">
+                                    <img class="img-responsive" src="<?php echo base_url(); ?>assets/images/1.png"/> </a>
+                            </li>
+                            <li class="option-tab">
+                                <a href="#tab_default_2" data-toggle="tab">
+                                    <img class="img-responsive" src="<?php echo base_url(); ?>assets/images/2.png"/> </a>
+                            </li>
+                            <li class="option-tab">
+                                <a href="#tab_default_3" data-toggle="tab">
+                                    <img class="img-responsive" src="<?php echo base_url(); ?>assets/images/3.png"/> </a>
+                            </li>
+                            <li class="option-tab">
+                                <a href="#tab_default_4" data-toggle="tab">
+                                    <img class="img-responsive" src="<?php echo base_url(); ?>assets/images/4.png"/> </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane <?php if($this->input->get('jet')!='next'){?> active <?php }?>" id="tab_default_1">
+                                <?php $this->load->view('home/yacht_filter'); ?>
+                            </div>
+                            <div class="tab-pane <?php if($this->input->get('jet')=='next'){?> active <?php }?>" id="tab_default_2">
+                                    <?php 
+                                        if($this->input->get('jet')=='next'){
+                                            $this->load->view('home/jet_filter_next');
+                                        }else{
+                                            $this->load->view('home/jet_filter');
+                                        }
+                                    ?>
+                            </div>
+                            <div class="tab-pane" id="tab_default_3">
+                                <?php $this->load->view('home/car_filter');?>
+
+                            </div>
+                            <div class="tab-pane" id="tab_default_4">
+                                  <?php $this->load->view('home/vila_filter'); ?>
+
+                            </div>
+                        </div>
+                    </div>
+                            <div class="tabbable-line hide">
 					<ul class="nav nav-tabs ">
 						<li class="option-tab">
-							<a href="#tab_default_1" data-toggle="tab">
+							<a href="#tab_default_1" data-toggle="tab" id="tab_default_3_y">
 							<img class="img-responsive" src="<?=base_url()?>/assets/images/1.png"/> </a>
 						</li>
 						<li class="option-tab">
@@ -69,7 +120,7 @@
 			</div>
 			<div class="col-md-12 search-result">
 				<div class="summary-title">
-					<h5>Search Summary</h5><a href="#" id="modify">Modify</a>
+					<h5>Search Summary</h5><a href="#" id="modifyy">Modify</a>
 				</div>
 				<div class="table-responsive summary-result">
 					<table class="table">

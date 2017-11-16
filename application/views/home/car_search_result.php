@@ -66,9 +66,8 @@
             });
             $(document).ready(function () {
                 $("#modify").click(function () {
-                    $(".tabbable-line").toggleClass("hide");
-
-
+                    $(".tabbable-line").toggle("");
+                    $('#tab_default_3_a').click();
                 });
             });
 
@@ -82,6 +81,48 @@
             <?php $this->load->view('header/header'); ?>
             <div class="container-fluid book-tab">
                 <div class="row">
+                    <div class="tabbable-line" style="display:none;">
+                        <ul class="nav nav-tabs ">
+                            <li class="option-tab">
+                                <a href="#tab_default_1" data-toggle="tab">
+                                    <img class="img-responsive" src="<?php echo base_url(); ?>assets/images/1.png"/> </a>
+                            </li>
+                            <li class="option-tab">
+                                <a href="#tab_default_2" data-toggle="tab">
+                                    <img class="img-responsive" src="<?php echo base_url(); ?>assets/images/2.png"/> </a>
+                            </li>
+                            <li class="option-tab">
+                                <a href="#tab_default_3" data-toggle="tab">
+                                    <img class="img-responsive" src="<?php echo base_url(); ?>assets/images/3.png"/> </a>
+                            </li>
+                            <li class="option-tab">
+                                <a href="#tab_default_4" data-toggle="tab">
+                                    <img class="img-responsive" src="<?php echo base_url(); ?>assets/images/4.png"/> </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane <?php if($this->input->get('jet')!='next'){?> active <?php }?>" id="tab_default_1">
+                                <?php $this->load->view('home/yacht_filter'); ?>
+                            </div>
+                            <div class="tab-pane <?php if($this->input->get('jet')=='next'){?> active <?php }?>" id="tab_default_2">
+                                    <?php 
+                                        if($this->input->get('jet')=='next'){
+                                            $this->load->view('home/jet_filter_next');
+                                        }else{
+                                            $this->load->view('home/jet_filter');
+                                        }
+                                    ?>
+                            </div>
+                            <div class="tab-pane" id="tab_default_3">
+                                <?php $this->load->view('home/car_filter');?>
+
+                            </div>
+                            <div class="tab-pane" id="tab_default_4">
+                                  <?php $this->load->view('home/vila_filter'); ?>
+
+                            </div>
+                        </div>
+                    </div>
                     <div class="tabbable-line hide">
                         <ul class="nav nav-tabs ">
                             <li class="option-tab">
@@ -93,122 +134,15 @@
                                     <img class="img-responsive" src="<?php echo base_url(); ?>/assets/images/2.png"/> </a>
                             </li>
                             <li class="option-tab">
-                                <a href="#tab_default_3" data-toggle="tab">
-                                    <img class="img-responsive" src="<?php echo base_url(); ?>/assets/images/3.png"/> </a>
+                                <a href="#tab_default_3" data-toggle="tab" id="tab_default_3_a">
+                                    <img class="img-responsive" src="<?php echo base_url(); ?>/assets/images/3.png"/> 
+                                </a>
                             </li>
                             <li class="option-tab">
                                 <a href="#tab_default_4" data-toggle="tab">
                                     <img class="img-responsive" src="<?php echo base_url(); ?>/assets/images/4.png"/> </a>
                             </li>
                         </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tab_default_1">
-                                <div class="book-form">
-                                    <h3>Book Your CAR(S) Now</h3>
-                                    <form>
-                                        <div class="book-inner">
-                                            <div class="inner-block first">
-                                                <div class="country-icon">
-                                                    <select class="country">
-                                                        <img src="<?php echo base_url(); ?>/assets/images/country-code.png">
-                                                        <option>Country</option>
-                                                        <option>Country 1</option>
-                                                        <option>Country 2</option>
-                                                        <option>Country 3</option>
-                                                        <option>Country 4</option>
-                                                        <option>Country 5</option>
-                                                    </select>
-                                                    <span class="subline">Country<br>Area</span>
-                                                </div>
-                                                <div class="state-icon">
-                                                    <select class="state">
-                                                        <option>State</option>
-                                                        <option>State 1</option>
-                                                        <option>State 2</option>
-                                                        <option>State 3</option>
-                                                        <option>State 4</option>
-                                                        <option>State 5</option>
-                                                    </select>
-                                                    <span class="subline">Sub<br>Area</span>
-                                                </div>
-                                            </div>
-                                            <div class="inner-block second">
-                                                <select class="motor">
-                                                    <option>Motor</option>
-                                                    <option>Motor 1</option>
-                                                    <option>Motor 2</option>
-                                                    <option>Motor 3</option>
-                                                    <option>Motor 4</option>
-                                                    <option>Motor 5</option>
-                                                </select>
-                                                <select class="trip">
-                                                    <option>One Way</option>
-                                                    <option>Return</option>
-                                                    <option>Both</option>
-                                                </select>
-                                            </div>
-                                            <div class="inner-block third">
-                                                <select class="duration">
-                                                    <option><b>Half Day </b>(9AM - 1PM)</option>
-                                                    <option>Half Day (2PM - 6PM)</option>
-                                                    <option>24 Hours (Noon to Noon)</option>
-                                                    <option>1 Day (9:00 to 19:00 Hours)</option>
-                                                    <option>More</option>
-                                                </select>
-                                                <div id="duration"><span>1 Day</span> <span>(9:00 to 19:00 Hours)</span></div>
-                                            </div>
-                                            <div class="inner-block fourth">
-                                                <div class="form-group">
-                                                    <div class='input-group date' id='datetimepicker1'>
-                                                        <input type='text' id="dparrival"  value="" class="date-picker arrival" placeholder="DD/MM/YYYY"/>
-                                                        <div id="arrival"><span>MM</span><span>DD</span><span>Day</span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="inner-block fifth">
-                                                <div class="form-group">
-                                                    <div class='input-group date' id='datetimepicker1'>
-                                                        <input type='text' id="dpd" class="date-picker departure" placeholder="DD/MM/YYYY"/>
-                                                        <div id="departure"><span>MM</span><span>DD</span><span>Day</span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="inner-block sixth">
-                                                <select class="departure-port">
-                                                    <option>Departure Port</option>
-                                                </select>
-                                                <select class="arrival-port">
-                                                    <option>Arrival Port</option>
-                                                </select>
-                                            </div>
-                                            <div class="inner-block seventh">
-                                                <div class="guest">
-                                                    <p>
-                                                        <img class="fa-plus add" src="<?php echo base_url(); ?>/assets/images/plus.png">
-                                                        <span>Guest(S)</span>
-                                                        <input id="qty1" type="text" value="1" class="qty"/>
-                                                        <img class="fa-minus minus" src="<?php echo base_url(); ?>/assets/images/minus.png">
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="inner-block eighth">
-                                                <img src="<?php echo base_url(); ?>/assets/images/search.png">
-                                                <button class="book-submit" type="submit">Search</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="tab_default_2">
-                                2
-                            </div>
-                            <div class="tab-pane" id="tab_default_3">
-                                3
-                            </div>
-                            <div class="tab-pane" id="tab_default_4">
-                                4
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -234,7 +168,7 @@
             <div class="col-md-12 search-result">
                 <div class="summary-title">
                     <h5>Search Summary</h5>
-<!--                    <a href="#" id="modify">Modify</a>-->
+                  <a href="#" id="modify">Modify</a>
                 </div>
                 <div class="table-responsive summary-result">
                     <table class="table">
