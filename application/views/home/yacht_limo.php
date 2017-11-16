@@ -94,7 +94,7 @@
 				</div>
 			</div>
 		</div>
-		<form action="<?=base_url()?>yacht_food/<?=str_replace(" ", '_',$this->yachtDetails->name)?>" method="post">
+		<form action="<?=base_url()?>yacht_food/<?=str_replace(" ", '_',$this->yachtDetails->name)?>" method="post" onsubmit="return ValidationEvent();">
 		<div class="container">
 			<div class="row">
 				
@@ -144,7 +144,7 @@
 					<div class="form-group clearfix">
 					<label class="col-md-3">Transfer Hour:</label>
 					<select class="selectcss col-md-2 disabledClass" name="limodepHour" id="yachtdepHour">
-						<option>select</option>
+						<option value="">select</option>
 						<option>6:00</option>
 						<option>6:30</option>
 						<option>7:00</option>
@@ -215,7 +215,7 @@ function valueChanged()
 					<div class="form-group clearfix">
 					<label class="col-md-3">Transfer Hour:</label>
 					<select class="selectcss col-md-2 disabledClassArr" name="limoarrHour" id="yachtarrHour">
-						<option>select</option>
+						<option value="">select</option>
 						<option>19:00</option>
 						<option>19:30</option>
 						<option>20:00</option>
