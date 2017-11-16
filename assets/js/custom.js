@@ -1,7 +1,7 @@
 
 //var base_url = 'http://localhost/immidia.ae/';
 
-var base_url = 'http://localhost/immidia_new/';
+var base_url = 'http://localhost/immidia_new/trunk';
 //var base_url = 'http://localhost/immidia_new/trunk';
 
 
@@ -828,12 +828,13 @@ $("body").on("click","#limousine_villa",function(e){
         
      })*/
 
-    $('body').on('submit','#yachtlimonext',function(){
-         alert('hello');
+    function ValidationEvent(){
+        // alert('hello');
          var yachtarrivl_name=$('#yachtarrivl_name').val();
          var yachtdepAddress=$('#yachtdepAddress').val();
          var yachtdepReq=$('#yachtdepReq').val();
          var yachtdepHour=$('#yachtdepHour').val();
+         if($('#inlineCheckbox1').is(":checked"))  {
          if(yachtarrivl_name=='')
          {
            $('#yachtarrivl_nameerror').show();
@@ -851,7 +852,7 @@ $("body").on("click","#limousine_villa",function(e){
          }
          if(yachtdepReq=='')
          {
-           $('#yachtarrivl_nameerror').hide();
+           $('#yachtdepAddresserror').hide();
            $('#yachtdepReqerror').show();
          $('#yachtdepReqerror').html("Pleas enter limo deprtrequest");
          $('#yachtdepReq').focus();
@@ -865,6 +866,7 @@ $("body").on("click","#limousine_villa",function(e){
          $('#yachtdepHour').focus();
          return false;  
          }
+     }
        if($('#inlineCheckbox2').is(":checked"))
          {
             var yachtarrName=$('#yachtarrName').val(); 
@@ -880,14 +882,14 @@ $("body").on("click","#limousine_villa",function(e){
          return false;   
             }
             if(yachtarrAddress==''){
-              $('#yachtdepHourerror').hide(); 
+              $('#yachtarrNameerror').hide(); 
               $('#yachtarrAddresserror').show();
          $('#yachtarrAddresserror').html("Pleas enter yachtdepHourerror");
          $('#yachtarrAddress').focus();
          return false; 
             }
             if(yachtarrReq==''){
-              $('#yachtdepHourerrorerror').hide(); 
+              $('#yachtarrAddresserror').hide(); 
               $('#yachtarrReqerror').show();
          $('#yachtarrReqerror').html("Pleas enter yacht arrivl request");
          $('#yachtarrReq').focus();
@@ -902,7 +904,7 @@ $("body").on("click","#limousine_villa",function(e){
          return false;   
             }
          }
-     })
+     }
    
    
 
