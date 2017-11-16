@@ -262,11 +262,10 @@ class Home extends CI_Controller {
             "stateId" => $_SESSION['yachtFilterParams']['yachtState'],
             "days" => $_SESSION['yachtFilterParams']['yachtDays']
         );
-<<<<<<< HEAD
+
         var_dump($payment);exit;
-=======
        // var_dump($payment);exit;
->>>>>>> cfbf623252a68c9200a742873bddf60e8e35b054
+
 
         $queryString = http_build_query($payment);
 
@@ -336,6 +335,13 @@ class Home extends CI_Controller {
             $this->saveJetData($this->input->post(), $this->input->get());
         }
         // called car countries
+       // var_dump($_SESSION['carsearch']);exit;
+        $_SESSION['carsearch']='';
+        $_SESSION['villaFilterParams']='';
+        $_SESSION['yachtFilterParams']='';
+        $arraydataunset=array('carsearch'=>$_SESSION['carsearch'],'villaFilterParams'=>$_SESSION['villaFilterParams'],'yachtFilterParams'=>$_SESSION['yachtFilterParams']);
+       unset($arraydataunset);
+        
         $this->getCarCountry();
         $this->load->view('home/home');
     }
@@ -1060,6 +1066,7 @@ class Home extends CI_Controller {
             $data['villaFilterParams'] = $_REQUEST;
             $data['imageUrl'] = $this->config->item('IMAGE_URL');
             $_SESSION['villaFilterParams'] = $data['villaFilterParams'];
+            //var_dump( $_SESSION['villaFilterParams']);exit;
             //$_SESSION['villaList'] = $data['villaList'];
             $this->villaFilterParams = $_SESSION['villaFilterParams'];
          //var_dump($data['villaFilterParams']);exit;
@@ -1184,11 +1191,15 @@ class Home extends CI_Controller {
         $varQueryString = "&days={$days}&noOfPasenger={$arrPost['noOfPasenger']}&stateId={$arrPost['carState']}&bookingDate={$bookingDate}&driver={$arrPost['driver']}&classification={$arrPost['classification']}";
         $request_made = $this->config->item('API_URL') . 'action=get_car_available_list' . $varQueryString;
         $response = json_decode(Requests::get($request_made)->body);
+       // var_dump($arrPost);exit;
         if ($response->status == true) {
             $arrDetails = $response->data;
         }
-        //echo "<pre>";var_dump($arrDetails);exit;
+       //echo "<pre>";var_dump($arrDetails);exit;
         $postData = $arrPost;
+        $_SESSION['carsearch']=$postData;
+      
+       // var_dump($_SESSION['carsearch']);exit;
         $postData['bookingDate'] = $bookingDate;
         $this->load->view('home/car_search_result', array('arrCarDetails' => $arrDetails, 'postData' => $postData));
     }
@@ -1530,14 +1541,15 @@ class Home extends CI_Controller {
        unset($_SESSION['user_login']);
        redirect(base_url('login'));
     }
-<<<<<<< HEAD
+
     public function villa_payment() {
       /*  $_SESSION['yachtFilterParams']['yachtFoodPrice'] = $_REQUEST['yachtFoodPrice'];
         $_SESSION['yachtFilterParams']['yachtFoodPriceWithPrice'] = $_REQUEST['yachtFoodPriceWithPrice'];
         $this->yachtFilterParams = $_SESSION['yachtFilterParams'];
         $this->yachtDetails = $_SESSION['yachtDetails'];*/
         $this->load->view('home/villa_payment');
-=======
+    }
+
     public function submit_villa_order() {
         $objSessData = $this->session->userdata('villalimousineDetails');
         $objFoodDetails = $this->session->userdata('foodDetails');
@@ -1599,9 +1611,12 @@ class Home extends CI_Controller {
         }
     }
      public function submit_car_order() {
+         $transaction=$_SESSION['arrGet']['price']*3.5/100;
+         var_dump($_SESSION['arrGet']['price']);
+         //exit;
         $payment = array(
             "id" => $_SESSION['carDetails']->id,
-            "name" => $_SESSION['carDetails']['carName'],
+            "name" => $_SESSION['carDetails']->carName,
             "bookingType" => 4,
             "departureDate" => date_format(date_create($_SESSION['arrGet']['arrvDate']), 'Y-m-d'),
             "arrivalDate" => ($_SESSION['arrGet']['arrvDate'] != null) ? date_format(date_create($_SESSION['arrGet']['arrvDate']), 'Y-m-d') : date_format(date_create($_SESSION['arrGet']['arrvDate']), 'Y-m-d'),
@@ -1627,7 +1642,7 @@ class Home extends CI_Controller {
             "departureHours" =>$_SESSION['arrPost']['depTime'],
             "arrivalHours" =>$_SESSION['arrPost']['arrvTime'],
             "limoDetails" => $_SESSION['yachtFilterParams']['limoDetails'],
-            "stateId" => $_SESSION['carDetails']['stateId'],
+            "stateId" => $_SESSION['carDetails']->stateId,
             "days" => $_SESSION['yachtFilterParams']['yachtDays']
         );
         var_dump($payment);exit;
@@ -1647,7 +1662,7 @@ class Home extends CI_Controller {
 
             echo '<script>setTimeout(function(){ showAlert("Opps!!","No Record Listing","error"); },600);</script>';
         }
->>>>>>> cfbf623252a68c9200a742873bddf60e8e35b054
+
     }
 
 }
