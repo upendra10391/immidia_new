@@ -14,16 +14,17 @@
                         <option value="<?php echo $val->id;?>" <?php if($val->id==$_SESSION['villaFilterParams']['villa_country']){?> selected="selected" <?php }?>><?php echo $val->countryName;?></option>
                         <?php }?>
                     </select>
-                    <input type="hidden" name="villaCountryName" id="villaCountry">
+                    <input type="hidden" name="villaCountryName" id="villaCountry" value="<?php echo (!empty($_SESSION['villaFilterParams']['villaCountryName'])) ? $_SESSION['villaFilterParams']['villaCountryName'] : '';?>">
                     <span class="subline">Country<br>Area</span>
                 </div>
                 <div class="state-icon">
                     <select class="state" id="villaState" name="villaState">
-                        <option value="<?php if(!empty($_SESSION['villaFilterParams']['villaState'])){echo $_SESSION['villaFilterParams']['villaState'] ;}?>"><?php if(!empty($_SESSION['villaFilterParams']['villaStateName'])){echo $_SESSION['villaFilterParams']['villaStateName'] ;}else { echo 'State';}?></option>
-                       
-                        
+                        <?php //var_dump($_SESSION['villaFilterParams']['villaState']);?>
+                        <option value="<?php if(!empty($_SESSION['villaFilterParams']['villaState'])){echo $_SESSION['villaFilterParams']['villaState'] ;}else{echo 0;}?>"><?php if(!empty($_SESSION['villaFilterParams']['villaStateName'])){echo $_SESSION['villaFilterParams']['villaStateName'] ;}else{echo 'State';}?></option>
+                                               
+
                     </select>
-                    <input type="hidden" name="villaStateName" id="villaStateName">
+                    <input type="hidden" name="villaStateName" id="villaStateName" value="<?php echo (!empty($_SESSION['villaFilterParams']['villaStateName'])) ? $_SESSION['villaFilterParams']['villaStateName'] : '';?>">
                     <span class="subline">Sub<br>Area</span>
                 </div>
             </div>
@@ -44,19 +45,24 @@
             </div>-->
             <div class="inner-block thirdv">
                 <label></label>
-                <select class="departure-port vd" name="destination_name" id="villDestination">
+                <select class="departure-port vd" name="destination_name" id="villDestination" value="">
                 
-                    <option value="<?php if(!empty($_SESSION['villaFilterParams']['destination_name'])){echo $_SESSION['villaFilterParams']['destination_name'] ;}?>"><?php if(!empty($_SESSION['villaFilterParams']['villaDestinationName'])){echo $_SESSION['villaFilterParams']['villaDestinationName'] ;}else { echo 'Select Destination';}?></option>
+                    <option value="<?php if(!empty($_SESSION['villaFilterParams']['destination_name'])){echo $_SESSION['villaFilterParams']['destination_name'] ;}else{echo 0;}?>"><?php if(!empty($_SESSION['villaFilterParams']['villaDestinationName'])){echo $_SESSION['villaFilterParams']['villaDestinationName'] ;}else{echo 'destination';}?></option>
                     
                 </select>
-                 <input type="hidden" name="villaDestinationName" id="villaDestinationName">
+                 <input type="hidden" name="villaDestinationName" id="villaDestinationName" value="<?php echo (!empty($_SESSION['villaFilterParams']['villaDestinationName'])) ? $_SESSION['villaFilterParams']['villaDestinationName'] : '';?>">
+                
             </div>
             <div class="inner-block fourth fourthv">
                 <div class="form-group">
                     <label>CHECKIN</label>
                     <div class='input-group date' id='datetimepicker1'>
-                        <input type='text' id="dparrivalv" name="checkin"  value="<?php echo date("F j,l");?>" class="date-picker arrival" placeholder="DD/MM/YYYY"/>
+                        <input type='text' id="dparrivalv" name="checkin"  value=" <?php echo date("F j,l");?>" class="date-picker arrival" placeholder="DD/MM/YYYY"/>
+                        <?php if(!empty($_SESSION['villaFilterParams']['checkin'])){?>
+                         <div id="arrivalv"><span><?php echo date('F',strtotime($_SESSION['villaFilterParams']['checkin']));?></span><span><?php echo date('j',strtotime($_SESSION['villaFilterParams']['checkin']));?></span><span><?php echo date('l',strtotime($_SESSION['villaFilterParams']['checkin']));?></span></div>
+                       <?php }else{?>
                         <div id="arrivalv"><span><?php echo date("F");?></span><span><?php echo date("j");?></span><span><?php echo date("l");?></span></div>
+                        <?php }?>
                     </div>
 
                 </div>
@@ -66,7 +72,11 @@
                     <label>CHECKOUT</label>
                     <div class='input-group date' id='datetimepicker1'>
                         <input type='text' id="dpdv" name="checkout" value="<?php echo date("F j,l",strtotime("+7 days"));?>" class="date-picker departure" placeholder="DD/MM/YYYY"/>
+                         <?php if(!empty($_SESSION['villaFilterParams']['checkout'])){?>
+                         <div id="departurev"><span><?php echo date('F',strtotime($_SESSION['villaFilterParams']['checkout']));?></span><span><?php echo date('j',strtotime($_SESSION['villaFilterParams']['checkout']));?></span><span><?php echo date('l',strtotime($_SESSION['villaFilterParams']['checkout']));?></span></div>
+                       <?php }else{?>
                         <div id="departurev"><span><?php echo date("F",strtotime("+7 days"));?></span><span><?php echo date("j",strtotime("+7 days"));?></span><span><?php echo date("l",strtotime("+7 days"));?></span></div>
+                        <?php }?>
                     </div>
                 </div>
             </div>
@@ -84,7 +94,7 @@
                     <p>
                         <img class="fa-plus add" src="<?php echo base_url(); ?>assets/images/plus.png">
                         <span>Guest(S)</span>
-                        <input id="qty1" type="text" value="<?php if(!empty($_SESSION['villaFilterParams']['villa_guest'])){echo $_SESSION['villaFilterParams']['villa_guest'] ;}else { echo '1';}?>" class="qty" name="villa_guest"/>
+                        <input id="qty1" type="text" value="1" class="qty" name="villa_guest"/>
                         <img class="fa-minus minus" src="<?php echo base_url(); ?>assets/images/minus.png">
                     </p>
                 </div>
