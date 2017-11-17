@@ -29,7 +29,7 @@
     </head>
 
     <body id="login">
-
+       
         <header>
             <?php $this->load->view('header/header'); ?>
 
@@ -46,25 +46,26 @@
                         <div class="col-md-5 ">
                             <div class="card">
                                 <ul class="nav nav-tabs" role="tablist">
-                                    <li role="presentation" class="active">
+                                    <li role="presentation" class="<?php if($active == 0){ echo 'active';}?>">
                                         <a href="#l" aria-controls="home" role="tab" data-toggle="tab">Login</a></li>
-                                    <li role="presentation">
-                                        <a href="#r" aria-controls="profile" role="tab" data-toggle="tab">Sign Up</a>
+                                    <li role="presentation" class="<?php if($active == 1){ echo 'active';}?>">
+                                        <a href="#r" aria-controls="profile" role="tab" data-toggle="tab" data-redid="1" >Sign Up</a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
                                 <div class="tab-content">
-                                    <div role="tabpanel" class="tab-pane active" id="l">
+                                    <div role="tabpanel" class="tab-pane <?php if($active == 0){ echo 'active';}?>" id="l">
                                         <img src="<?php echo base_url() ?>/assets/images/loader.gif" id="loader" style="display:none;">
                                         <p class="errormessage" style="color: red;"></p>
                                         <p class="successmessage" style="color: green;"></p>
                                        
                                         
                                         <div class="form-group">
-                                            <button class="social-icon-f" id="fb"><i class="fa fa-facebook" aria-hidden="true"></i>Log in With Facebook</button>
+                                            <a href="<?php echo base_url(); ?>auth_oa2/session/facebook"><button class="social-icon-f" id="fb"><i class="fa fa-facebook" aria-hidden="true"></i>Log in With Facebook</button></a>
+                                            
                                         </div>
                                         <div class="form-group">
-                                            <button class="social-icon-g" id="goo"><i class="fa fa-google-plus" aria-hidden="true"></i>Log in with Google </button>
+                                            <a href="<?php echo base_url(); ?>auth_oa2/session/google"> <button class="social-icon-g" id="goo"><i class="fa fa-google-plus" aria-hidden="true"></i>Log in with Google </button></a>
                                         </div>
                                         <div class="form-group clearfix" id="or">
                                             <div class="col-md-5"><hr/></div><div class="col-md-2 or">OR</div><div class="col-md-5"><hr/></div>
@@ -95,7 +96,8 @@
                                                 Create account</p>
                                         </div>
                                     </div>
-                                    <div role="tabpanel" class="tab-pane" id="r">
+                                    <div role="tabpanel" class="tab-pane <?php if($active == 1){ echo 'active';}?>" id="r">
+                                        <?php //var_dump($sessFaceBookData);exit;?>
                                          <p class="errormessagesignup" style="color: red;"></p>
                                         <p class="successmessagesignup" style="color: green;"></p>
                                         <p id="signup_error" style="display:none;"></p>
@@ -104,20 +106,19 @@
                                                 <select class=" selecttitle" id="select_title">
                                                     <option>Title</option>
                                                     <option>Mr.</option>
-                                                    <option>Miss</optio 
-                                                        n>
+                                                    <option>Miss</option>
                                                 </select>
                                             </div>
 
                                             <div class="col-md-10 padding0">
-                                                <input type="text" class="form-control" id="first_name" placeholder="First Name"/>
+                                                <input type="text" class="form-control" id="first_name" placeholder="First Name" value="<?php echo !empty($socialData['first_name']) ? $socialData['first_name'] : '';?>"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="last_name" placeholder="Last Name"/>
+                                            <input type="text" class="form-control" id="last_name" placeholder="Last Name" value="<?php echo !empty($socialData['first_name']) ? $socialData['last_name'] : '';?>"/>
                                         </div>
                                         <div class="form-group">
-                                            <input type="email" class="form-control" id="email_id" placeholder="Email"/>
+                                            <input type="email" class="form-control" id="email_id" placeholder="Email" value="<?php echo !empty($socialData['email']) ? $socialData['email'] : '';?>"/>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control" id="password_user" placeholder="Password"/>
@@ -189,6 +190,9 @@
             </div>	
         </section>
         <?php $this->load->view('footer/footer') ?>
+        <script>
+              
+        </script>
     </body>
-
+    
 </html>
