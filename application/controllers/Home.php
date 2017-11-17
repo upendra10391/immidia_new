@@ -841,7 +841,22 @@ class Home extends CI_Controller {
                 //var_dump($post);exit;
                 // }
             }
-            $this->load->view('auth/login');
+            $arrSesgoogleData = $this->session->userdata('google_data');
+            //var_dump($arrSesgoogleData);
+            $arrSesFacebookData = $this->session->userdata('facebook_data');
+            //var_dump($arrSesFacebookData);exit;
+            if($arrSesFacebookData != NULL){
+              $data['socialData'] = $arrSesFacebookData;
+              $data['active'] = 1;  
+            }else if($arrSesgoogleData != NULL){
+              $data['socialData'] = $arrSesgoogleData;
+              $data['active'] = 1;  
+              
+            }else{
+               $data['active'] = 0;  
+               
+            }
+            $this->load->view('auth/login',$data);
         } else {
             redirect(base_url('dashboard')); // redirect on dashboard
         }
@@ -1539,6 +1554,8 @@ class Home extends CI_Controller {
     {
         $_SESSION['user_login']='';
        unset($_SESSION['user_login']);
+       $this->session->unset_userdata('google_data');
+       $this->session->unset_userdata('facebook_data');
        redirect(base_url('login'));
     }
 
