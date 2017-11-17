@@ -52,7 +52,7 @@ class Home extends CI_Controller {
     public $yachtFood;
     public $dashboardParams;
     public $villaCountry;
-    public $villaState;
+   public $villaState;
     public $villaCity;
     public $villaList;
     public $villaFilterParams;
@@ -67,7 +67,7 @@ class Home extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-
+    $this->villaState;
         $this->load->database();
 //        $this->getYachtCountry();
 //        $this->getAllTime();
@@ -95,13 +95,15 @@ class Home extends CI_Controller {
 //        if (!isset($_SESSION['CURRENT_PAGE'])) {
 //            $_SESSION['CURRENT_PAGE'] = 'dashboard';
 //        }
+       
         $this->getYachtCountry();
         $this->getAllTime();
         $this->getVillaCountry();
         $this->getCarClassification();
         $this->getCarHours();
+        $this->getCarCountry();
         //var_dump($this->carHours);exit;
-        //$this->getVillaState();
+        //$this->getVillaState($data='');
         //$this->getVillaCity();
         $this->daysArrayInit = array(
             array('id' => 1, 'name' => 'Half Day (9am - 1pm)', 'Half Day (9am - 1pm)' => 1),
@@ -1030,20 +1032,23 @@ class Home extends CI_Controller {
     }
 
     public function getVillaState($countryId) {
+       // var_dump($countryId);exit;
         $this->load->library('PHPRequests');
         $request_made = $this->config->item('API_URL') . 'action=get_state_list_villa&countryId=' . $countryId;
         $response = json_decode(Requests::get($request_made)->body);
-        //var_dump($response);exit;
+      //  var_dump($request_made);exit;
         if ($response->status == true) {
             $arrReturn = array();
             if (!empty($response->data)) {
                 foreach ($response->data as $objData) {
                     if ($objData->countryId == $countryId) {
                         $arrReturn[] = $objData;
+                        $this->villastate=$objData;
+                      
                     }
                 }
             }
-            //var_dump($arrReturn);exit;
+           // var_dump($arrReturn);exit;
             echo json_encode($arrReturn);
         } else {
             echo json_encode(array());
@@ -1085,6 +1090,7 @@ class Home extends CI_Controller {
             //$_SESSION['villaList'] = $data['villaList'];
             $this->villaFilterParams = $_SESSION['villaFilterParams'];
          //var_dump($data['villaFilterParams']);exit;
+            
             $this->load->view('home/villa_search_result', $data);
         } else {
             $this->load->view('home/home');
