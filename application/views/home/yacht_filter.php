@@ -12,7 +12,7 @@
                         <option><?php if(!empty($_SESSION['yachtFilterParams']['yachtCountryName'])){echo $_SESSION['yachtFilterParams']['yachtCountryName'] ;}else { echo 'Country';}?></option>
                         <?php foreach ($this->yachtCountry as $key => $value) {
                             ?>
-                            <option value="<?php echo $value->countryId ?>" <?php if($value->id==$_SESSION['yachtFilterParams']['yachtCountry']){?> selected="selected" <?php }?>><?php echo $value->countryName ?></option>
+                            <option value="<?php echo $value->countryId ?>" ><?php echo $value->countryName ?></option>
                         <?php } ?>
                     </select>
                     <input type="hidden" name="yachtCountryName" id="countryName">
