@@ -38,17 +38,17 @@
                 <label></label>
                 <select class="durationc" name="days">
                    <?php foreach ($this->carHours as $key => $value) { ?>
-                        <option data-value="<?= $value->id ?>" value="<?= $value->id ?>"><?= $value->hoursdays ?></option>
+                        <option data-value="<?= $value->id ?>" value="<?= $value->id ?>" <?php if($value->id==$_SESSION['carsearch']['days']){?> selected="selected" <?php }?>><?= $value->hoursdays ?></option>
                     <?php } ?>
                 </select>
-                <div id="durationc"><span><?php if(!empty($_SESSION['carsearch']['days'])){echo $_SESSION['carsearch']['days'] ;}else { echo '1 Day';}?></span></div>
-            </div>
+                <div id="durationc"><span></span></div>
+           </div>
             <div class="inner-block seventh seventhv">
                 <label></label>
                 <div class="guest">
                     <p>
                         <img class="fa-plus add" src="<?php echo base_url(); ?>assets/images/plus.png">
-                        <span><?php if(!empty($_SESSION['carsearch']['noOfPasenger'])){echo $_SESSION['carsearch']['noOfPasenger'] ;}else { echo 'Guest(S)';}?></span>
+                        <span>Guest(S)</span>
                         <input id="qty1" type="text" value="<?php if(!empty($_SESSION['carsearch']['noOfPasenger'])){echo $_SESSION['carsearch']['noOfPasenger'] ;}else { echo '1';}?>" class="qty" name="noOfPasenger"/>
                         <img class="fa-minus minus" src="<?php echo base_url(); ?>assets/images/minus.png">
                     </p>
@@ -57,14 +57,14 @@
             <div class="inner-block second thirdv">
                 <label></label>
                 <select class="motor" name="driver">
-                    <option value=""><?php if($_SESSION['carsearch']['driver']==0){echo 'With Driver' ;}else { echo 'Without Driver';}?></option>
-                    <option value="1">With Driver</option>
-                    <option value="0">Without Driver</option>
+                   <option>Select driver</option>
+                    <option value="1" <?php if($_SESSION['carsearch']['driver']==1){?> selected="selected" <?php }?> >With Driver</option>
+                    <option value="2" <?php if($_SESSION['carsearch']['driver']==2){?> selected="selected" <?php }?>>Without Driver</option>
                 </select>
                 <select class="trip" name="classification" id="cartypeselect">
-                    <option value=""><?php if(!empty($_SESSION['carsearch']['cartype'])){echo $_SESSION['carsearch']['cartype'];}else { echo 'Car Type';}?></option>
+                    <option>cartpe<option>
                     <?php foreach ($this->carClassification as $key => $value) {?>
-                        <option value="<?php echo $value->id ?>"><?php echo $value->classificationName ?></option>
+                        <option value="<?php echo $value->id ?>" <?php if($value->id==$_SESSION['carsearch']['classification']){?> selected="selected" <?php }?>><?php echo $value->classificationName ?></option>
                     <?php }?>
                 </select>
             </div>

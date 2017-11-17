@@ -40,22 +40,22 @@
                     <p class="count"><?php echo $objValue->numberOfPassengers ?> </p>
                 </div>
                 <div class="info second">
-                    <img src="<?php echo base_url(); ?>assets/images/product-sale/i8.png" alt="1">
+                    <img src="<?php echo base_url(); ?>assets/images/product-sale/gps.png" alt="1">
                     <p class="title">GPS</p>
                     <p class="count"><?php echo ($objValue->isGPS==1) ? "YES" : "NO";?></p>
                 </div>
                 <div class="info sixth">
-                    <img src="<?php echo base_url(); ?>assets/images/product-sale/i9.png" alt="1">
+                    <img src="<?php echo base_url(); ?>assets/images/product-sale/ac.png" alt="1">
                     <p class="title">AC</p>
                     <p class="count"><?php echo ($objValue->IsairConditioning==1) ? "YES" : "NO";?></p>
                 </div>
                 <div class="info fourth">
-                    <img src="<?php echo base_url(); ?>assets/images/product-sale/i10.png" alt="1">
+                    <img src="<?php echo base_url(); ?>assets/images/product-sale/fuel.png" alt="1">
                     <p class="title">FUel</p>
                     <p class="count"><?php echo $objValue->fuelType;?></p>
                 </div>
                 <div class="info fifth">
-                    <img src="<?php echo base_url(); ?>assets/images/product-sale/i11.png" alt="1">
+                    <img src="<?php echo base_url(); ?>assets/images/product-sale/gearbox.png" alt="1">
                     <p class="title">Gearbox</p>
                     <p class="count"><?php echo $objValue->GearboxType ?></p>
                 </div>

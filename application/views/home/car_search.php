@@ -178,7 +178,7 @@ echo ($postData['days'] >= 5) ? " days" : " hours" ?></td>
                                 </table>
                             </div>
                             <div class="col-md-12 mb30">
-                                <form action="<?php echo base_url('car-book/'.$objCarDetail->id.'/?'.$_SERVER['QUERY_STRING'])?>" id="carNext" name="carNext" method="post">
+                                <form action="<?php echo base_url('car-book/'.$objCarDetail->id.'/?'.$_SERVER['QUERY_STRING'])?>" id="carNext" name="carNext" method="post" onsubmit="return ValidationEventcarsearch();">
                                 <div class="col-md-3">
                                     <select class="selectad" name="depTime" id="depTime">
                                         <option value="">Select Departure Time</option>
@@ -242,6 +242,7 @@ echo ($postData['days'] >= 5) ? " days" : " hours" ?></td>
                                         <option value="58" >23:30</option>
                                         <option value="59" >23:45</option>
                                     </select>
+                                    <p id="depTimeerror" style="color:red;display:none;"></p>
                                 </div>
                                 <div class="col-md-3">
                                     <select class="selectad" name="arrvTime" id="arrvTime">
@@ -306,6 +307,7 @@ echo ($postData['days'] >= 5) ? " days" : " hours" ?></td>
                                         <option value="58" >23:30</option>
                                         <option value="59" >23:45</option>
                                     </select>
+                                     <p id="arrvTimeerror" style="color:red;display:none;"></p>
                                 </div>
                                 <div class="col-md-3">
                                     <select class="selectad" id="delAddr" name="delAddr">
@@ -314,14 +316,16 @@ echo ($postData['days'] >= 5) ? " days" : " hours" ?></td>
                                             <option value="<?php echo $value->id ?>"><?php echo $value->cityName ?></option>
                                          <?php }?>
                                     </select>
+                                    <p id="delAddrerror" style="color:red;display:none;"></p>
                                 </div>
                                 <div class="col-md-3">
                                     <select class="selectad" id="dropAddr" name="dropAddr">
-                                        <option>Drop Off Areas</option>
+                                        <option value="">Drop Off Areas</option>
                                         <?php foreach ($arrCarCitiesDetail as $key => $value) {?>
                                             <option value="<?php echo $value->id ?>"><?php echo $value->cityName ?></option>
                                         <?php }?>
                                     </select>
+                                     <p id="dropAddrerror" style="color:red;display:none;"></p>
                                 </div> 
                                 </form>
                             </div>

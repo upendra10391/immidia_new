@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -110,8 +109,11 @@ function openCity1(evt, cityName) {
 								<th>Total</th>
 							</tr>
 							<tr>
+                                                            <?php 
+                                                            $datetime_lower   = DateTime::createFromFormat('d/m/Y',$blog->departureDateTime);
+                                                            ?>
 								<td><span><?php echo $blog->bookingSequenceNumber;?> </span></td>  						
-								<td><span><?php echo $blog->departureDateTime;?></span></td>						
+								<td><span><?php echo $datetime_lower;?></span></td>						
 								<td><span><?php echo $blog->arrivalDateTime ;?></span></td>
 								<td><span><?php echo $blog->bookingSequenceNumber;?> </span></td>							
 								<td><span>Yacht</span></td>

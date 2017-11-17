@@ -48,12 +48,12 @@
                     <p class="count"><?php echo $objValue->bedrooms ?></p>
                 </div>
                 <div class="info fourth">
-                    <img src="<?php echo base_url(); ?>assets/images/product-sale/i10.png" alt="1">
+                    <img src="<?php echo base_url(); ?>assets/images/product-sale/rooms.png" alt="1">
                     <p class="title">ROOMS</p>
                     <p class="count"><?php echo $objValue->totalRooms ?></p>
                 </div>
                 <div class="info fifth">
-                    <img src="<?php echo base_url(); ?>assets/images/product-sale/i11.png" alt="1">
+                    <img src="<?php echo base_url(); ?>assets/images/product-sale/bathrooms.png" alt="1">
                     <p class="title">BATHROOMS</p>
                     <p class="count"><?php echo $objValue->totalBathRooms ?></p>
                 </div>
