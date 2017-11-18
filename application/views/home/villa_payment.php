@@ -75,7 +75,7 @@
                                 <div class="form-group gborder">
                                     <div class="col-md-4 col-xs-4"><p class="title">Villa</p></div>
                                     <div class="col-md-4 col-xs-4"><p class="value"><?php echo $villDetails->villaName ?></p></div>
-                                    <div class="col-md-4 col-xs-4"><p class="distance"><?php echo $this->arrCurrency[$villDetails->currencyId]." ";echo $varTotal = (!empty($villalimousineDetails->price)) ? $villalimousineDetails->price : 0.00;?>{inc.vat}</p></div>
+                                    <div class="col-md-4 col-xs-4"><p class="distance"><?php echo $this->arrCurrency[$villDetails->currencyId]." "; echo $varTotal = (!empty($totalPrice)) ? $totalPrice : 0.00;?>{inc.vat}</p></div>
                                 </div>
                                 <div class="form-group gborder">
                                     <div class="col-md-4 col-xs-4"><p class="title">Check In</p></div>
@@ -97,21 +97,25 @@
                                     <div class="col-md-4 col-xs-4"><p class="value">2017-10-10</p></div>
                                     <div class="col-md-4 col-xs-4"><p class="distance"></p></div>
                                 </div>-->
- <form method="post" action="<?= base_url('home/submit_villa_order') ?>">
+          <form method="post" action="<?= base_url('home/submit_villa_order') ?>">
                                 <div class="form-group fborder">
                                     <div class="col-md-12 col-xs-12"><p class="title">Food And Beverage</p></div>
                                     <div class="col-md-10 col-xs-10">
                                         <?php if(!empty($arrPost['f_b_name'])){
                                             $varTotalInner = 0;
+                                            //var_dump($arrPost);exit;
                                             foreach($arrPost['f_b_name'] as $key=>$val){
                                          ?>
                                             <p class="fitem">
                                                 <span class="iname"><?php echo $val?></span>
                                                 <span class="iqut"><?php echo $arrPost['f_b_qty'][$key]?></span>
                                                 <span class="iprice"><?php echo $varTotalInner = $arrPost['f_b_qty'][$key]*$arrPost['f_b_price'][$key]?></span>
+<!--                                                <span class="iprice"><?php echo $varTotalInner = $arrPost['f_b_qty'][$key]*$arrPost['f_b_price'][$key]?></span>-->
                                            <!--     <span class="idelete"><i class="fa fa-trash-o" aria-hidden="true"></i></span>-->
                                             </p>
-                                        <?php $varTotal+=$varTotalInner;}}?>
+                                        <?php $varTotal += $varTotalInner;
+                                        
+                                            }}?>
                                     </div>
                                 </div>
                             </div>
@@ -119,27 +123,27 @@
                                 <div class="form-group gborder">
                                     <div class="col-md-4 col-xs-4"><p class="title">VAT</p></div>
                                     <div class="col-md-4 col-xs-4"><p class="value"></p></div>
-                                    <div class="col-md-4 col-xs-4"><p class="distance"><?php echo $this->arrCurrency[$villDetails->currencyId]." ";echo $varV = (!empty($villalimousineDetails->vat)) ? $villalimousineDetails->vat : 0.00;?></p></div>
+                                    <div class="col-md-4 col-xs-4"><p class="distance"><?php echo $this->arrCurrency[$villDetails->currencyId]." ";echo $varV = (!empty($vat)) ? $vat : 0.00;?> %</p></div>
                                 </div>
                                 <div class="form-group gborder">
                                     <div class="col-md-4 col-xs-4"><p class="title">City Tax</p></div>
                                     <div class="col-md-4 col-xs-4"><p class="value"></p></div>
-                                    <div class="col-md-4 col-xs-4"><p class="distance"><?php echo $this->arrCurrency[$villDetails->currencyId]." ";echo $varCT = (!empty($villalimousineDetails->city_tax)) ? $villalimousineDetails->city_tax : 0.00;?></p></div>
+                                    <div class="col-md-4 col-xs-4"><p class="distance"><?php echo $this->arrCurrency[$villDetails->currencyId]." ";echo $varCT = (!empty($cityTax)) ? $cityTax : 0.00;?> %</p></div>
                                 </div>
                                 <div class="form-group gborder">
                                     <div class="col-md-4 col-xs-4"><p class="title">Service Tax</p></div>
                                     <div class="col-md-4 col-xs-4"><p class="value">Regular</p></div>
-                                    <div class="col-md-4 col-xs-4"><p class="distance"><?php echo $this->arrCurrency[$villDetails->currencyId]." ";echo $varST = (!empty($villalimousineDetails->service_tax)) ? $villalimousineDetails->service_tax : 0.00;?></p></div>
+                                    <div class="col-md-4 col-xs-4"><p class="distance"><?php echo $this->arrCurrency[$villDetails->currencyId]." ";echo $varST = (!empty($ServiceTax)) ? $ServiceTax : 0.00;?> %</p></div>
                                 </div>
                                 <div class="form-group gborder">
                                     <div class="col-md-4 col-xs-4"><p class="title">Transaction Charges ?</p></div>
                                     <div class="col-md-4 col-xs-4"><p class="value"></p></div>
-                                    <div class="col-md-4 col-xs-4"><p class="distance"><?php echo $this->arrCurrency[$villDetails->currencyId]." ";echo $varTT = (!empty($villalimousineDetails->tran_tax)) ? $villalimousineDetails->tran_tax : 0.00;?></p></div>
+                                    <div class="col-md-4 col-xs-4"><p class="distance"><?php echo $this->arrCurrency[$villDetails->currencyId]." ";echo $varTT = (!empty($transactionCharge)) ? $transactionCharge : 0.00;?> %</p></div>
                                 </div>
                                 <div class="form-group gborder">
                                     <div class="col-md-4 col-xs-4"><p class="title"><b>Total</b></p></div>
                                     <div class="col-md-4 col-xs-4"><p class="value"></p></div>
-                                    <div class="col-md-4 col-xs-4"><p class="distance"><b><?php echo $this->arrCurrency[$villDetails->currencyId]." ";echo $varTotal = $varCT+$varST+$varTT+$varTotal;?></b></p></div>
+                                    <div class="col-md-4 col-xs-4"><p class="distance"><b><?php echo $this->arrCurrency[$villDetails->currencyId]." ";echo $varTotal = $totalPrice;?></b></p></div>
                                 </div>
                             </div>	
                            

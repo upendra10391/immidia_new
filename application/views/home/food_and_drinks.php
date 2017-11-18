@@ -93,6 +93,7 @@
                                     <div class="col-md-4 col-xs-4"><p class="title"><b>SUB TOTAL</b></p></div>
                                     <div class="col-md-4 col-xs-4"><p class="value"></p></div>
                                     <div class="col-md-4 col-xs-4"><p class="distance"><b>€ <?php echo (!empty($getDetails['price'])) ? $getDetails['price'] : 0.00;?></b></p></div>
+                                    <input type="hidden" name="hid_totalprice" id="hid_totalprice" value="<?php echo (!empty($getDetails['price'])) ? $getDetails['price'] : 0.00;?>">
                                 </div>
                             </div>			
                         </div> 
