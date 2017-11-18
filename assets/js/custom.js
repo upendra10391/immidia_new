@@ -390,7 +390,8 @@ $("body").on("click", "#signup", function () {
 
 })
 $("body").on("change", "#vila_country", function () {
-    var countryId = $(this).val();
+     $('#villaState').html('');
+     var countryId = $(this).val();
     //alert(countryId);
   $('#loadervilla').removeAttr('style');
     $.ajax({
@@ -412,7 +413,8 @@ $("body").on("change", "#vila_country", function () {
     });
 });
 $("body").on("change","#villaState",function(){
-    var stateId = $(this).val();
+     $('#villDestination').html('');
+     var stateId = $(this).val();
     //alert(stateId);
     $('#loadervilla').removeAttr('style');
     $.ajax({
@@ -421,6 +423,7 @@ $("body").on("change","#villaState",function(){
         success: function (data) {
             $('#villaStateName').val($('#villaState option:selected').text());
             $('#loadervilla').attr('style', 'display:none');
+            $('#villDestination').html('<option value="0">Destination</option>')
             $.each(JSON.parse(data), function (index, value) {
                
                 $('#villDestination').append('<option  value="' + value['id'] + '">' + value['name'] + '</option>')
@@ -747,12 +750,11 @@ $("body").on("click","#limousine_villa",function(e){
      $('#amount_span_'+data_counter+"_"+id).html(price*qty);
      var fbID = data_counter+"_"+id;
      var varTemplate = "<p id='f_b_"+fbID+"' class='fitem'><span class='iname'>"+name+"</span>"+
-             "<span class='iqut'>"+qty+"</span><span class='iprice'>"+price*qty+"</span>"+
+             "<span class='iqut'>"+qty+"</span><span class='iprice'>"+price+"</span>"+
              "<span class='idelete'><i class='fa fa-trash-o' aria-hidden='true'></i></span>"+
              "<input type='hidden' name='f_b_name[]' value='"+name+"'/><input type='hidden' name='f_b_qty[]' value='"+qty+"'/>"+
-            
-             "<input type='hidden' name='f_b_price[]' value='"+price+"'/></p>"+
-    "<input type='hidden' id='total' name='f_b_total[]' value='"+price*qty+"'/></p>";
+             "<input type='hidden' name='f_b_price[]' value='"+price+"'/>"+
+             "<input type='hidden' id='total' name='f_b_total[]' value='"+price*qty+"'/></p>";
             // alert($('#f_b_'+fbID).length);
             
      if($('#f_b_'+fbID).length > 0){
