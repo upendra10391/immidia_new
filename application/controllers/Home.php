@@ -826,9 +826,6 @@ class Home extends CI_Controller {
                 $this->load->library('PHPRequests');
                 $request_made = $this->config->item('API_URL') . 'action=user_login&mailId=' . $post['mailId'] . '&password=' . $post['password'];
                 $response = json_decode(Requests::get($request_made)->body);
-                // var_dump($request_made);exit;
-                //var_dump($response);exit;
-                // $response->data=161;
                 if ($response->data == NULL) {
                     $return = array('message' => $response->displyMessage, 'code' => 201);
                 } else {
@@ -1115,6 +1112,7 @@ class Home extends CI_Controller {
             if ($response->status == true) {
                 $data['villDetails'] = json_decode(json_encode($response->data));
                 $this->villaFilterParams = $_SESSION['villaFilterParams'];
+                //var_dump($this->villaFilterParams);exit;
               // var_dump($_SESSION['villaFilterParams']);exit;
                 $this->session->set_userdata(array('villDetails' => $data['villDetails'], 'villaFilterParams' => $this->villaFilterParams));
                 $data['villaList'] = $_SESSION['villaList'];
@@ -1316,6 +1314,8 @@ class Home extends CI_Controller {
         $arrDataPost = $this->input->post();
         $arrDataGet = $this->input->get();
         $villaId = (!empty($id)) ? $id : 0;
+       // echo "<pre>";
+       // var_dump($_SESSION['villaFilterParams']);exit;
         //var_dump($villaId);exit;
         $checkIn = (!empty($arrDataPost['checkin'])) ? date('Y-m-d', strtotime($arrDataPost['checkin'])) : $arrDataGet['checkinData'];
         $checkOut = (!empty($arrDataPost['checkout'])) ? date('Y-m-d', strtotime($arrDataPost['checkout'])) : $arrDataGet['checkoutData'];
@@ -1323,6 +1323,8 @@ class Home extends CI_Controller {
         $this->load->library('PHPRequests');
         $request_made = $this->config->item('API_URL') . 'action=get_villa_booking_list&villaId=' . $villaId . '&arrivalDateTime=' . $checkIn . '&departureDateTime=' . $checkOut;
         $response = json_decode(Requests::get($request_made)->body);
+        //echo "<pre>";
+        //var_dump($response);exit;
         if ($response->status == true) {
             $data['villalimousineDetails'] = json_decode(json_encode($response->data));
             
@@ -1362,8 +1364,9 @@ class Home extends CI_Controller {
         $days = $diff->days;
         $this->session->set_userdata(array('arrDataPostFood' => $arrDataPost, 'arrDataGetFood' => $arrDataget, 'arrDataPost' => $arrDataPost));
         //var_dump($days);exit;
-        if (!empty($days) && $days == 1) {
-            $this->load->view('auth/login');
+        if (!empty($days) && $days != 1) {
+               $this->load->view('home/villa_payment', $data);
+                   
         } else {
             $data['getDetails'] = $arrDataPost;
             $this->villaFilterParams = $_SESSION['villaFilterParams'];
@@ -1391,12 +1394,50 @@ class Home extends CI_Controller {
         $objFoodDetails = $this->session->userdata('foodDetails');
         $arrDataPost = $this->session->userdata('arrDataPost');
         $arrDataGetFood = $this->session->userdata('arrDataGetFood');
+        $arrFilterParamsData = $this->session->userdata('villaFilterParams');
+        $this->load->library('PHPRequests');
+        $request_made = $this->config->item('API_URL') . 'action=get_state_list_villa&countryId=' . $arrFilterParamsData['villa_country'];
+        $response = json_decode(Requests::get($request_made)->body);
+      //  var_dump($request_made);exit;
+        if ($response->status == true) {
+            $arrReturn = array();
+            if (!empty($response->data)) {
+                foreach ($response->data as $objData) {
+                    if ($objData->countryId == $arrFilterParamsData['villa_country']) {
+                        $arrReturn[] = $objData;
+                        
+                    }
+                }
+            }
+        }
+           // var_dump($arrReturn);exit;
+        //echo "<pre>";
+        //var_dump($arrReturn[0]);exit;
         //array('arrDataPostFood' => $arrDataPost, 'arrDataGetFood' => $arrDataget, 'arrDataPost' => $arrDataPost)
         $arrPost = $this->input->post();
        // $arrget = $this->input->get();
-         $price=$arrPost['f_b_total'];
-      $total_price=array_sum($price);
-        $_SESSION['toatal']=$total_price;
+       // echo "<pre>";
+       // var_dump($arrPost);
+        $price=$arrPost['f_b_total'];
+        //var_dump($price);
+        $subtotal_price=array_sum($price);
+       // var_dump($subtotal_price);
+        $total_price = $arrPost['hid_totalprice'] + $subtotal_price;
+        //var_dump($total_price);exit;
+        
+        //Total Tax Calculated
+        
+        $vat=$arrReturn[0]->vat;
+        $cityTax = $arrReturn[0]->cityTax;
+        $serviceTax = $arrReturn[0]->serviceTax;
+        $transactionCharge = TRANSACTION_CHARGE;
+        $totalTax = ($vat+$cityTax+$serviceTax+$transactionCharge);
+        $CalculateTax = ($total_price*$totalTax/100);
+        $totalPrice = $total_price+$CalculateTax;
+        $_SESSION['toatal']=$totalPrice;
+        
+        //End
+        
        
 //        //exit;
 //        echo "<pre>";
@@ -1407,13 +1448,21 @@ class Home extends CI_Controller {
         $arrData['villaFilterParams'] = $_SESSION['villaFilterParams'];
         $arrData['arrDataGetFood'] = $arrDataGetFood;
         $arrData['objFoodDetails'] = $objFoodDetails;
-      $arrData['arrDataGet'] = $_SESSION['arrDataGet'];
-      $arrData['arrPost'] = $arrPost;
+       $arrData['arrDataGet'] = $_SESSION['arrDataGet'];
+       $arrData['arrPost'] = $arrPost;
       //var_dump($arrData['arrPost']['f_b_total']);exit;
-      $_SESSION['fooddata']=$arrData['arrPost'];
+        $_SESSION['fooddata']=$arrData['arrPost'];
         $arrData['villalimousineDetails'] = $_SESSION['villalimousineDetails'];
         $arrData['villaList'] = $_SESSION['villaList'];
+        $arrData['vat'] = $vat;
+        $arrData['cityTax'] = $cityTax;
+        $arrData['ServiceTax'] = $serviceTax;
+        $arrData['transactionCharge'] = $transactionCharge;
+        $arrData['totalPrice'] = $_SESSION['toatal'];
+        //echo "<pre>";
+        //var_dump($arrData['totalPrice']);exit;
         //echo "<pre>";var_dump($_SESSION);exit;
+        $this->session->set_userdata(array('vat'=>$arrData['vat'],'cityTax'=>$arrData['cityTax'],'ServiceTax'=>$arrData['ServiceTax'],'transactionCharge'=> $arrData['transactionCharge'],'totalPrice'=> $arrData['totalPrice']));
         $this->load->view('home/villa_payment', $arrData);
     }
 
@@ -1574,64 +1623,69 @@ class Home extends CI_Controller {
     }
 
     public function submit_villa_order() {
-        $objSessData = $this->session->userdata('villalimousineDetails');
-        $objFoodDetails = $this->session->userdata('foodDetails');
-        $arrDataPost = $this->session->userdata('arrDataPost');
-        $arrDataGetFood = $this->session->userdata('arrDataGetFood');
-    //   var_dump($_SESSION['villaFilterParams']['villaDestinationName']);exit;
-        // print_r($_SESSION);
-        // echo "request data";
-        // print_r($_REQUEST);
-        //prepare parameter for yacht submit order
-    //  var_dump($_SESSION['villalimousineDetails']);exit;
-        $payment = array(
-            "id" => $_SESSION['villalimousineDetails']->id,
-            "name" => $_SESSION['arrDataPost']['villa_name'],
-            "bookingType" => 4,
-            "departureDate" => date_format(date_create($_SESSION['villaFilterParams']['checkout']), 'Y-m-d'),
-            "arrivalDate" => ($_SESSION['villaFilterParams']['checkin'] != null) ? date_format(date_create($_SESSION['villaFilterParams']['checkin']), 'Y-m-d') : date_format(date_create($_SESSION['villaFilterParams']['checkout']), 'Y-m-d'),
-            "ownerId" => $_SESSION['villalimousineDetails']->ownerId,
-            "routeType" => $_SESSION['villaFilterParams']['routeType'],
-            "menuDetails" => $_SESSION['fooddata'],
-            "fromArea" => $_SESSION['villaFilterParams']['villaDestinationName'],
-            "type" => "Add",
-            "toArea" => $_SESSION['villaFilterParams']['villaDestinationName'],
-            "currency" => 'AED',
-            "userId" => $_SESSION['user_login']->id,
-            "guests" => $_SESSION['villaFilterParams']['villa_guest'],
-            "deliveryPrice" =>'',
-            "dropOffRate" => '',
-            "formulaPrice" =>'',
-            "foodPrice" => floor($_SESSION['villaFilterParams']['f_b_price']),
-            "productPrice" => floor($_SESSION['villaFilterParams']['f_b_price']),
-            "extraTime" => '',
-            "subtotal" => floor($_SESSION['toatal']),
-            "total" => floor($_SESSION['toatal']),
-            "transactionFee" => 0,
-            "websiteId" => 0, // for whitelabel case either should be 0
-            "departureHours" =>'2:00 PM',
-            "arrivalHours" => '12:00 PM',
-            "villaDetails" => $_SESSION['villaFilterParams']['villaDescription'],
-            "stateId" => $_SESSION['yachtFilterParams']['yachtState'],
-            "days" => $_SESSION['yachtFilterParams']['yachtDays']
-        );
-        //var_dump($payment);exit;
+        if (!$this->isLoggedIn()) {
+            $this->load->view('auth/login',$data);
+           }else{
+                $objSessData = $this->session->userdata('villalimousineDetails');
+                $objFoodDetails = $this->session->userdata('foodDetails');
+                $arrDataPost = $this->session->userdata('arrDataPost');
+                $arrDataGetFood = $this->session->userdata('arrDataGetFood');
+            //   var_dump($_SESSION['villaFilterParams']['villaDestinationName']);exit;
+                // print_r($_SESSION);
+                // echo "request data";
+                // print_r($_REQUEST);
+                //prepare parameter for yacht submit order
+            //  var_dump($_SESSION['villalimousineDetails']);exit;
+                $payment = array(
+                    "id" => $_SESSION['villalimousineDetails']->id,
+                    "name" => $_SESSION['arrDataPost']['villa_name'],
+                    "bookingType" => 4,
+                    "departureDate" => date_format(date_create($_SESSION['villaFilterParams']['checkout']), 'Y-m-d'),
+                    "arrivalDate" => ($_SESSION['villaFilterParams']['checkin'] != null) ? date_format(date_create($_SESSION['villaFilterParams']['checkin']), 'Y-m-d') : date_format(date_create($_SESSION['villaFilterParams']['checkout']), 'Y-m-d'),
+                    "ownerId" => $_SESSION['villalimousineDetails']->ownerId,
+                    "routeType" => $_SESSION['villaFilterParams']['routeType'],
+                    "menuDetails" => $_SESSION['fooddata'],
+                    "fromArea" => $_SESSION['villaFilterParams']['villaDestinationName'],
+                    "type" => "Add",
+                    "toArea" => $_SESSION['villaFilterParams']['villaDestinationName'],
+                    "currency" => 'AED',
+                    "userId" => $_SESSION['user_login']->id,
+                    "guests" => $_SESSION['villaFilterParams']['villa_guest'],
+                    "deliveryPrice" =>'',
+                    "dropOffRate" => '',
+                    "formulaPrice" =>'',
+                    "foodPrice" => floor($_SESSION['villaFilterParams']['f_b_price']),
+                    "productPrice" => floor($_SESSION['villaFilterParams']['f_b_price']),
+                    "extraTime" => '',
+                    "subtotal" => floor($_SESSION['toatal']),
+                    "total" => floor($_SESSION['toatal']),
+                    "transactionFee" => 0,
+                    "websiteId" => 0, // for whitelabel case either should be 0
+                    "departureHours" =>'2:00 PM',
+                    "arrivalHours" => '12:00 PM',
+                    "villaDetails" => $_SESSION['villaFilterParams']['villaDescription'],
+                    "stateId" => $_SESSION['villaFilterParams']['villaState'],
+                    "days" => ''
+                );
+                //var_dump($payment);exit;
 
-        $queryString = http_build_query($payment);
+                $queryString = http_build_query($payment);
 
-        $this->load->library('PHPRequests');
+                $this->load->library('PHPRequests');
 
-        $request_made = $this->config->item('API_URL') . 'access=true&action=booking&' . $queryString;
+                $request_made = $this->config->item('API_URL') . 'access=true&action=booking&' . $queryString;
 
-        $response = json_decode(Requests::get($request_made)->body);
+                $response = json_decode(Requests::get($request_made)->body);
+               // var_dump($response);exit;
 
-        if ($response->status == true) {
+                if ($response->status == true) {
 
-            echo '<script>window.open("http://www.immidia.co/immidia/api/ws/controller/?access=true&action=payment&bookingId=' . $response->data . ');</script>';
-        } else {
+                    echo '<script>window.open("http://www.immidia.co/immidia/api/ws/controller/?access=true&action=payment&bookingId=' . $response->data . ');</script>';
+                } else {
 
-            echo '<script>setTimeout(function(){ showAlert("Opps!!","No Record Listing","error"); },600);</script>';
-        }
+                    echo '<script>setTimeout(function(){ showAlert("Opps!!","No Record Listing","error"); },600);</script>';
+                }
+           }
     }
      public function submit_car_order() {
          $transaction=$_SESSION['arrGet']['price']*3.5/100;
