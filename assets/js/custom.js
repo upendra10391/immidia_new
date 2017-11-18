@@ -1,5 +1,5 @@
 
-var base_url = 'http://localhost/immidia.ae/trunk';
+var base_url = 'http://localhost/immidia_new/trunk';
 
 //var base_url = 'http://localhost/immidia_new/trunk';
 //var base_url = 'http://localhost/immidia_new/trunk';
@@ -392,7 +392,7 @@ $("body").on("click", "#signup", function () {
 $("body").on("change", "#vila_country", function () {
     var countryId = $(this).val();
     //alert(countryId);
-    $('#loadervilla').removeAttr('style');
+  $('#loadervilla').removeAttr('style');
     $.ajax({
         url: base_url + '/get_villa_state/' + countryId,
         type: "get",
@@ -401,10 +401,11 @@ $("body").on("change", "#vila_country", function () {
             //hidVillaCountry
             //$('#countryName').val($('#yachtCountry option:selected').text());
             $('#villaCountry').val($('#vila_country option:selected').text());
-            $('#loadervilla').attr('style', 'display:none');
+          $('#loadervilla').attr('style', 'display:none');
             $('#villaState').html('<option value="0">State</option>')
             $.each(JSON.parse(data), function (index, value) {
                 $('#villaState').append('<option value="' + value['id'] + '">' + value['stateName'] + '</option>')
+                
             });
 
         }
@@ -421,7 +422,9 @@ $("body").on("change","#villaState",function(){
             $('#villaStateName').val($('#villaState option:selected').text());
             $('#loadervilla').attr('style', 'display:none');
             $.each(JSON.parse(data), function (index, value) {
+               
                 $('#villDestination').append('<option  value="' + value['id'] + '">' + value['name'] + '</option>')
+              
               
             });
 
@@ -917,7 +920,45 @@ $("body").on("click","#limousine_villa",function(e){
         $('#routeTypename').val($('#routeType option:selected').text());
          
      })
-    
+     function ValidationEventcarsearch(){
+        // alert('hello');
+         var depTime=$('#depTime').val();
+         var arrvTime=$('#arrvTime').val();
+         var delAddr=$('#delAddr').val();
+         var dropAddr=$('#dropAddr').val();
+        
+         if(depTime=='')
+         {
+           $('#depTimeerror').show();
+         $('#depTimeerror').html("Pleas select depTime");
+         $('#depTime').focus();
+         return false;   
+         }
+         if(arrvTime=='')
+         {
+           $('#depTimeerror').hide();
+           $('#arrvTimeerror').show();
+         $('#arrvTimeerror').html("Pleas select arrvTime");
+         $('#arrvTime').focus();
+         return false;  
+         }
+         if(delAddr=='')
+         {
+           $('#depTimeerror').hide();
+           $('#delAddrerror').show();
+         $('#delAddrerror').html("Pleas enter limo delAddr");
+         $('#delAddr').focus();
+         return false;  
+         }
+         if(dropAddr=='')
+         {
+             $('#depTimeerror').hide();
+           $('#dropAddrerror').show();
+         $('#yachtdepHourerror').html("Pleas select depTimeerror");
+         $('#depTimeerror').focus();
+         return false;  
+         }
+     }
    
    
 
