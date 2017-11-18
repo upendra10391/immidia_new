@@ -1365,7 +1365,9 @@ class Home extends CI_Controller {
         $this->session->set_userdata(array('arrDataPostFood' => $arrDataPost, 'arrDataGetFood' => $arrDataget, 'arrDataPost' => $arrDataPost));
         //var_dump($days);exit;
         if (!empty($days) && $days != 1) {
-               $this->load->view('home/villa_payment', $data);
+               //$this->load->view('home/villa_payment', $data);
+                $this->session->set_userdata(array('morethanOne' => 'moreThanOne'));
+                redirect(base_url('villa-payment'));
                    
         } else {
             $data['getDetails'] = $arrDataPost;
@@ -1395,10 +1397,12 @@ class Home extends CI_Controller {
         $arrDataPost = $this->session->userdata('arrDataPost');
         $arrDataGetFood = $this->session->userdata('arrDataGetFood');
         $arrFilterParamsData = $this->session->userdata('villaFilterParams');
+        $arrMoreThanOne = $this->session->userdata('morethanOne');
         $this->load->library('PHPRequests');
         $request_made = $this->config->item('API_URL') . 'action=get_state_list_villa&countryId=' . $arrFilterParamsData['villa_country'];
         $response = json_decode(Requests::get($request_made)->body);
-      //  var_dump($request_made);exit;
+        //var_dump($arrMoreThanOne);
+        //var_dump($arrDataPost);exit;
         if ($response->status == true) {
             $arrReturn = array();
             if (!empty($response->data)) {
@@ -1432,9 +1436,15 @@ class Home extends CI_Controller {
         $serviceTax = $arrReturn[0]->serviceTax;
         $transactionCharge = TRANSACTION_CHARGE;
         $totalTax = ($vat+$cityTax+$serviceTax+$transactionCharge);
-        $CalculateTax = ($total_price*$totalTax/100);
-        $totalPrice = $total_price+$CalculateTax;
-        $_SESSION['toatal']=$totalPrice;
+        if($arrMoreThanOne == NULL){
+                $CalculateTax = ($total_price*$totalTax/100);
+                $totalPrice = $total_price+$CalculateTax;
+                $_SESSION['toatal']=$totalPrice;
+        }else{
+             $CalculateTax = ($arrDataPost['price']*$totalTax/100);
+             $totalPrice = $arrDataPost['price']+$CalculateTax;
+             $_SESSION['toatal']=$totalPrice;
+        }
         
         //End
         
@@ -1623,9 +1633,9 @@ class Home extends CI_Controller {
     }
 
     public function submit_villa_order() {
-        if (!$this->isLoggedIn()) {
-            $this->load->view('auth/login',$data);
-           }else{
+//        if (!$this->isLoggedIn()) {
+//            $this->load->view('auth/login',$data);
+//           }else{
                 $objSessData = $this->session->userdata('villalimousineDetails');
                 $objFoodDetails = $this->session->userdata('foodDetails');
                 $arrDataPost = $this->session->userdata('arrDataPost');
@@ -1676,7 +1686,7 @@ class Home extends CI_Controller {
                 $request_made = $this->config->item('API_URL') . 'access=true&action=booking&' . $queryString;
 
                 $response = json_decode(Requests::get($request_made)->body);
-               // var_dump($response);exit;
+                //var_dump($response);exit;
 
                 if ($response->status == true) {
 
@@ -1685,7 +1695,7 @@ class Home extends CI_Controller {
 
                     echo '<script>setTimeout(function(){ showAlert("Opps!!","No Record Listing","error"); },600);</script>';
                 }
-           }
+//           }
     }
      public function submit_car_order() {
          $transaction=$_SESSION['arrGet']['price']*3.5/100;
