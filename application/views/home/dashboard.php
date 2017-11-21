@@ -79,7 +79,7 @@ function openCity1(evt, cityName) {
 		<div class="container-fluid">
 			<div class="row">
 				<div class="tab">
-					<button class="tablinks " onclick="openCity(event, 'Booking')"><i class="fa fa-desktop" aria-hidden="true"></i><span>Booking</span></button>
+					<button class="tablinks " id="yachtbookinginfoogo" data-link="<?php echo base_url('yacht-booking');?>"><i class="fa fa-desktop" aria-hidden="true"></i><span>Booking</span></button>
 					<button class="tablinks active" onclick="openCity(event, 'Profile')"><i class="fa fa-user" aria-hidden="true"></i><span>Profile</span></button>
 					<button class="tablinks"id="goToNextfaq" data-link="<?php echo base_url('faq');?>" ><i class="fa fa-question-circle" aria-hidden="true"></i><span>Help</span></button>
 				</div>
@@ -119,10 +119,12 @@ function openCity1(evt, cityName) {
 								<td><span>Yacht</span></td>
 								<td><span>€ 852</span></td>	
 								<td><span><b>€ <?php echo $blog->total;?> </b></span></td>
-							</tr>
+                                                                <td rowspan="2">
+                                                                <button data-link="<?php echo base_url('yacht-booking-info/'.$blog->id);?>" class="more goToNext"><a href="#"><i class="fa fa-plus" aria-hidden="true"></i> MORE INFO</a></button>
+                                                                </td></tr>
 							</table>
 						</div>
-                                            <button data-link="<?php echo base_url('yacht-booking-info/'.$blog->id);?>" class="more goToNext"><a href="#"><i class="fa fa-plus" aria-hidden="true"></i> MORE INFO</a></button>
+                                            
 					</div>
                                     <?php }}
 ?>
@@ -336,6 +338,11 @@ function openCity1(evt, cityName) {
                        window.location.href = $this.attr('data-link');
                        })
                        $('body').on('click','#gologout',function(e){
+                       e.preventDefault();
+                       $this = $(this);
+                       window.location.href = $this.attr('data-link');
+                       })
+                        $('body').on('click','#yachtbookinginfoogo',function(e){
                        e.preventDefault();
                        $this = $(this);
                        window.location.href = $this.attr('data-link');

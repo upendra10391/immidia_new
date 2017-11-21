@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -80,11 +79,11 @@ function openCity1(evt, cityName) {
 		<div class="container-fluid">
 			<div class="row">
 				<div class="tab">
-					<button class="tablinks " onclick="openCity(event, 'Booking')"><i class="fa fa-desktop" aria-hidden="true"></i><span>Booking</span></button>
-					<button class="tablinks active" onclick="openCity(event, 'Profile')"><i class="fa fa-user" aria-hidden="true"></i><span>Profile</span></button>
-					<button class="tablinks" onclick="openCity(event, 'Help')"><i class="fa fa-question-circle" aria-hidden="true"></i><span>Help</span></button>
+					<button class="tablinks active" onclick="openCity(event, 'Booking')"><i class="fa fa-desktop" aria-hidden="true"></i><span>Booking</span></button>
+					<button class="tablinks" onclick="openCity(event, 'Profile')"><i class="fa fa-user" aria-hidden="true"></i><span>Profile</span></button>
+					<button class="tablinks" id="goToNextfaq" data-link="<?php echo base_url('faq');?>" ><i class="fa fa-question-circle" aria-hidden="true"></i><span>Help</span></button>
 				</div>
-				<div id="Booking" class="tabcontent " style="display: none;">
+				<div id="Booking" class="tabcontent " style="display: block;">
 					<h3>Booking</h3>
                                        
                                            <?php
@@ -110,27 +109,84 @@ function openCity1(evt, cityName) {
 								<th>Total</th>
 							</tr>
 							<tr>
+                                                            <?php
+                                                            $departuretime=strtotime($blog->departureDateTime);
+                                                            $resultdep=date("d-m-Y",$departuretime);
+                                                            $arrveltimetime=strtotime($blog->arrivalDateTime);
+                                                            $resultarr=date("d-m-Y",$arrveltimetime);
+                                                            ?>
 								<td><span><?php echo $blog->bookingSequenceNumber;?> </span></td>  						
-								<td><span><?php echo $blog->departureDateTime;?></span></td>						
-								<td><span><?php echo $blog->arrivalDateTime ;?></span></td>
+								<td><span><?php echo $resultdep;?></span></td>						
+								<td><span><?php echo $resultarr;?></span></td>
 								<td><span><?php echo $blog->bookingSequenceNumber;?> </span></td>							
-								<td><span>Yacht</span></td>
-								<td><span>€ 852</span></td>	
+								<td><span><?php echo $blog->serviceName;?></span></td>
+								<td><span><?php echo $blog->price;?></span></td>	
 								<td><span><b>€ <?php echo $blog->total;?> </b></span></td>
+                                                                <td rowspan="2"><button class="more morep1 goToNext" data-link="<?php echo base_url('yacht-booking-info/'.$blog->id);?>" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus" aria-hidden="true"></i> MORE INFO</button>
+					</td>
 							</tr>
 							</table>
+                                                    
+                                                    	<!---------popup---------->
+							<!--<div id="myModal" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Super Yacht Information</h4>
+										</div>
+                                                                            <?php
+                                                                            $time=strtotime($blog->departureDateTime);
+                                                                              
+                                                                              $result = date("d-m-Y",$time);
+                                                                            ?>
+										<div class="modal-body">
+											<h5>Yacht Booking</h5>
+											<p class="">country<span><?php echo $blog->country;?></span></p>
+                                                                                        <p class="">State<span><?php echo $blog->state;?></span></p>
+											<p class="">Vehicle<span>Motor</span></p>
+											<p class="">Duration<span>1 Day</span></p>
+											<p class="">Depart<span><?php echo $result;?></span></p>
+											<p class="">Return<span>2017-07-28</span></p>
+											<p class="">Departure Port<span>Cap D'ail</span></p>
+											<p class="">Arrival Port<span>Monaco</span></p>
+											<p class="">Guest (s)<span><?php echo $blog->guest;?></span></p>
+											<br/>
+											<h5>Yacht Booking</h5>
+											<div class="row">
+												
+												<div class="col-md-6">
+													<p class="">Customer Name<span>Immidia Website</span></p>
+													<p class="">Email<span><?php echo $blog->mailId;?></span></p>
+													<p class="">Contact<span><?php echo $blog->contactNumber;?></span></p>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<textarea class="form-control" rows="2" id="comment"></textarea>
+													</div>
+													<input type="submit" class="submit" name="submit" value="Send Query" />
+												</div>
+											</div>
+							
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<!------------------->
+                                                        
 						</div>
-                                            <button data-link="<?php echo base_url('yacht-booking-info/'.$blog->id);?>" class="more goToNext"><a href="#"><i class="fa fa-plus" aria-hidden="true"></i> MORE INFO</a></button>
-					</div>
+                                         <!--   <button data-link="<?php echo base_url('yacht-booking-info/'.$blog->id);?>" class="more goToNext"><a href="#"><i class="fa fa-plus" aria-hidden="true"></i> MORE INFO</a></button>
+				-->	</div>
                                     <?php }} ?>
 				</div>
 				
-				<div id="Profile" class="tabcontent" style="display: block;">
-					<div class="row profile">
+				<div id="Profile" class="tabcontent" style="display: none;">
+				<div class="row profile">
 						<div class="col-md-4 ">
 							<div>
 								<p class="fsname"><i class="fa fa-user" aria-hidden="true"></i>
-								<span class="iname">john violin</span><span class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i><a>logout</a></span></p>
+								<span class="iname"><?php echo $user->firstName;?> <?php echo $user->lastName;?> </span><span class="logout" id="gologout" data-link="<?php echo base_url('logout');?>"><i class="fa fa-sign-out" aria-hidden="true"></i><a>logout</a></span></p>
 							</div>
 							<div class="ptabs">
 								<a class="tablinks1 active" onclick="openCity1(event, 'pi')">Travellers <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
@@ -151,7 +207,11 @@ function openCity1(evt, cityName) {
 												<select class="gender">
 													<option>MR.</option>
 													<option>MISS</option>
-													<option></option>
+													<option>Mrs</option>
+													<option>Dr.</option>
+													<option>Sir</option>
+													<option>Lord</option>
+													<option>Lady</option>
 												</select>
 											</div>
 										</div>
@@ -193,7 +253,7 @@ function openCity1(evt, cityName) {
 										</div>
 									</div>
 									<div class="wrap3">
-									<button class="submit" id="editprofile">Edit</button>
+									<button class="submit" id="editprofile">Submit</button>
 									</div>
 								</div>
 								</div>
@@ -208,7 +268,11 @@ function openCity1(evt, cityName) {
 												<select class="">
 													<option>MR.</option>
 													<option>MISS</option>
-													<option></option>
+													<option>Mrs</option>
+													<option>Dr.</option>
+													<option>Sir</option>
+													<option>Lord</option>
+													<option>Lady</option>
 												</select>
 											</div>
 										</div>
@@ -244,7 +308,7 @@ function openCity1(evt, cityName) {
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
-												<input type="text" class="form-control" placeholder="Document Number">
+												<input type="text" class="form-control" placeholder="Passport Number">
 											</div>
 										</div>
 									</div>
@@ -304,7 +368,7 @@ function openCity1(evt, cityName) {
 							
 							</div>
 						</div>
-				</div>
+				</div>	
 				
 			</div>
 			<div id="Help" class="tabcontent" style="display: none;">
@@ -313,16 +377,35 @@ function openCity1(evt, cityName) {
 				</div>
 		</div>
                 <script type="text/javascript">
+                
                 $(document).ready(function(){
                    $('body').on('click','.goToNext',function(e){
                        e.preventDefault();
                        $this = $(this);
                        window.location.href = $this.attr('data-link');
-                   }) 
+                   })
+                   
+                     $('body').on('click','#goToNextfaq',function(e){
+                       e.preventDefault();
+                       $this = $(this);
+                       window.location.href = $this.attr('data-link');
+                       })
+                       $('body').on('click','#gologout',function(e){
+                       e.preventDefault();
+                       $this = $(this);
+                       window.location.href = $this.attr('data-link');
+                       })
+                        $('body').on('click','#goToNextfaq',function(e){
+                       e.preventDefault();
+                       $this = $(this);
+                       window.location.href = $this.attr('data-link');
+                       })
+                  
                 });
+                 
             </script>    
 	</section>
         <?php $this->load->view('footer/footer') ?>
     </body>
-
+    
 </html>

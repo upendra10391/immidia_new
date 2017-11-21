@@ -93,17 +93,25 @@
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Booking Reference No</p></div>
 								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->bookingSequenceNumber;?></p></div>
 							</div>
+                                                    <?php
+                                                            $departuretime=strtotime($blogs->departureDateTime);
+                                                       
+                                                            $resultdep=date("d-m-Y",$departuretime);
+                                                                 
+                                                            $arrveltimetime=strtotime($blogs->arrivalDateTime);
+                                                            $resultarr=date("d-m-Y",$arrveltimetime);
+                                                            ?>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Booking Date From</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->departureDateTime;?></p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $resultdep;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Booking Date To</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->arrivalDateTime ;?></p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $resultarr ;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Booking Date To</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->arrivalDateTime ;?></p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $resultarr ;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Customer Name</p></div>
@@ -111,11 +119,11 @@
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Source</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->websiteLink;?></p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->websiteName;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Service Provider</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance"></p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo $blogs->ownerName;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Line Of Business</p></div>
@@ -156,20 +164,20 @@
 						<div class="col-md-6 ">
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Rent</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ 852</p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€<?php echo $blogs->price;?></p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Vat</p></div>
-								<div class="col-md-6 col-xs-6 nopd"><p class="distance"><?php echo !empty($blogs->vat) ? $blogs->vat:'0';?></p></div>
+								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€<?php echo !empty($blogs->vat) ? $blogs->vat:'0';?></p></div>
 							</div>
-							<div class="form-group gborder">
+							<!--<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">Gross</p></div>
 								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ 10</p></div>
 							</div>
 							<div class="form-group gborder">
 								<div class="col-md-6 col-xs-6 nopd"><p class="title">City Tax</p></div>
 								<div class="col-md-6 col-xs-6 nopd"><p class="distance">€ 10</p></div>
-							</div>
+							</div>-->
 							<div class="form-group gborder">
 								<div class="col-md-4 col-xs-4 nopd"><p class="title">Formula</p></div>
 								<div class="col-md-4 col-xs-4 nopd"><p class="value">Regular</p></div>
@@ -396,7 +404,7 @@
 	<?php $this->load->view('footer/footer') ?>
 </body>
 
-    <header>
+  <!--  <header>
         <?php $this->load->view('header/header'); ?>
 
         <div class="container-fluid book page-title">
@@ -472,14 +480,14 @@
             <span class="iname">Minuty Cuvee prestige - 75cl</span>
             <span class="iqut"><?php echo $blogs->quantity; ?></span>
             <span class="iprice">€ <?php echo $blogs->itemprice; ?></span>
-    </p> -->
+    </p> 
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 ">
                                 <div class="form-group gborder">
-                                    <div class="col-md-6 col-xs-6 nopd"><p class="title">Rent</p></div>
-                                    <div class="col-md-6 col-xs-6 nopd"><p class="distance">€ 852</p></div>
+                                    <div class="col-md-6 col-xs-6 nopd"><p class="distance">€ 8
+                                    <div class="col-md-6 col-xs-6 nopd"><p class="title">Rent</p></div>52</p></div>
                                 </div>
                                 <div class="form-group gborder">
                                     <div class="col-md-6 col-xs-6 nopd"><p class="title">Vat</p></div>
@@ -534,7 +542,9 @@
             </div>
 
         </section>
-        <?php $this->load->view('footer/footer') ?>
+       
+        
     </body>
+-->
 
 </html>

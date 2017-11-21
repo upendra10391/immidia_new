@@ -95,7 +95,7 @@
 
 
                             <div class="checkbox checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox1" name="option1" value="option1">
+                                <input type="checkbox" id="inlineCheckbox1" checked="true" name="option1" value="option1" onchange="valueChanged()">
                                 <label for="inlineCheckbox1"> Limousine Departure </label>
                             </div>
                             <div class="limopickup">
@@ -155,10 +155,22 @@
                                         <script type="text/javascript">
                                             function valueChanged()
                                             {
+                                                if($('#inlineCheckbox1').is(":checked"))
+                                                {
+                                                     $(".limopickup").show();
+                                                 }
+                                                 else
+                                                 {
+                                                       $(".limopickup").hide();
+                                                   }
                                                 if ($('#inlineCheckbox2').is(":checked"))
+                                                {
                                                     $(".limoarrival").show();
+                                                }
                                                 else
+                                                {
                                                     $(".limoarrival").hide();
+                                                }
                                             }
                                         </script>
 
