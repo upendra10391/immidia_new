@@ -645,10 +645,12 @@ $("body").on("click","#limousine_villa",function(e){
          var limodeprt_address=$('#limodeprt_address').val();
          var limodeprt_special_request=$('#limodeprt_special_request').val();
          var limodip_transferhr=$('#limodip_transferhr').val();
+         if($('#inlineCheckbox1').is(":checked"))
+                                                {
          if(limodeprt_name=='')
          {
            $('#limodeprt_nameerror').show();
-         $('#limodeprt_nameerror').html("Pleas enter limo deprtname");
+         $('#limodeprt_nameerror').html("Pleas enter Limousine Departurename");
          $('#limodeprt_name').focus();
          return false;   
          }
@@ -656,7 +658,7 @@ $("body").on("click","#limousine_villa",function(e){
          {
            $('#limodeprt_nameerror').hide();
            $('#limodeprt_addresserror').show();
-         $('#limodeprt_addresserror').html("Pleas enter limo deprtaddress");
+         $('#limodeprt_addresserror').html("Pleas enter Limousine Departureaddress");
          $('#limodeprt_address').focus();
          return false;  
          }
@@ -664,7 +666,7 @@ $("body").on("click","#limousine_villa",function(e){
          {
            $('#limodeprt_addresserror').hide();
            $('#limodeprt_special_requesterror').show();
-         $('#limodeprt_special_requesterror').html("Pleas enter limo deprtrequest");
+         $('#limodeprt_special_requesterror').html("Pleas enter Limousine Departurerequest");
          $('#limodeprt_special_request').focus();
          return false;  
          }
@@ -672,10 +674,11 @@ $("body").on("click","#limousine_villa",function(e){
          {
              $('#limodeprt_special_requesterror').hide();
            $('#limodip_transferhrerror').show();
-         $('#limodip_transferhrerror').html("Pleas select Transfer Hour");
+         $('#limodip_transferhrerror').html("Pleas select Limousine Departure Transfer Hour");
          $('#limodip_transferhr').focus();
          return false;  
          }
+     }
          if($('#inlineCheckbox2').is(":checked"))
          {
             var limoarrivl_name=$('#limoarrivl_name').val(); 
@@ -686,21 +689,21 @@ $("body").on("click","#limousine_villa",function(e){
             {
                 $('#limodip_transferhrerror').hide();
               $('#limoarrivl_nameerror').show();
-         $('#limoarrivl_nameerror').html("Pleas enter limo arrivlname");
+         $('#limoarrivl_nameerror').html("Pleas enter Limousine Arrivalname ");
          $('#limoarrivl_name').focus();
          return false;   
             }
             if(limoarrivl_address==''){
               $('#limoarrivl_nameerror').hide(); 
               $('#limoarrivl_addresserror').show();
-         $('#limoarrivl_addresserror').html("Pleas enter limo arrivl address");
+         $('#limoarrivl_addresserror').html("Pleas enter limo Limousine Arrivaladdress");
          $('#limoarrivl_address').focus();
          return false; 
             }
             if(limoarrivl_special_request==''){
               $('#limoarrivl_addresserror').hide(); 
               $('#limoarrivl_special_requesterror').show();
-         $('#limoarrivl_special_requesterror').html("Pleas enter limo arrivl request");
+         $('#limoarrivl_special_requesterror').html("Pleas enter Limousine Arrivalrequest");
          $('#limoarrivl_special_request').focus();
          return false; 
             }
@@ -708,7 +711,7 @@ $("body").on("click","#limousine_villa",function(e){
             {
               $('#limoarrivl_special_requesterror').hide(); 
               $('#limoarr_transferhr1error').show();
-         $('#limoarr_transferhr1error').html("Pleas select limoarr transferhr");
+         $('#limoarr_transferhr1error').html("Pleas select  Limousine Arrival Transfer Hour");
          $('#limoarr_transferhr1').focus();
          return false;   
             }
@@ -932,7 +935,7 @@ $("body").on("click","#limousine_villa",function(e){
          if(depTime=='')
          {
            $('#depTimeerror').show();
-         $('#depTimeerror').html("Pleas select depTime");
+         $('#depTimeerror').html("Pleas Select Departure Time");
          $('#depTime').focus();
          return false;   
          }
@@ -940,7 +943,7 @@ $("body").on("click","#limousine_villa",function(e){
          {
            $('#depTimeerror').hide();
            $('#arrvTimeerror').show();
-         $('#arrvTimeerror').html("Pleas select arrvTime");
+         $('#arrvTimeerror').html("Pleas Select Drop Off Time");
          $('#arrvTime').focus();
          return false;  
          }
@@ -948,16 +951,16 @@ $("body").on("click","#limousine_villa",function(e){
          {
            $('#depTimeerror').hide();
            $('#delAddrerror').show();
-         $('#delAddrerror').html("Pleas enter limo delAddr");
+         $('#delAddrerror').html("Pleas Select Delivery Areas");
          $('#delAddr').focus();
          return false;  
          }
          if(dropAddr=='')
          {
-             $('#depTimeerror').hide();
+             $('#delAddrerror').hide();
            $('#dropAddrerror').show();
-         $('#yachtdepHourerror').html("Pleas select depTimeerror");
-         $('#depTimeerror').focus();
+         $('#dropAddrerror').html("Pleas Select Drop Off Areas");
+         $('#dropAddr').focus();
          return false;  
          }
      }
