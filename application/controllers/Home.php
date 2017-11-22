@@ -947,7 +947,7 @@ class Home extends CI_Controller {
             //$this->session->set_userdata('user_booking',$varUserId);
             // $session_user= $this -> session -> userdata('user_booking');
             $this->load->model('Jet_model');
-            $data['blogs'] = $this->Jet_model->yacht_booking_infoall($varUserId);
+            //$data['blogs'] = $this->Jet_model->yacht_booking_infoall($varUserId);
             // var_dump($data['blogs']);exit;
             if ($response->status == true) {
                 $this->dashboardParams = $response->user;
@@ -981,7 +981,11 @@ class Home extends CI_Controller {
     public function yacht_booking() {
         $varUserId = $_SESSION['user_login']->id;
         $this->load->model('Jet_model');
+       
         $result['blogs'] = $this->Jet_model->yacht_booking_infoall($varUserId);
+        
+      //  var_dump( $result['blogs']);exit;
+        $result['user'] = $_SESSION['user_login'];
         // var_dump($result['blogs']);exit;
         $this->load->view('home/yacht_booking', $result);
     }
@@ -995,7 +999,7 @@ class Home extends CI_Controller {
         $result['user'] = $_SESSION['user_login'];
         $result['blogs'] = $this->Jet_model->yacht_booking_info($id);
         $result['food'] = $this->Jet_model->yacht_booking_info_food($id);
-        //  var_dump($result['food']);exit;
+       // var_dump($result['blogs']);exit;
         $this->load->view('home/yacht_booking_info', $result);
     }
 
@@ -1006,7 +1010,7 @@ class Home extends CI_Controller {
             $this->load->library('PHPRequests');
             $request_made = $this->config->item('API_URL') . 'action=manage_users&type=Add&firstName=' . $post['firstName'] . '&lastName=' . $post['lastName'] . '&mailId=' . $post['mailId'] .'&password=' . $post['password'] .'&confirm_password='. $post['confirm_password'] .'&contactNumber='. $post['contactNumber'] .'&country='. $post['country'];
             $response = json_decode(Requests::get($request_made)->body);
-            //var_dump($request_made);exit;
+            var_dump($request_made);exit;
             if ($response->status == true) {
                 $return = array('message' => $response->displyMessage, 'code' => 200);
             } else {
@@ -1751,5 +1755,6 @@ class Home extends CI_Controller {
         }
 
     }
+    
 
 }
