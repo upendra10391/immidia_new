@@ -216,7 +216,7 @@
 						<div class="col-md-4 ">
 							<div>
 								<p class="fsname"><i class="fa fa-user" aria-hidden="true"></i>
-								<span class="iname">john violin</span><span class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i><a>logout</a></span></p>
+								<span class="iname">john violin</span><span class="logout" data-link="<?php echo base_url();?>logout"><i class="fa fa-sign-out" aria-hidden="true"></i><a>logout</a></span></p>
 							</div>
 							<div class="ptabs">
 								<a class="tablinks1 active" onclick="openCity1(event, 'pi')">Travellers <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
@@ -546,5 +546,10 @@
         
     </body>
 -->
-
+<script type="text/javascript">
+    $('body').on('click','.logout',function(){
+        var this=$('this');
+        window.location.href=this.attr('data-link');
+    })
+    </script>
 </html>
